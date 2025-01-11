@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: test
   m_EditorClassIdentifier: 
   dialogue:
-  - Hello, Worlds
-  - bye, worlds
-  responsess:
+  - . . .
+  - 
+  responses:
   - responseText: Yes
     dialogueObject: {fileID: 11400000, guid: f3082e6119cbaf241bd39535c94f7085, type: 2}
   - responseText: No
