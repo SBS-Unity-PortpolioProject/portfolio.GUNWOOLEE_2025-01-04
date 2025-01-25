@@ -13,7 +13,7 @@ public class DialogueActivator : MonoBehaviour
     {
         isInPlayer = other.CompareTag("Player");
     }
-
+    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player") && isInPlayer)

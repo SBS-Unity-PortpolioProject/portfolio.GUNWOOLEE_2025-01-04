@@ -923,9 +923,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 537120064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4a285b612e1e5e4587e52ba1f1532ff, type: 3}
+  m_Script: {fileID: 11500000, guid: d7b7527744935674faa6158519b98822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 11400000, guid: 468f9b542acc443478d63ec3489bac3a, type: 2}
+  events:
+  - name: 
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

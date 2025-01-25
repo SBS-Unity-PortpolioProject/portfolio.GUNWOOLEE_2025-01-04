@@ -10,11 +10,11 @@ public class TypeWriterEffect : MonoBehaviour
     [SerializeField] private float typeWriterSpeed = 50f;
     
     public bool IsRunning { get; private set; }
-
+    
     private readonly List<Punctuation> punctuations = new List<Punctuation>()
     {
-        new Punctuation(new HashSet<char>() { '.', '!', '?' }, 1f ),
-        new Punctuation(new HashSet<char>() { ',', ';', ':' }, 1f )
+        new Punctuation(new HashSet<char>() { '.', '!', '?' }, 0.1f ),
+        new Punctuation(new HashSet<char>() { ',', ';', ':' }, 0.1f )
     };
     
     private Coroutine typeingCoroutine;
