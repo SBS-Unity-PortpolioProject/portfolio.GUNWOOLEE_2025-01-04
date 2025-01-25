@@ -1,32 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Playables;
 using UnityEngine;
 
-public class Razer : MonoBehaviour
+public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] private BattleDetectionZone _battleDetection;
-
-    Animator _animator;
-    
+    [SerializeField] private GameObject monsterPrefab;
+    private bool _spawned = false;
     private bool _operator = false;
 
     private bool _Operator
     {
-        get {return _operator; }
+        get { return _operator; }
         set
         {
             _operator = value;
-            
-            _animator.SetBool(AnimationStrings.Operation, value);
         }
-    }
-    
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -34,6 +24,11 @@ public class Razer : MonoBehaviour
         if (_battleDetection.Operation)
         {
             _Operator = true;
+            if(!_spawned)
+            {
+                _spawned = true;
+                Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+            }
         }
         else
         {

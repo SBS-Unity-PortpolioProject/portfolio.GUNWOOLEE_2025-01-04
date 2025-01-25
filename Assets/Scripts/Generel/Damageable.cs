@@ -10,30 +10,69 @@ public class Damageable : MonoBehaviour
     
     [SerializeField] private int _maxHealth = 100;
     
-    public UnityEvent<int, int> _onHealthChanged;
+    [SerializeField] private bool _isAlive = true;
     
+    public UnityEvent<int, int> _onHealthChanged;
+
+    public UnityEvent OnDeath;
+    
+    public bool IsAlive
+    {
+        get { return _isAlive; }
+        set
+        {
+            _isAlive = value;
+            
+            if(! _isAlive) OnDeath.Invoke();
+            _animator.SetBool(AnimationStrings.IsAlive, value);
+        }
+    }
+        
+    private Animator _animator;
+        
     public int Health => _health;
     
     public int MaxHealth => _maxHealth;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
     
     public bool GetHit(int damage)
     {
-        _health -= damage;
-        
-        _onHealthChanged.Invoke(_health, _maxHealth);
-        
+        if(_isAlive)
+        {
+            _health -= damage;
+
+            GUIManager.characterDamaged.Invoke(transform.position, damage);
+
+
+            _onHealthChanged.Invoke(_health, _maxHealth);
+            
+            if (_health <= 0) IsAlive = false;
+            
+            return true;        
+        }
         return true;
     }
-
+    
     public bool GetHeal(int heal)
     {
-        int maxHeal = Mathf.Max(_maxHealth - _health, 0);
+        if(_isAlive)
+        {
+            int maxHeal = Mathf.Max(_maxHealth - _health, 0);
 
-        int actualHeal = Mathf.Min(maxHeal, heal);
-        
-        _health += actualHeal;
-        
-        _onHealthChanged.Invoke(_health, _maxHealth);
+            int actualHeal = Mathf.Min(maxHeal, heal);
+
+            _health += actualHeal;
+
+            GUIManager.characterHealed.Invoke(transform.position, heal);
+
+            _onHealthChanged.Invoke(_health, _maxHealth);
+            
+            return true;
+        }
         return true;
     }
     

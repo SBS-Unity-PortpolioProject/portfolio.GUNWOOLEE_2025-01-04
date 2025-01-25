@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _RunSpeed = 10f;
     
     [SerializeField] private float _JumpImpulse = 3;
+
+    [SerializeField] private int _attackCount;
     
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
@@ -64,6 +66,12 @@ public class PlayerController : MonoBehaviour
     
     public bool _IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
     
+    public float AttackCoolDown
+    {
+        get { return _animator.GetFloat(AnimationStrings.AttackCoolDown); }
+        set { _animator.SetFloat(AnimationStrings.AttackCoolDown, value); }
+    }
+    
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -73,6 +81,8 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if (!_IsAlive) return;
+        
         if(!_IsMoving)
             return;
         
@@ -83,6 +93,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnMoveInputAction(InputAction.CallbackContext context)
     {
+        if (!_IsAlive) return;
          _moveInput = context.ReadValue<Vector2>();
          
          IsMoving = (_moveInput != Vector2.zero);
@@ -114,6 +125,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInputAction(InputAction.CallbackContext context)
     {
+        if (!_IsAlive) return;
+        
         if (context.started && _touchingDirection._isGround)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _JumpImpulse);
@@ -123,12 +136,53 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttackInputAction(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!_IsAlive) return;
+        
+        if (context.started && _touchingDirection._isGround)
         {
-            _animator.SetTrigger(AnimationStrings.Attack);
+            _attackCount++;
+            
+            if (_attackCount == 1)
+            {
+                if (_rb.transform.localScale.x > 0)
+                {
+                    _animator.SetTrigger(AnimationStrings.Attack);
+                    StartCoroutine(ApplyAttackVelocity());
+                }  
+                else if (_rb.transform.localScale.x < 0)
+                {
+                    _animator.SetTrigger(AnimationStrings.Attack);
+                    StartCoroutine(ApplyAttackVelocity());
+                }
+            }
+            else
+            {
+                _animator.SetTrigger(AnimationStrings.Attack);
+            }
+
+            if (_attackCount == 3)
+            {
+                _attackCount = 0;
+            }
         }
+        
     }
-    
+    private IEnumerator ApplyAttackVelocity()
+    {
+        float attackDuration = 0.17f; // 이동 지속 시간
+        float attackSpeed = 15f; // 빠르게 이동할 속도
+
+        float timer = 0f;
+        while (timer < attackDuration)
+        {
+            _rb.velocity = new Vector2(attackSpeed, _rb.velocity.y);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        // 이동 종료 후 기본 속도로 복귀
+        _rb.velocity = new Vector2(0, _rb.velocity.y);
+    }
 }
 
 

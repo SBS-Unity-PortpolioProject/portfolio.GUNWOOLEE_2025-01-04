@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EWalkableDirection
+{
+    Right,
+    Left,
+}
+
+
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
@@ -24,6 +31,24 @@ public class Enemy : MonoBehaviour
         }
     }
     
+    private EWalkableDirection _walkableDirection = EWalkableDirection.Right;
+
+    public EWalkableDirection WalkableDirection
+    {
+        get { return _walkableDirection; }
+        private set
+        {
+            if (value == EWalkableDirection.Right)
+            {
+                moveDirection = Vector2.left;
+            }
+            else if (value == EWalkableDirection.Left)
+            {
+                moveDirection = Vector2.right;
+            }
+        }
+    }
+    
     public bool CanMove => _animator.GetBool(AnimationStrings.CanMove);
     
     public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
@@ -31,6 +56,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _rb;
     private Animator _animator;
     private Damageable _damageable;
+    private TouchingDirection _touchingDirection;
+    private Vector2 moveDirection = Vector2.right;
     
     Transform nextWaypoint;
     
@@ -41,6 +68,7 @@ public class Enemy : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _damageable = GetComponent<Damageable>();
+        _touchingDirection = GetComponent<TouchingDirection>();
     }
 
     private void Start()
@@ -50,11 +78,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        HasTarget = _attackDetectionZone.DetectionColliders.Count > 0;  
-    }
-
-    private void FixedUpdate()
-    {
+        HasTarget = _attackDetectionZone.DetectionColliders.Count > 0;
         Move();
     }
 
@@ -76,6 +100,14 @@ public class Enemy : MonoBehaviour
             
             nextWaypoint = _wayPoints[waypointIndex];
         }
+                    
+        if (_touchingDirection.IsOnWall)
+        {
+            FlipDirection();
+            waypointIndex++;
+            if(waypointIndex >= _wayPoints.Count) waypointIndex = 0;
+            nextWaypoint = _wayPoints[waypointIndex];
+        } 
     }
 
     private void UpdateDirection()
@@ -95,6 +127,19 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    private void FlipDirection()
+    {
+        if (_walkableDirection == EWalkableDirection.Right)
+        {
+            _walkableDirection = EWalkableDirection.Left;
+        }
+        else if (_walkableDirection == EWalkableDirection.Left)
+        {
+            _walkableDirection = EWalkableDirection.Right;
+        }
+    }
+    
 }
 
 

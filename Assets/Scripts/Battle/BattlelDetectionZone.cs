@@ -10,49 +10,39 @@ public class BattleDetectionZone : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _detectionObjects = new List<GameObject>();
     
-    private Animator _animator;
+    private bool PlayerDirection = false;
     
-    private static bool _operation = false;
-
-    public class Utility
-    {
-        public static bool OperationManager(bool operation)
-        {
-            _operation = operation;
-            return _operation;
-        }
-        
-        public static bool GetOperationStatus()
-        {
-            return _operation;
-        }
-    }
+    bool _operation = false;
     
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-    }
+    public bool Operation { get { return _operation; } set { _operation = value; } }
+    
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !PlayerDirection)
         {
-            bool operationResult = Utility.OperationManager(true);
+            PlayerDirection = true;
             
+            Operation = true;
+            
+            _detectionObjects.Add(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Enemy") && !_detectionObjects.Contains(collision.gameObject))
+        {
             _detectionObjects.Add(collision.gameObject);
         }
     }
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _detectionObjects.Remove(collision.gameObject);
-        
-        if (_detectionObjects.Count <= 0)
+        if(!collision.gameObject.CompareTag("Player"))
         {
-            bool operationResult = Utility.OperationManager(false);
-            
+            _detectionObjects.Remove(collision.gameObject);
+        }
+        
+        if (_detectionObjects.Count == 1 && PlayerDirection)
+        {
+            Operation = false;
         }
     }
-    
-    
 }
