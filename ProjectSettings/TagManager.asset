@@ -15,11 +15,11 @@ TagManager:
   - Player
   - 
   - Enemy
-  - EnemyDetectinoZone
+  - EnemyAttackZone
+  - PlayerAttackZone
   - Item
   - BattleDetectionZone
   - MonsterSpawner
-  - 
   - 
   - 
   - 

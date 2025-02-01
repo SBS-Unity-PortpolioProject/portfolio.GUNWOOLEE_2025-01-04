@@ -5,16 +5,17 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
+    public UnityEvent<Vector2> _onKnockback;
+    
+    public UnityEvent<int, int> _onHealthChanged;
+    
+    public UnityEvent _onDeath;
     
     [SerializeField] private int _health = 100;
     
     [SerializeField] private int _maxHealth = 100;
     
     [SerializeField] private bool _isAlive = true;
-    
-    public UnityEvent<int, int> _onHealthChanged;
-
-    public UnityEvent OnDeath;
     
     public bool IsAlive
     {
@@ -23,7 +24,7 @@ public class Damageable : MonoBehaviour
         {
             _isAlive = value;
             
-            if(! _isAlive) OnDeath.Invoke();
+            if(! _isAlive) _onDeath.Invoke();
             _animator.SetBool(AnimationStrings.IsAlive, value);
         }
     }
@@ -39,15 +40,17 @@ public class Damageable : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
     
-    public bool GetHit(int damage)
+    public bool GetHit(int damage, Vector2 knockback)
     {
         if(_isAlive)
         {
             _health -= damage;
 
             GUIManager.characterDamaged.Invoke(transform.position, damage);
+            
+            _animator.SetTrigger(AnimationStrings.Hit);
 
-
+            _onKnockback.Invoke(knockback);
             _onHealthChanged.Invoke(_health, _maxHealth);
             
             if (_health <= 0) IsAlive = false;

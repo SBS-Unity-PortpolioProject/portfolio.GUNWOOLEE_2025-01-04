@@ -1,6 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public enum EWalkableDirection
 {
@@ -13,8 +18,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
 
+    [SerializeField] private DetectionZone _playerDetectionZone;
     [SerializeField] private DetectionZone _attackDetectionZone;
-    
     [SerializeField] private float wayPointDistance = 0.1f;
     
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
@@ -27,7 +32,39 @@ public class Enemy : MonoBehaviour
         private set
         {
             _hasTarget = value;
-            _animator.SetBool(AnimationStrings.HasTarget, value);
+        }
+    }
+    
+    private bool _canAttack = false;
+
+    public bool CanAttack
+    {
+        get { return _canAttack; }
+        private set
+        {
+            _canAttack = value;
+            _animator.SetBool(AnimationStrings.CanAttack, value);
+        }
+    }
+    
+    private bool _isMoving = false;
+    public bool IsMoving
+    {
+        get { return _isMoving;}
+        set
+        {
+            _isMoving = value;
+            _animator.SetBool(AnimationStrings.IsMoving, value);
+        }
+    }
+
+    public float CurrentSpeed
+    {
+        get
+        {
+            if(HasTarget) return 4f;
+            if (!IsMoving) return 0;
+            return _speed;
         }
     }
     
@@ -48,8 +85,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    
-    public bool CanMove => _animator.GetBool(AnimationStrings.CanMove);
     
     public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
     
@@ -78,18 +113,33 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        HasTarget = _attackDetectionZone.DetectionColliders.Count > 0;
+        IsMoving = true;
+        HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
+        CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
         Move();
     }
-
+    
     private void Move()
     {
-        Vector2 directionToWaypoint = (nextWaypoint.position - transform.position).normalized;
+        if(IsMoving == false) return;
         
-        _rb.velocity = directionToWaypoint * _speed;
+        Vector2 direction = GetMoveDirection();
+        direction.y = 0;
+        _rb.velocity = direction * CurrentSpeed;
         
         UpdateDirection();
-        
+                    
+        if (_touchingDirection.IsOnWall)
+        {
+            FlipDirection();
+            waypointIndex++;
+            if(waypointIndex >= _wayPoints.Count) waypointIndex = 0;
+            nextWaypoint = _wayPoints[waypointIndex];
+        } 
+    }
+
+    private Vector2 GetMoveDirection()
+    {
         float distance = Vector2.Distance(nextWaypoint.position, transform.position);
 
         if (distance < wayPointDistance)
@@ -100,14 +150,24 @@ public class Enemy : MonoBehaviour
             
             nextWaypoint = _wayPoints[waypointIndex];
         }
-                    
-        if (_touchingDirection.IsOnWall)
+        
+        
+        if (HasTarget)
         {
-            FlipDirection();
-            waypointIndex++;
-            if(waypointIndex >= _wayPoints.Count) waypointIndex = 0;
-            nextWaypoint = _wayPoints[waypointIndex];
-        } 
+            foreach (var target in _playerDetectionZone.DetectionColliders)
+            {
+                PlayerController player = target.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    return (player.transform.position - transform.position).normalized;
+                }
+            }
+            return (nextWaypoint.position - transform.position).normalized;
+        }
+        else
+        {
+            return (nextWaypoint.position - transform.position).normalized;
+        }
     }
 
     private void UpdateDirection()
@@ -138,6 +198,14 @@ public class Enemy : MonoBehaviour
         {
             _walkableDirection = EWalkableDirection.Right;
         }
+    }
+
+    public void OnHit(Vector2 Knockback)
+    {
+        _rb.velocity = new Vector2(Knockback.x, _rb.velocity.y);
+
+        if (Knockback.x > 0 && transform.localScale.x > 0) FlipDirection();
+        else if (Knockback.x < 0 && transform.localScale.x < 0) FlipDirection();
     }
     
 }

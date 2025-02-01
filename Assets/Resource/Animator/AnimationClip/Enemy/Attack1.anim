@@ -61,7 +61,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: DetectionZone/AttackDetectionZone 1-1
+    path: AttackZone 1-1
     classID: 60
     script: {fileID: 0}
     flags: 0
@@ -109,7 +109,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: DetectionZone/AttackDetectionZone 1-2
+    path: AttackZone 1-2
     classID: 60
     script: {fileID: 0}
     flags: 0
@@ -151,7 +151,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1249383808
+      path: 199955826
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -160,7 +160,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 3547415610
+      path: 2464302280
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 60
@@ -254,7 +254,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: DetectionZone/AttackDetectionZone 1-1
+    path: AttackZone 1-1
     classID: 60
     script: {fileID: 0}
     flags: 0
@@ -302,7 +302,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: DetectionZone/AttackDetectionZone 1-2
+    path: AttackZone 1-2
     classID: 60
     script: {fileID: 0}
     flags: 0

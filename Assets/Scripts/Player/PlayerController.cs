@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
                 _animator.SetTrigger(AnimationStrings.Attack);
             }
 
-            if (_attackCount == 3)
+            if (_attackCount == 3 )
             {
                 _attackCount = 0;
             }
@@ -173,33 +173,32 @@ public class PlayerController : MonoBehaviour
         float attackSpeed = 15f; // 빠르게 이동할 속도
 
         float timer = 0f;
-        while (timer < attackDuration)
+        while (timer <= attackDuration)
         {
-            _rb.velocity = new Vector2(attackSpeed, _rb.velocity.y);
-            timer += Time.deltaTime;
-            yield return null;
+            if(_rb.transform.localScale.x > 0)
+            {
+                _rb.velocity = new Vector2(attackSpeed, _rb.velocity.y);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            else if (_rb.transform.localScale.x < 0)
+            {
+                _rb.velocity = new Vector2(-1 * attackSpeed, _rb.velocity.y);
+                timer += Time.deltaTime;
+                yield return null;
+            }
         }
 
         // 이동 종료 후 기본 속도로 복귀
         _rb.velocity = new Vector2(0, _rb.velocity.y);
     }
+
+    public void OnKnockback(Vector2 Knockback)
+    {
+        _rb.velocity = new Vector2(Knockback.x, _rb.velocity.y +  Knockback.y);
+    }
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
