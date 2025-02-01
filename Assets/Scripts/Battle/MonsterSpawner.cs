@@ -16,6 +16,12 @@ public class MonsterSpawner : MonoBehaviour
         set
         {
             _operator = value;
+            if (!_spawned)
+            {
+                _spawned = true;
+                Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+            }
+
         }
     }
 
@@ -24,11 +30,6 @@ public class MonsterSpawner : MonoBehaviour
         if (_battleDetection.Operation)
         {
             _Operator = true;
-            if(!_spawned)
-            {
-                _spawned = true;
-                Instantiate(monsterPrefab, transform.position, Quaternion.identity);
-            }
         }
         else
         {

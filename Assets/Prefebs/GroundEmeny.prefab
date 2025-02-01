@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 8739966800176115035}
   - component: {fileID: 1263143349480512466}
   - component: {fileID: 4288052506059527575}
-  - component: {fileID: 1526356698312086896}
+  - component: {fileID: 6965668612978750470}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -272,7 +272,7 @@ MonoBehaviour:
   - {fileID: 8667768103929251056}
   - {fileID: 8808503388272431386}
   - {fileID: 8000733583845443956}
---- !u!114 &1526356698312086896
+--- !u!114 &6965668612978750470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2312888131221315304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a65a6a6e36c220b40a2ee590fddf19d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e0ecb72fae2f6f45b18c87b4311d896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   contactFilter:
@@ -299,7 +299,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   GroundDistence: 0.05
-  WallDistence: 0.2
+  WallDistence: 0.05
 --- !u!1 &3205733262113481596
 GameObject:
   m_ObjectHideFlags: 0
