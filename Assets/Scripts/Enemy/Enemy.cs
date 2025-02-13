@@ -113,6 +113,12 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (!IsAlive)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        
         IsMoving = true;
         HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
         CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
@@ -121,6 +127,8 @@ public class Enemy : MonoBehaviour
     
     private void Move()
     {
+        if (!IsAlive) return;
+        
         if(IsMoving == false) return;
         
         Vector2 direction = GetMoveDirection();
@@ -207,7 +215,6 @@ public class Enemy : MonoBehaviour
         if (Knockback.x > 0 && transform.localScale.x > 0) FlipDirection();
         else if (Knockback.x < 0 && transform.localScale.x < 0) FlipDirection();
     }
-    
 }
 
 

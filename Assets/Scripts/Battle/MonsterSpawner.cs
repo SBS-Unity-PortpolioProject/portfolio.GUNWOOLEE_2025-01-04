@@ -16,12 +16,11 @@ public class MonsterSpawner : MonoBehaviour
         set
         {
             _operator = value;
-            if (!_spawned)
+            if (!_spawned && _battleDetection.Operation)
             {
                 _spawned = true;
                 Instantiate(monsterPrefab, transform.position, Quaternion.identity);
             }
-
         }
     }
 
@@ -30,10 +29,17 @@ public class MonsterSpawner : MonoBehaviour
         if (_battleDetection.Operation)
         {
             _Operator = true;
+            StartCoroutine(DestroyAfterDelay(0.5f));
         }
         else
         {
             _Operator = false;
         }
+    }
+    
+    IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
     }
 }

@@ -12,8 +12,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _RunSpeed = 10f;
     
     [SerializeField] private float _JumpImpulse = 3;
+    
+    [SerializeField] private GameObject _DashEffect;
+    
+    public Vector2 _DashImpulse = new Vector2(5f, 10f);
 
-    [SerializeField] private int _attackCount;
+    public GameObject gmaeOverUI;
     
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
@@ -61,9 +65,9 @@ public class PlayerController : MonoBehaviour
             _animator.SetBool(AnimationStrings.IsRunning, value);
         }
     }
-
-    public bool _CanMove => _animator.GetBool(AnimationStrings.CanMove);
     
+    public bool _CanMove => _animator.GetBool(AnimationStrings.CanMove);
+
     public bool _IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
     
     public float AttackCoolDown
@@ -81,7 +85,11 @@ public class PlayerController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive)
+        {
+            GameOver();
+            return;
+        }
         
         if(!_IsMoving)
             return;
@@ -133,40 +141,17 @@ public class PlayerController : MonoBehaviour
             _animator.SetTrigger(AnimationStrings.IsJump);
         }
     }
-
+    
     public void OnAttackInputAction(InputAction.CallbackContext context)
     {
         if (!_IsAlive) return;
-        
+
         if (context.started && _touchingDirection._isGround)
         {
-            _attackCount++;
-            
-            if (_attackCount == 1)
-            {
-                if (_rb.transform.localScale.x > 0)
-                {
-                    _animator.SetTrigger(AnimationStrings.Attack);
-                    StartCoroutine(ApplyAttackVelocity());
-                }  
-                else if (_rb.transform.localScale.x < 0)
-                {
-                    _animator.SetTrigger(AnimationStrings.Attack);
-                    StartCoroutine(ApplyAttackVelocity());
-                }
-            }
-            else
-            {
-                _animator.SetTrigger(AnimationStrings.Attack);
-            }
-
-            if (_attackCount == 3 )
-            {
-                _attackCount = 0;
-            }
+            _animator.SetTrigger(AnimationStrings.Attack);
         }
-        
     }
+
     private IEnumerator ApplyAttackVelocity()
     {
         float attackDuration = 0.17f; // 이동 지속 시간
@@ -188,14 +173,64 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
         }
-
-        // 이동 종료 후 기본 속도로 복귀
+        
         _rb.velocity = new Vector2(0, _rb.velocity.y);
     }
+    
+    public void OnDashInputAction()
+    {
+        if (!_IsAlive) return;
+        
+        StartCoroutine(ApplyAttackVelocity());
+    }
 
+    public void OnDashAction(InputAction.CallbackContext context)
+    {
+        if (!_IsAlive) return;
+        
+        if (context.started && _touchingDirection._isGround)
+        {
+            _DashEffect.SetActive(true);
+            
+            Vector3 mouseScreenPos = Input.mousePosition;
+            
+            mouseScreenPos.z = 10f; 
+            
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+               
+            float direction = (mouseWorldPos.x > transform.position.x) ? 1f : -1f;
+            
+            _rb.velocity = Vector2.zero;
+                
+            _rb.velocity = new Vector2(_DashImpulse.x * direction, _DashImpulse.y);
+        }
+    }
+    
+    public void OnDashFlipInputAction()
+    {
+        if (!_IsAlive) return;
+
+        if (_rb.transform.localScale.x > 0)
+        {
+            _rb.transform.localScale = new Vector3(-3, 3, 1);
+        }
+        else if (_rb.transform.localScale.x < 0)
+        {
+            _rb.transform.localScale = new Vector3(3, 3, 1);
+        }
+    }
+    
     public void OnKnockback(Vector2 Knockback)
     {
         _rb.velocity = new Vector2(Knockback.x, _rb.velocity.y +  Knockback.y);
+    }
+
+    void GameOver()
+    {
+        if(gmaeOverUI != null)
+        {
+            gmaeOverUI.SetActive(true);
+        }
     }
     
 }

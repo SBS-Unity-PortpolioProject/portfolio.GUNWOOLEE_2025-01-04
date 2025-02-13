@@ -14,8 +14,14 @@ public class Damageable : MonoBehaviour
     [SerializeField] private int _health = 100;
     
     [SerializeField] private int _maxHealth = 100;
-    
+
     [SerializeField] private bool _isAlive = true;
+    
+    [SerializeField] private bool _isInvincible = false;
+    
+    [SerializeField] private float _InvincibilityTime = 0.25f;
+    
+    private float timeSinceHit = 0;
     
     public bool IsAlive
     {
@@ -34,22 +40,43 @@ public class Damageable : MonoBehaviour
     public int Health => _health;
     
     public int MaxHealth => _maxHealth;
-
+    
     private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
+
+    private void Update()
+    {
+        if (_isInvincible)
+        {
+            if (timeSinceHit > _InvincibilityTime)
+            {
+                _isInvincible = false;
+                
+                timeSinceHit = 0;
+                return;
+            }
+            timeSinceHit += Time.deltaTime;
+            return;
+        }
+    }
     
     public bool GetHit(int damage, Vector2 knockback)
     {
-        if(_isAlive)
+        if(_isAlive && !_isInvincible)
         {
             _health -= damage;
 
+            if (CompareTag("Player"))
+            {
+                _isInvincible = true;
+            }
+
+            _animator.SetTrigger(AnimationStrings.Hit);
+            
             GUIManager.characterDamaged.Invoke(transform.position, damage);
             
-            _animator.SetTrigger(AnimationStrings.Hit);
-
             _onKnockback.Invoke(knockback);
             _onHealthChanged.Invoke(_health, _maxHealth);
             
