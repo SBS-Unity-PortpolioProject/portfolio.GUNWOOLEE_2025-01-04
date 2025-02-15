@@ -1,15 +1,10 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Playables;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class BattleDetectionZone : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _detectionObjects = new List<GameObject>();
-    [SerializeField] public int _count = 1;
+    [SerializeField] public int _count = 0;
     
     private bool PlayerDirection = false;
     
@@ -19,10 +14,10 @@ public class BattleDetectionZone : MonoBehaviour
 
     public void Update()
     {
-        if (_detectionObjects.Count == 0)
-        {
-            _count += 1;
-        }
+        // if (_detectionObjects.Count == 1 && PlayerDirection)
+        // {
+        //     _count += 1;
+        // }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

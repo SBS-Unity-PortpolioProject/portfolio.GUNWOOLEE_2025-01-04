@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Magician : MonoBehaviour
@@ -10,6 +8,8 @@ public class Magician : MonoBehaviour
         [SerializeField] private DetectionZone _attackDetectionZone;
         [SerializeField] private GameObject _target;
         [SerializeField] private float detectionCooldown = 5f;
+        private bool AttackCool = true;
+        private float _attackCoolDown = 1f;
         private Transform player;
         private bool canDetect = true;
 
@@ -31,6 +31,12 @@ public class Magician : MonoBehaviour
                 {
                         _canAttack = value;
                         _animator.SetBool(AnimationStrings.CanAttack, value);
+                        //if (AttackCool)
+                        //{
+                        //        AttackCool = false;
+                        //        _animator.SetBool(AnimationStrings.CanAttack, value);
+                        //        StartCoroutine(EnumerableAttackCool()); 실행 암됌
+                        //}
                 }
         }
         
@@ -92,4 +98,10 @@ public class Magician : MonoBehaviour
                 yield return new WaitForSeconds(detectionCooldown);
                 canDetect = true;
         }
+
+        // IEnumerator EnumerableAttackCool()
+        // {
+        //         yield return new WaitForSeconds(_attackCoolDown);
+        //         AttackCool = true;
+        // }                                                            실행 안됌
 }

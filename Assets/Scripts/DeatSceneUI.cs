@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DeathSceneUI : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class DeathSceneUI : MonoBehaviour
 
         color.a = 1;
         gameOverImage.color = color;
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene("FirstScenes");
     }
     
 }

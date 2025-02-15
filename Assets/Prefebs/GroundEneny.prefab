@@ -283,7 +283,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 2312888131221315304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e0ecb72fae2f6f45b18c87b4311d896, type: 3}
+  m_Script: {fileID: 11500000, guid: 007f4a82f93d20e4eab1b0dc459f87c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onKnockback:
+    m_PersistentCalls:
+      m_Calls: []
+  _onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  _health: 50
+  _maxHealth: 50
+  _isAlive: 1
+  _isInvincible: 0
+  _InvincibilityTime: 0.25
+--- !u!114 &6730430849187098130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2312888131221315304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a4755674bb25824fa8d9d19e61089cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   contactFilter:
@@ -302,32 +328,6 @@ MonoBehaviour:
     maxNormalAngle: 0
   GroundDistence: 0.05
   WallDistence: 0.2
---- !u!114 &6730430849187098130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2312888131221315304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b98400d9d50494e9266a925ec39533, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _onKnockback:
-    m_PersistentCalls:
-      m_Calls: []
-  _onHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDeath:
-    m_PersistentCalls:
-      m_Calls: []
-  _health: 70
-  _maxHealth: 70
-  _isAlive: 1
-  _isInvincible: 0
-  _InvincibilityTime: 0.25
 --- !u!1 &3205733262113481596
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7138945191563954166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabed390a4c6714489e9d2650720ca6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eade30ec7187f342ab68ab38a26574f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 10
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7562190153896697346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dabed390a4c6714489e9d2650720ca6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eade30ec7187f342ab68ab38a26574f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 10
