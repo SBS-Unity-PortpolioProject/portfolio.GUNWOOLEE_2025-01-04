@@ -15,6 +15,7 @@
 
 ![img_1.png](img_1.png)
 ![img.png](img.png)
+[first portfolio 2025-02-15 14-54-47.mp4](first%20portfolio%202025-02-15%2014-54-47.mp4)
     
 개발한 기능:
 갇혀 하는 전투, 플레이어 공격의 돌진, Way포인트로 움직이는 적, 순간이동 하는 적, 슈퍼점프
