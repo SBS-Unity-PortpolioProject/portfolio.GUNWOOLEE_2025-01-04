@@ -9,13 +9,21 @@ using UnityEngine.Rendering;
 public class BattleDetectionZone : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _detectionObjects = new List<GameObject>();
+    [SerializeField] public int _count = 1;
     
     private bool PlayerDirection = false;
     
     bool _operation = false;
     
     public bool Operation { get { return _operation; } set { _operation = value; } }
-    
+
+    public void Update()
+    {
+        if (_detectionObjects.Count == 0)
+        {
+            _count += 1;
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {

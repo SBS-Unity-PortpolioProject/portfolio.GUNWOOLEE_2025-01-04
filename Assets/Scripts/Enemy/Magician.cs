@@ -9,9 +9,10 @@ public class Magician : MonoBehaviour
         [SerializeField] private DetectionZone _playerDetectionZone;
         [SerializeField] private DetectionZone _attackDetectionZone;
         [SerializeField] private GameObject _target;
-        
+        [SerializeField] private float detectionCooldown = 5f;
         private Transform player;
-        private SpriteRenderer spriteRenderer;
+        private bool canDetect = true;
+
 
         public bool _hasTarget = false;
         
@@ -44,29 +45,36 @@ public class Magician : MonoBehaviour
                 _rb = GetComponent<Rigidbody2D>();
                 _animator = GetComponent<Animator>();
                 _damageable = GetComponent<Damageable>();
-                spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
         {
-                if (!IsAlive) return;
+                if (!IsAlive)
+                {
+                        gameObject.SetActive(false);
+                        return;
+                }
         
                 HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
                 CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
         }
         void OnTriggerStay2D(Collider2D other)
         {
-                if (other.CompareTag("Player"))
+                if (canDetect && other.CompareTag("Player"))
                 {
                         player = other.transform;
-
+                
                         if (player.position.x < transform.position.x)
                         {
-                                spriteRenderer.flipX = false;
+                                transform.localScale = new Vector3(-5, 5, 1);
+                                canDetect = false;
+                                StartCoroutine(EnableDetectionAfterDelay());
                         }
                         else
                         {
-                                spriteRenderer.flipX = true;
+                                transform.localScale = new Vector3(5, 5, 1);
+                                canDetect = false;
+                                StartCoroutine(EnableDetectionAfterDelay());
                         }
                 }
         }
@@ -77,5 +85,11 @@ public class Magician : MonoBehaviour
                 {
                         player = null;
                 }
+        }
+        
+        IEnumerator EnableDetectionAfterDelay()
+        {
+                yield return new WaitForSeconds(detectionCooldown);
+                canDetect = true;
         }
 }

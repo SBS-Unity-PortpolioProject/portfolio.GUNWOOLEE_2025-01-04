@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float wayPointDistance = 0.1f;
     
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
-    
     private bool _hasTarget = false;
     
     public bool HasTarget
@@ -55,6 +54,17 @@ public class Enemy : MonoBehaviour
         {
             _isMoving = value;
             _animator.SetBool(AnimationStrings.IsMoving, value);
+        }
+    }
+    
+    private bool _isOnCliff = false;
+
+    public bool IsOnCliff
+    {
+        get { return _isOnCliff; }
+        private set
+        {
+            _isOnCliff = value;
         }
     }
 
@@ -94,9 +104,13 @@ public class Enemy : MonoBehaviour
     private TouchingDirection _touchingDirection;
     private Vector2 moveDirection = Vector2.right;
     
+    public ContactFilter2D contactFilter;
     Transform nextWaypoint;
-    
     private int waypointIndex = 0;
+    CapsuleCollider2D _TouchingCollider;
+    public float CliffDistence = 1f;
+    private Vector2 _cliffdirection = new Vector2(1f,-1f);
+    RaycastHit2D[] _isCliffDetection = new RaycastHit2D[5];
     
     private void Awake()
     {
@@ -104,6 +118,7 @@ public class Enemy : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _damageable = GetComponent<Damageable>();
         _touchingDirection = GetComponent<TouchingDirection>();
+        _TouchingCollider = GetComponent<CapsuleCollider2D>();
     }
 
     private void Start()
@@ -123,6 +138,22 @@ public class Enemy : MonoBehaviour
         HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
         CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
         Move();
+        
+        IsOnCliff = _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence) < 1;
+
+        if (IsOnCliff)
+        {
+            HasTarget = false;
+            FlipDirection();
+            waypointIndex++;
+
+            if (waypointIndex >= _wayPoints.Count)
+            {
+                waypointIndex = 0;
+            }
+
+            nextWaypoint = _wayPoints[waypointIndex];
+        }
     }
     
     private void Move()
@@ -185,6 +216,7 @@ public class Enemy : MonoBehaviour
             if (_rb.velocity.x < 0)
             {
                 transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                _cliffdirection = new Vector2(-1f, -1f);
             }
         }
         else
@@ -192,6 +224,7 @@ public class Enemy : MonoBehaviour
             if (_rb.velocity.x > 0)
             {
                 transform.localScale = new Vector3(-1 * transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                _cliffdirection = new Vector2(1f, -1f);
             }
         }
     }

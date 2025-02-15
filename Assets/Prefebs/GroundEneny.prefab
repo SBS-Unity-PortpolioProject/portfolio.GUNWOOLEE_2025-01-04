@@ -99,9 +99,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7389705061237045938}
+  - {fileID: 1358993089895655860}
   - {fileID: 4350371485774742577}
   - {fileID: 3381764676854678863}
-  - {fileID: 1358993089895655860}
   m_Father: {fileID: 5859767253306189935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2096657235223642480
@@ -259,6 +259,21 @@ MonoBehaviour:
   - {fileID: 8667768103929251056}
   - {fileID: 8808503388272431386}
   - {fileID: 8000733583845443956}
+  contactFilter:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 8
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  CliffDistence: 1
 --- !u!114 &1526356698312086896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,6 +326,8 @@ MonoBehaviour:
   _health: 70
   _maxHealth: 70
   _isAlive: 1
+  _isInvincible: 0
+  _InvincibilityTime: 0.25
 --- !u!1 &3205733262113481596
 GameObject:
   m_ObjectHideFlags: 0

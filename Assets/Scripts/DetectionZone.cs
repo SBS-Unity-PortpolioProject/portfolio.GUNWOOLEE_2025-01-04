@@ -9,7 +9,7 @@ public class DetectionZone : MonoBehaviour
     
     public List<Collider2D> DetectionColliders = new List<Collider2D>();
     
-    private Collider2D collider;
+    Collider2D collider;
 
     private void awake()
     {
