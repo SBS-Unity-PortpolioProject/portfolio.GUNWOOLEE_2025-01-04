@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour
         nextWaypoint = _wayPoints[waypointIndex];
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!IsAlive)
         {
@@ -213,7 +213,7 @@ public class Enemy : MonoBehaviour
                 _cliffdirection = new Vector2(-1f, -1f);
             }
         }
-        else
+        else if (transform.localScale.x < 0)
         {
             if (_rb.velocity.x > 0)
             {

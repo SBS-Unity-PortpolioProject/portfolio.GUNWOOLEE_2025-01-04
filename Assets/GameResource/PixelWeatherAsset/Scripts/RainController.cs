@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class RainController : MonoBehaviour
 {
@@ -48,13 +45,20 @@ public class RainController : MonoBehaviour
             UpdateAll();
     }
 
-    void UpdateAll(){
+    void UpdateAll()
+    {
         rainEmission.rate = 200f * masterIntensity * rainIntensity;
+        
         rainForce.x = new ParticleSystem.MinMaxCurve(-25f * windIntensity * masterIntensity, (-3-30f * windIntensity) * masterIntensity);
+        
         windEmission.rate = 5f * masterIntensity * (windIntensity + fogIntensity);
+        
         windMain.startLifetime = 2f + 5f * (1f - windIntensity);
+        
         windMain.startSpeed = new ParticleSystem.MinMaxCurve(15f * windIntensity, 25 * windIntensity);
+        
         fogEmission.rate = (1f + (rainIntensity + windIntensity)*0.5f) * fogIntensity * masterIntensity;
+        
         if (rainIntensity * masterIntensity < 0.7f)
             lightningEmission.rate = 0;
         else

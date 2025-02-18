@@ -1,73 +1,57 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MonsterSpawner : MonoBehaviour
 {
     [SerializeField] private BattleDetectionZone _battleDetection;
     [SerializeField] private GameObject monsterPrefab;
-    // [SerializeField] private GameObject monsterPrefab2;
-    // [SerializeField] private GameObject monsterPrefab3;
-    // [SerializeField] private bool Spawn = false;
-    // [SerializeField] private int _count = 1;
+    [SerializeField] private GameObject monsterPrefab2;
+    [SerializeField] private GameObject monsterPrefab3;
     private bool _spawned = false;
-    private bool _operator = false;
-
-    private bool _Operator
-    {
-        get { return _operator; }
-        set
-        {
-            _operator = value;
-
-            if (!_spawned && _battleDetection.Operation)
-            {
-                _spawned = true;
-                Instantiate(monsterPrefab, transform.position, Quaternion.identity);
-            }
-            
-            // if (!_spawned && _battleDetection.Operation && _count == 1 && Spawn)
-            // {
-            //     _spawned = true;
-            //     Instantiate(monsterPrefab, transform.position, Quaternion.identity);
-            // }
-            // else return;
-            // 
-            // if (!_spawned && _battleDetection.Operation && _count == 2 && Spawn)
-            // {
-            //     _spawned = true;
-            //     Instantiate(monsterPrefab2, transform.position, Quaternion.identity);
-            // }
-            // else return;
-            // 
-            // if (!_spawned && _battleDetection.Operation && _count == 3 && Spawn)
-            // {
-            //     _spawned = true;
-            //     Instantiate(monsterPrefab3, transform.position, Quaternion.identity);
-            // }
-            // else return;
-        }
-    }
+    private int _lastWave = 0;
 
     private void Update()
     {
-        // Spawn = _battleDetection._count == _count;
-        
-        if (_battleDetection.Operation)
+        if (_battleDetection._wave > _lastWave && _battleDetection.Operation)
         {
-            _Operator = true;
-            // _count += 1;
-            StartCoroutine(DestroyAfterDelay(0.5f));
-        }
-        else
-        {
-            _Operator = false;
+            _spawned = false;
+            _lastWave = _battleDetection._wave;
+            SpawnMonster(_battleDetection._wave);
         }
     }
-    
+
+    private void SpawnMonster(int wave)
+    {
+        if (_spawned) return;
+        _spawned = true;
+
+        GameObject monsterToSpawn = null;
+        switch (wave)
+        {
+            case 1:
+                monsterToSpawn = monsterPrefab;
+                break;
+            case 2:
+                monsterToSpawn = monsterPrefab2;
+                break;
+            case 3:
+                monsterToSpawn = monsterPrefab3;
+                break;
+        }
+
+        if (monsterToSpawn != null)
+        {
+            Instantiate(monsterToSpawn, transform.position, Quaternion.identity);
+            StartCoroutine(DestroyAfterDelay(0.5f));
+        }
+    }
+
     IEnumerator DestroyAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
     }
 }
+

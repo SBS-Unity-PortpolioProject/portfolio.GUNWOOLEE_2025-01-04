@@ -18,7 +18,7 @@ public class FallRespawn : MonoBehaviour
     {
         if (player.transform.position.y < -7)
         {
-            player.transform.position = new Vector3(-4.35f, -1.4f, 0f);
+            player.transform.position = new Vector3(-3.96f, -1.32f, 0f);
         }
     }
 }

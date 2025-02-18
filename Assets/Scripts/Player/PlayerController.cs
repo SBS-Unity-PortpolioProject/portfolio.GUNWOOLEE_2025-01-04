@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private GameObject _DashEffect;
     
+    [SerializeField] private GameObject _settingScreen;
+    
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
 
     public GameObject gmaeOverUI;
@@ -218,6 +220,14 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    public void OnEscapeInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _settingScreen.SetActive(true);
+        }
+    }
+
     public void OnKnockback(Vector2 Knockback)
     {
         _rb.velocity = new Vector2(Knockback.x, _rb.velocity.y +  Knockback.y);

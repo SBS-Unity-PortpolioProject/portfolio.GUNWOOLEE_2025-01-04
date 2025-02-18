@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8436687158327409398}
   - component: {fileID: 6978814979040329337}
   - component: {fileID: 6810748225518408065}
-  - component: {fileID: 3533304160036035911}
   - component: {fileID: 3837014286436558485}
+  - component: {fileID: 6697661779934997387}
   m_Layer: 8
   m_Name: Magician
   m_TagString: Enemy
@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1825947722794136810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.4, y: -2.72, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -194,7 +194,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   detectionCooldown: 1
   _hasTarget: 0
---- !u!114 &3533304160036035911
+--- !u!114 &3837014286436558485
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1825947722794136810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a4755674bb25824fa8d9d19e61089cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e0ecb72fae2f6f45b18c87b4311d896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   contactFilter:
@@ -222,7 +222,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   GroundDistence: 0.05
   WallDistence: 0.2
---- !u!114 &3837014286436558485
+--- !u!114 &6697661779934997387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1825947722794136810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007f4a82f93d20e4eab1b0dc459f87c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 85b98400d9d50494e9266a925ec39533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _onKnockback:
@@ -243,8 +243,8 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
-  _health: 30
-  _maxHealth: 30
+  _health: 35
+  _maxHealth: 35
   _isAlive: 1
   _isInvincible: 0
   _InvincibilityTime: 0.25
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4591535063461130042}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eade30ec7187f342ab68ab38a26574f, type: 3}
+  m_Script: {fileID: 11500000, guid: dabed390a4c6714489e9d2650720ca6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackDamage: 10

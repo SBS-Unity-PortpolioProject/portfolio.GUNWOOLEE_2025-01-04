@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4040928315979043586}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.775055, y: -8.629911, z: -0.11630145}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _battleDetection: {fileID: 0}
   monsterPrefab: {fileID: 6123038351007246188, guid: 8e646d0ed49ec57408e6206856ecd4fc, type: 3}
+  monsterPrefab2: {fileID: 0}
+  monsterPrefab3: {fileID: 0}
 --- !u!61 &4966828522918051903
 BoxCollider2D:
   m_ObjectHideFlags: 0
