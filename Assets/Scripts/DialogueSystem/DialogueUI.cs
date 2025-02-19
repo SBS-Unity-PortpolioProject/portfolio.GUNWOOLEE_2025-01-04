@@ -48,7 +48,7 @@ public class DialogueUI : MonoBehaviour
             
             yield return new WaitUntil(()=> Input.GetMouseButtonDown(0));
         }
-
+        
         if (dialogueObject.HasResponses)
         {
             responseHandler.ShowResponses(dialogueObject.Responses);
@@ -56,7 +56,6 @@ public class DialogueUI : MonoBehaviour
         else
         {
             CloseDialogueBox();
-
         }
     }
 
@@ -77,7 +76,6 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;

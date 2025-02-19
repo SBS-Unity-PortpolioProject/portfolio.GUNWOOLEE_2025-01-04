@@ -10,7 +10,7 @@ public class SettingScreen : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
-
+    
     private void OnEnable()
     {
         continueButton.onClick.AddListener(ContinueGame);
