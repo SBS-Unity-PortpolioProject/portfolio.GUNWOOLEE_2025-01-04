@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DeathSceneUI : MonoBehaviour
 {
+    [SerializeField] private GameObject playerContoller;
+    
     public Image gameOverImage; 
     public float fadeDuration = 1f;
 
@@ -28,11 +30,13 @@ public class DeathSceneUI : MonoBehaviour
             gameOverImage.color = color;
             yield return null;
         }
-
+        
+        playerContoller.SetActive(false);
+        playerContoller.SetActive(true);
         color.a = 1;
         gameOverImage.color = color;
         Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene("FirstScenes");
+        SceneManager.LoadScene("GameScenes");
     }
     
 }

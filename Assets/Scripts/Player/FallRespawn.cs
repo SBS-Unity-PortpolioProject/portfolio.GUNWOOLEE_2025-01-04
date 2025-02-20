@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class FallRespawn : MonoBehaviour
 {
+    private GameObject player;
     
-    GameObject player;
-
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -18,7 +17,12 @@ public class FallRespawn : MonoBehaviour
     {
         if (player.transform.position.y < -7)
         {
-            player.transform.position = new Vector3(-3.96f, -1.32f, 0f);
+            OnSpawn();
         }
+    }
+
+    public void OnSpawn()
+    {
+        player.transform.position = SavePoint.lastSavePoint;
     }
 }

@@ -12,6 +12,10 @@ public class DialogueActivator : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         isInPlayer = other.CompareTag("Player");
+        if (isInPlayer)
+        {
+            DialogueUI.ShowDialogue(dialogueObject);
+        }
     }
     
     private void OnTriggerExit2D(Collider2D other)
@@ -19,16 +23,12 @@ public class DialogueActivator : MonoBehaviour
         if (other.CompareTag("Player") && isInPlayer)
         {
             isInPlayer = false;
+            Destroy(gameObject);
         }
     }
     
     private void FixedUpdate()
     {
         if (dialogueUI.IsOpen) return;
-        if (Input.GetKeyDown(KeyCode.F) && isInPlayer)
-        {
-            DialogueUI.ShowDialogue(dialogueObject);
-        }
     }
-    
 }

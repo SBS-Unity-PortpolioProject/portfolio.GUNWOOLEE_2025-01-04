@@ -32,7 +32,7 @@ public class BattleDetectionZone : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !playerDirection)
+        if (collision.gameObject.CompareTag("Player") && !playerDirection && _detectionObjects.Count > 1)
         {
             playerDirection = true;
             _operation = true;
@@ -49,6 +49,7 @@ public class BattleDetectionZone : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playerDirection = false;
+            _detectionObjects.Remove(collision.gameObject);
         }
         else
         {
