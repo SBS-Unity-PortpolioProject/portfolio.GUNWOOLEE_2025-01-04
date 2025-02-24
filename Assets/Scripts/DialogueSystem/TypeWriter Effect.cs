@@ -12,7 +12,7 @@ public class TypeWriterEffect : MonoBehaviour
     private readonly List<Punctuation> punctuations = new List<Punctuation>()
     {
         new Punctuation(new HashSet<char>() { '.', '!', '?' }, 0.1f ),
-        new Punctuation(new HashSet<char>() { ',', ';', ':' }, 0.1f )
+        new Punctuation(new HashSet<char>() { ',', ';' }, 0.1f )
     };
     
     private Coroutine typeingCoroutine;

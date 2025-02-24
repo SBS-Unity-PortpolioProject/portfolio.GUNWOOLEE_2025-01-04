@@ -4,7 +4,6 @@ public class DialogueActivator : MonoBehaviour
 {
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private DialogueUI dialogueUI;
-    
     public DialogueUI DialogueUI => dialogueUI;
 
     private bool isInPlayer = false;

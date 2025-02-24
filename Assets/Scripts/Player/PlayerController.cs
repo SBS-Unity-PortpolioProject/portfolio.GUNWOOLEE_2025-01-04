@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private GameObject _settingScreen;
     
+    [SerializeField] private DialogueUI _dialogueUI;
+    
+    [SerializeField] private SettingScreen _settingScreenUI;
+    
+    [SerializeField] bool _operator = true;
+    
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
 
     public GameObject gmaeOverUI;
@@ -23,11 +29,13 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveInput = Vector2.zero;
     private Animator _animator;
     private TouchingDirection _touchingDirection;
-
+    
     public float CurrentMoveSpeed
     {
         get
         {
+            if (!_operator) return 0;
+            
             if(!IsMoving) return 0;
             
             if(!_CanMove) return 0;
@@ -83,7 +91,7 @@ public class PlayerController : MonoBehaviour
         _touchingDirection = GetComponent<TouchingDirection>();
     }
     
-    private void FixedUpdate()
+    private void Update()
     {
         if (!_IsAlive)
         {
@@ -91,8 +99,16 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if(!_IsMoving)
-            return;
+        if (_dialogueUI.dialogueStarted || _settingScreenUI._isStarted)
+        {
+            _operator = false;
+        }
+        else
+        {
+            _operator = true;
+        }
+        
+        if(!_IsMoving) return;
         
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
@@ -101,7 +117,8 @@ public class PlayerController : MonoBehaviour
     
     public void OnMoveInputAction(InputAction.CallbackContext context)
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive || !_operator) return;
+        
          _moveInput = context.ReadValue<Vector2>();
          
          IsMoving = (_moveInput != Vector2.zero);
@@ -111,8 +128,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnFacingDirection(Vector2 Input)
     {
-        if(!_IsAlive)
-            return;
+        if (!_IsAlive || !_operator) return;
+        
         if (Input.x < 0) transform.localScale = new Vector3(-3, 3, 1);
         
         else if (Input.x > 0) transform.localScale = new Vector3(3, 3, 1);
@@ -133,10 +150,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInputAction(InputAction.CallbackContext context)
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive || !_operator) return;
         
         if (context.started && _touchingDirection._isGround)
-        {
+        { 
             _rb.velocity = new Vector2(_rb.velocity.x, _JumpImpulse);
             _animator.SetTrigger(AnimationStrings.IsJump);
         }
@@ -144,8 +161,8 @@ public class PlayerController : MonoBehaviour
     
     public void OnAttackInputAction(InputAction.CallbackContext context)
     {
-        if (!_IsAlive) return;
-
+        if (!_IsAlive || !_operator) return;
+        
         if (context.started && _touchingDirection._isGround)
         {
             _animator.SetTrigger(AnimationStrings.Attack);
@@ -154,8 +171,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ApplyAttackVelocity()
     {
-        float attackDuration = 0.17f; // 이동 지속 시간
-        float attackSpeed = 15f; // 빠르게 이동할 속도
+        float attackDuration = 0.17f;
+        float attackSpeed = 15f;
 
         float timer = 0f;
         while (timer <= attackDuration)
@@ -179,14 +196,14 @@ public class PlayerController : MonoBehaviour
     
     public void OnDashInputAction()
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive || !_operator) return;
         
         StartCoroutine(ApplyAttackVelocity());
     }
 
     public void OnDashAction(InputAction.CallbackContext context)
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive || !_operator) return;
         
         if (context.started && _touchingDirection._isGround)
         {
@@ -208,7 +225,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnDashFlipInputAction()
     {
-        if (!_IsAlive) return;
+        if (!_IsAlive || !_operator) return;
 
         if (_rb.transform.localScale.x > 0)
         {
@@ -240,11 +257,7 @@ public class PlayerController : MonoBehaviour
             gmaeOverUI.SetActive(true);
         }
     }
-    
 }
-
-
-
 
 
 

@@ -10,22 +10,27 @@ public class SettingScreen : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private Image fadeImage;
     [SerializeField] private float fadeDuration = 1f;
+
+    public bool _isStarted = false;
     
     private void OnEnable()
     {
+        _isStarted = true;
         continueButton.onClick.AddListener(ContinueGame);
         exitButton.onClick.AddListener(ExitGame);
         Time.timeScale = 0;
     }
-
+    
     void ContinueGame()
     {
+        _isStarted = false;
         _settingScreen.SetActive(false);
         Time.timeScale = 1;
     }
 
     void ExitGame()
     {
+        _isStarted = false;
         StartCoroutine(FadeIn());
         Time.timeScale = 1;
     }
