@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2786273333589817950}
   - component: {fileID: 3959475006950176064}
   - component: {fileID: 3948143650866330181}
+  - component: {fileID: 2270471888195237318}
   m_Layer: 0
   m_Name: DialogueActivation
   m_TagString: Untagged
@@ -145,3 +146,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: 468f9b542acc443478d63ec3489bac3a, type: 2}
   dialogueUI: {fileID: 0}
+--- !u!114 &2270471888195237318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456259510240294249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7b7527744935674faa6158519b98822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 0}
+  events: []

@@ -137,6 +137,8 @@ public class PlayerController : MonoBehaviour
     
     public void OnRunInputAction(InputAction.CallbackContext context)
     {
+        if (!_IsAlive || !_operator) return;
+        
         if (context.started)
         {
             IsRunning = true;
@@ -235,6 +237,16 @@ public class PlayerController : MonoBehaviour
         {
             _rb.transform.localScale = new Vector3(3, 3, 1);
         }
+    }
+
+    public void EnableControls()
+    {
+        _operator = true;
+    }
+
+    public void DisableControls()
+    {
+        _operator = false;
     }
     
     public void OnEscapeInput(InputAction.CallbackContext context)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DialogueActivator : MonoBehaviour
@@ -16,16 +17,13 @@ public class DialogueActivator : MonoBehaviour
             DialogueUI.ShowDialogue(dialogueObject);
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && isInPlayer)
-        {
-            isInPlayer = false;
-            Destroy(gameObject);
-        }
+        isInPlayer = false;
+        Destroy(gameObject);
     }
-    
+
     private void FixedUpdate()
     {
         if (dialogueUI.IsOpen) return;
