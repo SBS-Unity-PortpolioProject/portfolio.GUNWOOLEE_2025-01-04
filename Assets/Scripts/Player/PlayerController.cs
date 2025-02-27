@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject gmaeOverUI;
     
+    private bool _cutScene = false;
+    
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
     private Animator _animator;
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if (_dialogueUI.dialogueStarted || _settingScreenUI._isStarted)
+        if (_dialogueUI.dialogueStarted || _settingScreenUI._isStarted || _cutScene)
         {
             _operator = false;
         }
@@ -113,7 +115,6 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }
-    
     
     public void OnMoveInputAction(InputAction.CallbackContext context)
     {
@@ -241,12 +242,12 @@ public class PlayerController : MonoBehaviour
 
     public void EnableControls()
     {
-        _operator = true;
+        _cutScene = false;
     }
 
     public void DisableControls()
     {
-        _operator = false;
+        _cutScene = true;
     }
     
     public void OnEscapeInput(InputAction.CallbackContext context)
@@ -270,7 +271,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
-
-
-
-

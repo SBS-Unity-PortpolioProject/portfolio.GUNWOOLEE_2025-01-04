@@ -9,6 +9,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject playerBar;
     
     public bool dialogueStarted = false; 
+    public bool _check = false;
     
     public bool IsOpen { get; private set; }
     
@@ -59,6 +60,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
+            _check = true;
             CloseDialogueBox();
         }
     }
