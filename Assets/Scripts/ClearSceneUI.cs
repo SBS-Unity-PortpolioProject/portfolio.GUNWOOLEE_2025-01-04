@@ -31,6 +31,6 @@ public class ClearSceneUI : MonoBehaviour
 
         color.a = 1;
         gameOverImage.color = color;
-        SceneManager.LoadScene("EndScenes");
+        SceneManager.LoadScene("GameScene2");
     }
 }

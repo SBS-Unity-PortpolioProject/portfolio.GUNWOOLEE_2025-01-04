@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2884371665666119333}
-  - component: {fileID: 7936039240108724449}
   - component: {fileID: 4966828522918051903}
   - component: {fileID: 2858753181704492044}
+  - component: {fileID: 7936039240108724449}
   m_Layer: 13
   m_Name: MonsterSpawner
   m_TagString: Enemy
@@ -34,22 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7936039240108724449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4040928315979043586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc14c58738bd7fa43a401e618ec6e35f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _battleDetection: {fileID: 0}
-  monsterPrefab: {fileID: 6123038351007246188, guid: 8e646d0ed49ec57408e6206856ecd4fc, type: 3}
-  monsterPrefab2: {fileID: 0}
-  monsterPrefab3: {fileID: 0}
 --- !u!61 &4966828522918051903
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,3 +131,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7936039240108724449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040928315979043586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc14c58738bd7fa43a401e618ec6e35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _battleDetection: {fileID: 0}
+  monsterPrefab: {fileID: 6123038351007246188, guid: 8e646d0ed49ec57408e6206856ecd4fc, type: 3}
+  monsterPrefab2: {fileID: 0}
+  monsterPrefab3: {fileID: 0}

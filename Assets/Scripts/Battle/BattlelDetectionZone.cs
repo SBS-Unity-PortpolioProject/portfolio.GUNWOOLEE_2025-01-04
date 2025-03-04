@@ -1,40 +1,56 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BattleDetectionZone : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _detectionObjects = new List<GameObject>();
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject dialogueActivator;
     [SerializeField] public int _wave = 0;
-    [SerializeField] private int _waveObjecctCount1;
-    [SerializeField] private int _waveObjecctCount2;
-
-    private bool playerDirection = false;
+    [SerializeField] private int _waveObjectCount1;
+    [SerializeField] private int _waveObjectCount2;
+    [SerializeField] private int _waveObjectCount3;
+    [SerializeField] private bool _waveIncremented = false;
+    [SerializeField] private bool _playerDirection = false;
+    
+    public bool _end = false;
+    
     private bool _operation = false;
-    private bool _waveIncremented = false;
     
     public bool Operation { get { return _operation; } }
 
     private void Update()
     {
-        if (!_waveIncremented && _detectionObjects.Count == _waveObjecctCount1 || _detectionObjects.Count == _waveObjecctCount2 && playerDirection)
+        if (!_waveIncremented && (_detectionObjects.Count == _waveObjectCount1 || _detectionObjects.Count == _waveObjectCount2 || _detectionObjects.Count == _waveObjectCount3) && _playerDirection)
         {
             _wave += 1;
             _operation = true;
             _waveIncremented = true;
         }
 
-        if (_detectionObjects.Count == _waveObjecctCount2)
+        if (_wave == 1 && _detectionObjects.Count == _waveObjectCount2)
         {
             _waveIncremented = false;
         }
-        
+
+        if (_wave == 2 && _detectionObjects.Count == _waveObjectCount3)
+        {
+            _waveIncremented = false;
+        }
+
+        if (_detectionObjects.Count == 1 && dialogueActivator != null)
+        {
+            player.transform.position = new Vector2(341.52f, 4.7f);
+            dialogueActivator.SetActive(true);
+        }
     }
     
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && !playerDirection && _detectionObjects.Count > 1)
+        if (collision.gameObject.CompareTag("Player") && !_playerDirection && _detectionObjects.Count > 1)
         {
-            playerDirection = true;
+            _playerDirection = true;
             _operation = true;
             _detectionObjects.Add(collision.gameObject);
         }
@@ -48,7 +64,7 @@ public class BattleDetectionZone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerDirection = false;
+            _playerDirection = false;
             _detectionObjects.Remove(collision.gameObject);
         }
         else

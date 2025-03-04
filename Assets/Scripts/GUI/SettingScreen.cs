@@ -54,6 +54,6 @@ public class SettingScreen : MonoBehaviour
         color.a = 1;
         fadeImage.color = color;
         Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene("FirstScenes");
+        SceneManager.LoadScene("FirstScene");
     }
 }

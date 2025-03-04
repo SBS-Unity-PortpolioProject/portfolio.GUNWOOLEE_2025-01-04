@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class DialogueActivator : MonoBehaviour
@@ -6,6 +5,7 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private GameObject Timeline;
+    
     public DialogueUI DialogueUI => dialogueUI;
 
     private bool isInPlayer = false;
@@ -24,16 +24,16 @@ public class DialogueActivator : MonoBehaviour
     {
         if (dialogueUI.IsOpen) return;
         
-        if (dialogueUI._check && isInPlayer)
-        {
-            isInPlayer = false;
-            Destroy(gameObject);
-        }
-        
         if (dialogueUI._check && Timeline && isInPlayer)
         {
             _timeline = true;
             Timeline.SetActive(true);
+        }
+        
+        if (dialogueUI._check && isInPlayer)
+        {
+            isInPlayer = false;
+            Destroy(gameObject);
         }
     }
 }

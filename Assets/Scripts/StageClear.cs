@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Goal : MonoBehaviour
+public class StageClear : MonoBehaviour
 {
     [SerializeField] private ClearSceneUI clearSceneUI;
     private void OnTriggerEnter2D(Collider2D other)

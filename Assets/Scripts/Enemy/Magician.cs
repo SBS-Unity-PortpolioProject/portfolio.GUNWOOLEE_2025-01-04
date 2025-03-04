@@ -98,10 +98,4 @@ public class Magician : MonoBehaviour
                 yield return new WaitForSeconds(detectionCooldown);
                 canDetect = true;
         }
-
-        // IEnumerator EnumerableAttackCool()
-        // {
-        //         yield return new WaitForSeconds(_attackCoolDown);
-        //         AttackCool = true;
-        // }                                                            실행 안됌
 }
