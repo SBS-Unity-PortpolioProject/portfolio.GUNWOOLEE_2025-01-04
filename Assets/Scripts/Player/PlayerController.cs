@@ -243,11 +243,13 @@ public class PlayerController : MonoBehaviour
     public void EnableControls()
     {
         _cutScene = false;
+        GetComponent<Rigidbody2D>().simulated = true;
     }
 
     public void DisableControls()
     {
         _cutScene = true;
+        GetComponent<Rigidbody2D>().simulated = false;
     }
     
     public void OnEscapeInput(InputAction.CallbackContext context)
