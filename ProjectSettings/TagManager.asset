@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Battle1
+  - Battle2
+  - Battle3
   layers:
   - Default
   - TransparentFX
