@@ -5,7 +5,7 @@ using UnityEngine;
 public class SavePoint : MonoBehaviour
 {
     [SerializeField] private GameObject savePointTrue;
-    public static Vector3 lastSavePoint = new Vector3(-3.96f, -1.32f); // 기본값 설정
+    public static Vector3 lastSavePoint = new Vector3(-66.91f, -1.29f); // 466.16f, 0.67f
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

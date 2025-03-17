@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891915497268f5a43a6a0d5a6dd748c0, type: 3}
+  m_Name: Dia0-2
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "\uC8FC\uC778\uACF5: \uC774\uB807\uAC8C \uC2F8\uC6B0\uB294 \uAC70\uAD6C\uB098\r\n"
+  - "\uC8FC\uC778\uACF5: \uB2F9\uC5F0\uD558\uAC8C\uB3C4 \uC27D\uC9C0\uB294 \uC54A\uB124\r\n"
+  - "\uC8FC\uC778\uACF5: \uADF8\uB798\uB3C4 \uC774\uB7F0 \uD798\uC774 \uC788\uB2E4\uBA74
+    \uC608\uC804\uAC19\uC9C4 \uC548\uACA0\uC9C0\r\n"
+  - "\uC8FC\uC778\uACF5: \uB098\uD55C\uD14C\uB3C4 \uAE30\uD68C\uB77C\uB294\uAC8C
+    \uC788\uAE34 \uD588\uAD6C\uB098"
+  responses: []
