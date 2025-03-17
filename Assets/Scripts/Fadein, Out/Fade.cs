@@ -8,17 +8,18 @@ using UnityEngine.UI;
 public class Fade : MonoBehaviour
 {
     [SerializeField] private DialogueActivator _dialogue;
+    [SerializeField] private DialogueActivator _dialoguenext;
     
     public Image FadeImage; 
     public float fadeDuration = 1f;
 
     private void Update()
     {
-        if (_dialogue._fadeIn)
+        if ((_dialogue._other || _dialoguenext._other) && _dialogue._fadeIn)
         {
             StartCoroutine(fadeIn());
         }
-        else if (_dialogue._fadeOut)
+        else if ((_dialogue._other || _dialoguenext._other) && _dialogue._fadeOut)
         {
             StartCoroutine(fadeOut());
         }
