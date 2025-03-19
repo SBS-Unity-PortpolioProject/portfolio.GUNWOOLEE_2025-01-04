@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 
 public class DialogueActivator : MonoBehaviour
 {
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private DialogueUI dialogueUI;
-    [SerializeField] private GameObject Player;  
+    [SerializeField] private GameObject Player;
     [SerializeField] private GameObject Timeline;
     [SerializeField] private Vector2 PlayerPosition;
     
+    private PlayerController _playerController;
     public DialogueUI DialogueUI => dialogueUI;
 
     private bool _nextDialogue = false;
@@ -17,13 +19,25 @@ public class DialogueActivator : MonoBehaviour
     public bool _fadeOut = false;
     public bool _move = false;
     public bool _other = false;
-    
+    public bool _moiving = false;
+
+    private void Start()
+    {
+        _playerController = GetComponent<PlayerController>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         isInPlayer = other.CompareTag("Player");
         if (isInPlayer)
         {
             DialogueUI.ShowDialogue(dialogueObject);
+        }
+
+        if (isInPlayer && _moiving)
+        {
+            _playerController._WalkSpeed = -0.1f;
+            _playerController._RunSpeed = -0.1f;
         }
     }
 
@@ -42,7 +56,7 @@ public class DialogueActivator : MonoBehaviour
             isInPlayer = false;
             Destroy(gameObject);
         }
-
+        
         if (dialogueUI._check && _move)
         {
             _other = true;

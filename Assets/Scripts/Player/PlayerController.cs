@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     
-    [SerializeField] private float _WalkSpeed = 5f;
+    [SerializeField] public float _WalkSpeed = 5f;
     
-    [SerializeField] private float _RunSpeed = 10f;
+    [SerializeField] public float _RunSpeed = 10f;
     
     [SerializeField] private float _JumpImpulse = 3;
     
@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject _settingScreen;
     
     [SerializeField] private DialogueUI _dialogueUI;
+    
+    [SerializeField] private DialogueActivator _dialogueActivator;
     
     [SerializeField] private SettingScreen _settingScreenUI;
     
@@ -111,7 +113,7 @@ public class PlayerController : MonoBehaviour
         }
         
         if(!_IsMoving) return;
-        
+ 
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }

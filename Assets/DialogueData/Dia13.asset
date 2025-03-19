@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 891915497268f5a43a6a0d5a6dd748c0, type: 3}
+  m_Name: Dia13
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "\uC8FC\uC778\uACF5: \uC88B\uC740\uAC8C \uC88B\uC740\uAC70\uACA0\uC9C0~"
+  - "\uC8FC\uC778\uACF5: \uD558\uD558\uD558..."
+  - "\uC8FC\uC778\uACF5: ........."
+  responses: []
