@@ -6,10 +6,9 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private GameObject Player;
+    [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject Timeline;
     [SerializeField] private Vector2 PlayerPosition;
-    
-    private PlayerController _playerController;
     public DialogueUI DialogueUI => dialogueUI;
 
     private bool _nextDialogue = false;
@@ -19,12 +18,8 @@ public class DialogueActivator : MonoBehaviour
     public bool _fadeOut = false;
     public bool _move = false;
     public bool _other = false;
-    public bool _moiving = false;
+    public bool _minusMoiving = false;
 
-    private void Start()
-    {
-        _playerController = GetComponent<PlayerController>();
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -34,29 +29,29 @@ public class DialogueActivator : MonoBehaviour
             DialogueUI.ShowDialogue(dialogueObject);
         }
 
-        if (isInPlayer && _moiving)
+        if (isInPlayer && _minusMoiving)
         {
-            _playerController._WalkSpeed = -0.1f;
-            _playerController._RunSpeed = -0.1f;
+            _playerController._WalkSpeed -= 0.2f;
+            _playerController._RunSpeed -= 0.2f;
         }
     }
 
     private void Update()
     {
         if (dialogueUI.IsOpen) return;
-        
+
         if (dialogueUI._check && Timeline && isInPlayer)
         {
             _timeline = true;
             Timeline.SetActive(true);
         }
-        
+
         if (dialogueUI._check && isInPlayer)
         {
             isInPlayer = false;
             Destroy(gameObject);
         }
-        
+
         if (dialogueUI._check && _move)
         {
             _other = true;

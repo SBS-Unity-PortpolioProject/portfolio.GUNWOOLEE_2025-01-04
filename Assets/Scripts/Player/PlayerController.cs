@@ -112,9 +112,9 @@ public class PlayerController : MonoBehaviour
             _operator = true;
         }
         
-        if(!_IsMoving) return;
- 
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
+
+        if(!_IsMoving) return;
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }
     
