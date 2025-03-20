@@ -19,7 +19,10 @@ public class DialogueActivator : MonoBehaviour
     public bool _move = false;
     public bool _other = false;
     public bool _minusMoiving = false;
-
+    public bool _change = false;
+    public bool _change2 = false;
+    public bool _nextStage = false;
+    public bool _next = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -65,6 +68,16 @@ public class DialogueActivator : MonoBehaviour
         else if (dialogueUI._check && _fadeOut)
         {
             _other = true;
+        }
+
+        if (dialogueUI._check && _change)
+        {
+            _change2 = true;
+        }
+
+        if (dialogueUI._check && _nextStage)
+        {
+            _next = true;
         }
     }
 }

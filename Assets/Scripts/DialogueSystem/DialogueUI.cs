@@ -7,7 +7,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject playerBar;
-    
+    [SerializeField] private GameObject playerBar2;
+    [SerializeField] private DialogueActivator _dialogueActivator;
     public bool dialogueStarted = false; 
     public bool _check = false;
     
@@ -23,7 +24,7 @@ public class DialogueUI : MonoBehaviour
         
         CloseDialogueBox();
     }
-
+    
     public void ShowDialogue(DialogueObject dialogueObject)
     {
         IsOpen = true;
@@ -67,27 +68,57 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator RunTypeWriterEffect(string dialogue)
     {
-        playerBar.SetActive(false);
-        
-        typeWriterEffect.Run(dialogue, textLabel);
-
-        while (typeWriterEffect.IsRunning)
+        if (_dialogueActivator._change2)
         {
-            yield return null;
+            playerBar2.SetActive(false);
 
-            if (Input.GetMouseButtonDown(0))
+            typeWriterEffect.Run(dialogue, textLabel);
+
+            while (typeWriterEffect.IsRunning)
             {
-                typeWriterEffect.Stop();
+                yield return null;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    typeWriterEffect.Stop();
+                }
+            }
+        }
+        else
+        {
+            playerBar.SetActive(false);
+
+            typeWriterEffect.Run(dialogue, textLabel);
+
+            while (typeWriterEffect.IsRunning)
+            {
+                yield return null;
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    typeWriterEffect.Stop();
+                }
             }
         }
     }
 
     public void CloseDialogueBox()
     {
-        dialogueStarted = false;
-        IsOpen = false;
-        playerBar.SetActive(true);
-        dialogueBox.SetActive(false);
-        textLabel.text = string.Empty;
+        if (_dialogueActivator._change2)
+        {
+            dialogueStarted = false;
+            IsOpen = false;
+            playerBar2.SetActive(true);
+            dialogueBox.SetActive(false);
+            textLabel.text = string.Empty;
+        }
+        else
+        {
+            dialogueStarted = false;
+            IsOpen = false;
+            playerBar.SetActive(true);
+            dialogueBox.SetActive(false);
+            textLabel.text = string.Empty;
+        }
     }
 }
