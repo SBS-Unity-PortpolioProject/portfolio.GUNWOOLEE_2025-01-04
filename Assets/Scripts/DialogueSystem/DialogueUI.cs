@@ -9,7 +9,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
     [SerializeField] private DialogueActivator _dialogueActivator;
-    public bool dialogueStarted = false; 
+    public bool dialogueStarted = false;
     public bool _check = false;
     
     public bool IsOpen { get; private set; }
