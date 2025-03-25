@@ -47,7 +47,7 @@ public class RainController : MonoBehaviour
 
     void UpdateAll()
     {
-        rainEmission.rate = 200f * masterIntensity * rainIntensity;
+        rainEmission.rate = 1000f * masterIntensity * rainIntensity;
         
         rainForce.x = new ParticleSystem.MinMaxCurve(-25f * windIntensity * masterIntensity, (-3-30f * windIntensity) * masterIntensity);
         
