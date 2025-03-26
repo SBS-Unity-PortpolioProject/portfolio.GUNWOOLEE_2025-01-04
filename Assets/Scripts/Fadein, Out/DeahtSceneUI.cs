@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -7,8 +8,15 @@ public class DeathSceneUI : MonoBehaviour
 {
     [SerializeField] private GameObject playerContoller;
     
+    private Animator _animator;
+    
     public Image gameOverImage; 
     public float fadeDuration = 1f;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void OnEnable()
     {
@@ -37,6 +45,6 @@ public class DeathSceneUI : MonoBehaviour
         gameOverImage.color = color;
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene("GameScenes");
+        _animator.SetTarget(AnimationStrings.Revival);
     }
-    
 }

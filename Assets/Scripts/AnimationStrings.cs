@@ -12,6 +12,7 @@ public static class AnimationStrings
     public static string IsAliveParameterName = "IsAlive";
     public static string AttackCoolDownParameterName = "AttackCoolDown";
     public static string HitParameterName = "Hit";
+    public static string RevivalParameterName = "Revival";
     
     public static string HasTargetParameterName = "HasTarget";
     public static string CanAttackParameterName = "CanAttack";
@@ -29,6 +30,7 @@ public static class AnimationStrings
     public static int IsAlive = Animator.StringToHash(IsAliveParameterName);
     public static int AttackCoolDown = Animator.StringToHash(AttackCoolDownParameterName);
     public static int Hit = Animator.StringToHash(HitParameterName);
+    public static int Revival = Animator.StringToHash(RevivalParameterName);
     
     public static int HasTarget = Animator.StringToHash(HasTargetParameterName);
     public static int CanAttack = Animator.StringToHash(CanAttackParameterName);

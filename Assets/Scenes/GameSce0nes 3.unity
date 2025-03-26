@@ -766,7 +766,7 @@ Transform:
   m_GameObject: {fileID: 355040640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 252.06067, y: -1.0930316, z: -10}
+  m_LocalPosition: {x: 197.25067, y: 7.076968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -881,7 +881,7 @@ Transform:
   m_GameObject: {fileID: 360781412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 203.0282, y: 2.64, z: 0}
+  m_LocalPosition: {x: 197.62, y: 5.81, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1662,7 +1662,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 252.06067, y: -1.0930316, z: -10}
+  m_LocalPosition: {x: 197.25067, y: 7.076968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1842,7 +1842,53 @@ CompositeCollider2D:
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 582201612}
+    m_ColliderPaths:
+    - - X: 2750000128
+        Y: -30000000
+      - X: 2769999872
+        Y: -30000000
+      - X: 2769999872
+        Y: -20000000
+      - X: 2780000000
+        Y: -20000000
+      - X: 2780000000
+        Y: -10000000
+      - X: 2790000128
+        Y: -10000000
+      - X: 2790000128
+        Y: 0
+      - X: 2800000000
+        Y: 0
+      - X: 2800000000
+        Y: 20000000
+      - X: 2190000128
+        Y: 20000000
+      - X: 2190000128
+        Y: 10000000
+      - X: 2209999872
+        Y: 10000000
+      - X: 2209999872
+        Y: 0
+      - X: 2220000000
+        Y: 0
+      - X: 2220000000
+        Y: -10000000
+      - X: 2249999872
+        Y: -10000000
+      - X: 2249999872
+        Y: -20000000
+      - X: 2270000128
+        Y: -20000000
+      - X: 2270000128
+        Y: -30000000
+      - X: 2280000000
+        Y: -30000000
+      - X: 2280000000
+        Y: -40000000
+      - X: 2750000128
+        Y: -40000000
   m_CompositePaths:
     m_Paths:
     - - {x: 275, y: -4}
@@ -26491,8 +26537,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5520605116634314042, guid: 4d484893fae264f4fac554213fbdb074, type: 3}
+      propertyPath: CollisionModule.m_Bounce.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520605116634314042, guid: 4d484893fae264f4fac554213fbdb074, type: 3}
       propertyPath: CollisionModule.collisionMessages
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520605116634314042, guid: 4d484893fae264f4fac554213fbdb074, type: 3}
+      propertyPath: CollisionModule.maxCollisionShapes
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 5520605116634314042, guid: 4d484893fae264f4fac554213fbdb074, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
@@ -50944,7 +50998,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 721cd8de77cd6a5478ec5960d02d70b7, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -50957,6 +51011,8 @@ PlayableDirector:
     value: {fileID: 360781413}
   - key: {fileID: 7228571376184220982, guid: 721cd8de77cd6a5478ec5960d02d70b7, type: 2}
     value: {fileID: 360781413}
+  - key: {fileID: -3144365420946165086, guid: 721cd8de77cd6a5478ec5960d02d70b7, type: 2}
+    value: {fileID: 1696521862}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1711452605
@@ -129650,10 +129706,10 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 355040642}
   - {fileID: 1131170264}
+  - {fileID: 1465531510}
   - {fileID: 619394802}
   - {fileID: 360781415}
   - {fileID: 521477952}
-  - {fileID: 1465531510}
   - {fileID: 735895653}
   - {fileID: 689717939}
   - {fileID: 2076091292}

@@ -12,7 +12,7 @@ public class SavePoint : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             savePointTrue.SetActive(true);
-            lastSavePoint = collision.transform.position; // 좌표 저장
+            lastSavePoint = savePointTrue.transform.position; // 좌표 저장
             StartCoroutine(WaitSeconds());
         }
     }
