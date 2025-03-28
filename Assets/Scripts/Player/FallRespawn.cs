@@ -5,19 +5,21 @@ public class FallRespawn : MonoBehaviour
 {
     private GameObject _player;
     
+    private Damageable _damageable;
+    
     private bool _isBattle1 = false;
-    private bool _isBattle2 = false;
     
     CapsuleCollider2D _TouchingCollider;
     
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _damageable = GetComponent<Damageable>();
     }
 
     private void Update()
     {
-        if (_player.transform.position.y < -7)
+        if (_player.transform.position.y < -7 || !_damageable.IsAlive)
         {
             OnSpawn();
         }
@@ -28,11 +30,6 @@ public class FallRespawn : MonoBehaviour
         if (collision.gameObject.tag == "Battle1")
         {
             _isBattle1 = true;
-        }
-
-        if (collision.gameObject.tag == "Battle2")
-        {
-            _isBattle2 = true;
         }
     }
 

@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (!player) Debug.LogError("Player not found");
+        
         _playerDamageable = player.GetComponent<Damageable>();
         
         _playerDamageable._onHealthChanged.AddListener(OnHealthChanged);

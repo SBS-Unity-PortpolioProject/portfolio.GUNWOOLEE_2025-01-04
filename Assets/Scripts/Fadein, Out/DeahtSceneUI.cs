@@ -9,7 +9,7 @@ public class DeathSceneUI : MonoBehaviour
     [SerializeField] private GameObject playerContoller;
     
     private Animator _animator;
-    
+
     public Image gameOverImage; 
     public float fadeDuration = 1f;
 
@@ -39,12 +39,20 @@ public class DeathSceneUI : MonoBehaviour
             yield return null;
         }
         
-        playerContoller.SetActive(false);
-        playerContoller.SetActive(true);
         color.a = 1;
         gameOverImage.color = color;
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene("GameScenes");
-        _animator.SetTarget(AnimationStrings.Revival);
+        
+        playerContoller.SetActive(false);
+        playerContoller.SetActive(true);
+        
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            color.a = Mathf.Lerp(1, 0, timer / fadeDuration);
+            gameOverImage.color = color;
+            yield return null;
+        }
+        color.a = 0;
+        gameOverImage.color = color;
     }
 }

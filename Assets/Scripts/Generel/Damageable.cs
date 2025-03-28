@@ -14,13 +14,15 @@ public class Damageable : MonoBehaviour
     [SerializeField] private int _health = 100;
     
     [SerializeField] private int _maxHealth = 100;
-
-    [SerializeField] private bool _isAlive = true;
     
     [SerializeField] private bool _isInvincible = false;
     
     [SerializeField] private float _InvincibilityTime = 0.25f;
     
+    private Revival _revival;
+    
+    private bool _isAlive = true;
+
     private float timeSinceHit = 0;
     
     public bool IsAlive
@@ -30,7 +32,12 @@ public class Damageable : MonoBehaviour
         {
             _isAlive = value;
             
-            if(! _isAlive) _onDeath.Invoke();
+            if(!_isAlive)
+            {
+                _onDeath.Invoke();
+                _revival._revival = true;
+                _isAlive = true;
+            }
             _animator.SetBool(AnimationStrings.IsAlive, value);
         }
     }
@@ -44,6 +51,7 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _revival = GetComponent<Revival>();
     }
 
     private void Update()
@@ -105,5 +113,5 @@ public class Damageable : MonoBehaviour
         }
         return true;
     }
-    
+
 }

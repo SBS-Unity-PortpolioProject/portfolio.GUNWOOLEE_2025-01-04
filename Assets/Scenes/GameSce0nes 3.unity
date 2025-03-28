@@ -791,6 +791,7 @@ GameObject:
   - component: {fileID: 360781417}
   - component: {fileID: 360781416}
   - component: {fileID: 360781423}
+  - component: {fileID: 360781425}
   - component: {fileID: 360781424}
   m_Layer: 6
   m_Name: Player
@@ -940,9 +941,8 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
-  _health: 1000
-  _maxHealth: 1000
-  _isAlive: 1
+  _health: 100
+  _maxHealth: 100
   _isInvincible: 0
   _InvincibilityTime: 0.5
 --- !u!70 &360781418
@@ -1228,6 +1228,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &360781425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360781412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427a82ce846eaa04f8e09a9095c6845a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathSceneUI: {fileID: 1310779531}
 --- !u!1 &367726064
 GameObject:
   m_ObjectHideFlags: 0
