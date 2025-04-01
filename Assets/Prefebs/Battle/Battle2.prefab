@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2642065856150601846}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.33505, y: 9.629911, z: 0.11630145}
+  m_LocalPosition: {x: 118.33505, y: 9.629911, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -516,6 +516,10 @@ PrefabInstance:
       value: MagicianSpawner1
       objectReference: {fileID: 0}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 8696004459381478052}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: monsterPrefab
       value: 
       objectReference: {fileID: 1825947722794136810, guid: e8122e0ce4d76ce458442bd8de963892, type: 3}
@@ -601,6 +605,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicianSpawner2
       objectReference: {fileID: 0}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 8696004459381478052}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: monsterPrefab
       value: 
@@ -824,6 +832,10 @@ PrefabInstance:
       value: GroundEnemySpawner1
       objectReference: {fileID: 0}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 8696004459381478052}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: _battleDetection
       value: 
       objectReference: {fileID: 5840107345558294720}
@@ -961,6 +973,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroundEnemySpawner2
       objectReference: {fileID: 0}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 8696004459381478052}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: monsterPrefab
       value: 

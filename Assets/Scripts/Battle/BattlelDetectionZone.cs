@@ -5,8 +5,6 @@ using UnityEngine.Serialization;
 public class BattleDetectionZone : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _detectionObjects = new List<GameObject>();
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject dialogueActivator;
     [SerializeField] public int _wave = 0;
     [SerializeField] private int _waveObjectCount1;
     [SerializeField] private int _waveObjectCount2;
@@ -37,12 +35,6 @@ public class BattleDetectionZone : MonoBehaviour
         if (_wave == 2 && _detectionObjects.Count == _waveObjectCount3)
         {
             _waveIncremented = false;
-        }
-
-        if (_detectionObjects.Count == 1 && dialogueActivator != null)
-        {
-            player.transform.position = new Vector2(341.52f, 4.7f);
-            dialogueActivator.SetActive(true);
         }
     }
     

@@ -480,7 +480,7 @@ Transform:
   m_GameObject: {fileID: 8291373233806041090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 118.33505, y: 9.629911, z: 0.11630145}
+  m_LocalPosition: {x: 118.33505, y: 9.629911, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -558,6 +558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroundEnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 171612624243378709}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: _battleDetection
       value: 
@@ -871,6 +875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagicianSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
+      propertyPath: Parent
+      value: 
+      objectReference: {fileID: 171612624243378709}
     - target: {fileID: 7936039240108724449, guid: 1d4bed8ddc284524298ca598e7a0eef2, type: 3}
       propertyPath: monsterPrefab
       value: 

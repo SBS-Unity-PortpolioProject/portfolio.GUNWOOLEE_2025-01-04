@@ -33,6 +33,6 @@ public class BattleZoneReset : MonoBehaviour
 
     private void SpawnBattleZone()
     {
-        currentBattleZone = Instantiate(battleZonePrefab, new Vector3(118.3351f, 9.629911f, 0), Quaternion.identity);
+        currentBattleZone = Instantiate(battleZonePrefab, battleZonePrefab.transform.position, Quaternion.identity);
     }
 }

@@ -9,6 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private GameObject monsterPrefab;
     [SerializeField] private GameObject monsterPrefab2;
     [SerializeField] private GameObject monsterPrefab3;
+    [SerializeField] private Transform Parent;
     private bool _spawned = false;
     private int _lastWave = 0;
 
@@ -43,7 +44,7 @@ public class MonsterSpawner : MonoBehaviour
 
         if (monsterToSpawn != null)
         {
-            Instantiate(monsterToSpawn, transform.position, Quaternion.identity);
+            Instantiate(monsterToSpawn, transform.position, Quaternion.identity, Parent);
             StartCoroutine(DestroyAfterDelay(0.5f));
         }
     }

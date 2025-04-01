@@ -19,7 +19,7 @@ public class Damageable : MonoBehaviour
     
     [SerializeField] private float _InvincibilityTime = 0.25f;
     
-    private Revival _revival;
+    [SerializeField] private Revival _revival;
     
     private bool _isAlive = true;
 
@@ -35,7 +35,10 @@ public class Damageable : MonoBehaviour
             if(!_isAlive)
             {
                 _onDeath.Invoke();
-                _revival._revival = true;
+                if (_revival != null)
+                {
+                    _revival._revival = true;
+                }
             }
             _animator.SetBool(AnimationStrings.IsAlive, value);
         }
