@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ public class FallRespawn : MonoBehaviour
     
     private bool _isBattle1 = false;
     
-    CapsuleCollider2D _TouchingCollider;
+    private CapsuleCollider2D _TouchingCollider;
     
+    public bool _battleZoneReset = false; 
+        
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -19,9 +22,16 @@ public class FallRespawn : MonoBehaviour
 
     private void Update()
     {
-        if (_player.transform.position.y < -7 || !_damageable.IsAlive)
+        if (_player.transform.position.y < -7)
         {
             OnSpawn();
+        }
+        else if (!_damageable.IsAlive)
+        {
+            OnSpawn();
+            _battleZoneReset = true;
+            _damageable.IsAlive = true;
+            StartCoroutine(ResetBattleZone());
         }
     }
 
@@ -43,5 +53,12 @@ public class FallRespawn : MonoBehaviour
         {
             _player.transform.position = SavePoint.lastSavePoint;
         }
+    }
+
+    IEnumerator ResetBattleZone()
+    {
+        yield return new WaitForSecondsRealtime(0.25f);
+        _battleZoneReset = false;
+        Debug.Log("Resetting battle zone");
     }
 }

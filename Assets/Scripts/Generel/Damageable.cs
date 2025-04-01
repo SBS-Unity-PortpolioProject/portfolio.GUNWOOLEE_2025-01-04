@@ -36,7 +36,6 @@ public class Damageable : MonoBehaviour
             {
                 _onDeath.Invoke();
                 _revival._revival = true;
-                _isAlive = true;
             }
             _animator.SetBool(AnimationStrings.IsAlive, value);
         }
