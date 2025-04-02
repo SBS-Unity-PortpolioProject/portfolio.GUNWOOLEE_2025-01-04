@@ -11,6 +11,7 @@ public class BattleDetectionZone : MonoBehaviour
     [SerializeField] private int _waveObjectCount3;
     [SerializeField] private bool _waveIncremented = false;
     [SerializeField] private bool _playerDirection = false;
+    [SerializeField] private bool _clear = false;    
     
     public bool _end = false;
     
@@ -35,6 +36,11 @@ public class BattleDetectionZone : MonoBehaviour
         if (_wave == 2 && _detectionObjects.Count == _waveObjectCount3)
         {
             _waveIncremented = false;
+        }
+
+        if (_playerDirection && _detectionObjects.Count == 1)
+        {
+            _clear = true;
         }
     }
     
