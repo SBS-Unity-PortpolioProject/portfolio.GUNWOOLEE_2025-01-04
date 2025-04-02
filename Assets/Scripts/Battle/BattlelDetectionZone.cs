@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BattleDetectionZone : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class BattleDetectionZone : MonoBehaviour
     [SerializeField] private int _waveObjectCount3;
     [SerializeField] private bool _waveIncremented = false;
     [SerializeField] private bool _playerDirection = false;
-    [SerializeField] private bool _clear = false;    
     
+    public bool _battleClear = false;    
     public bool _end = false;
     
     private bool _operation = false;
@@ -40,7 +39,7 @@ public class BattleDetectionZone : MonoBehaviour
 
         if (_playerDirection && _detectionObjects.Count == 1)
         {
-            _clear = true;
+            _battleClear = true; // MainStory4 활성화 시키는 코드 필요.
         }
     }
     

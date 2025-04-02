@@ -6,6 +6,7 @@ public class BattleZoneReset : MonoBehaviour
 { 
     [SerializeField] private GameObject battleZonePrefab;
     [SerializeField] private FallRespawn fallRespawn;
+    [SerializeField] private DialogueActivator dialogueActivator;
     private GameObject currentBattleZone;
 
     private void Start()
@@ -34,5 +35,7 @@ public class BattleZoneReset : MonoBehaviour
     private void SpawnBattleZone()
     {
         currentBattleZone = Instantiate(battleZonePrefab, battleZonePrefab.transform.position, Quaternion.identity);
+        BattleDetectionZone zone = currentBattleZone.GetComponentInChildren<BattleDetectionZone>();
+        dialogueActivator._battleDetectionZone = zone;
     }
 }

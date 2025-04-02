@@ -9,8 +9,10 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject Timeline;
     [SerializeField] private Vector2 PlayerPosition;
+    
+    public BattleDetectionZone _battleDetectionZone;
     public DialogueUI DialogueUI => dialogueUI;
-
+    
     private bool _nextDialogue = false;
     private bool isInPlayer = false;
     public bool _timeline = false;
@@ -23,6 +25,7 @@ public class DialogueActivator : MonoBehaviour
     public bool _change2 = false;
     public bool _nextStage = false;
     public bool _next = false;
+    public bool _summonDialogue = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -78,6 +81,11 @@ public class DialogueActivator : MonoBehaviour
         if (dialogueUI._check && _nextStage)
         {
             _next = true;
+        }
+        
+        if (_summonDialogue && _battleDetectionZone._battleClear)
+        {
+            Player.transform.position = PlayerPosition;
         }
     }
 }
