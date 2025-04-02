@@ -10,7 +10,7 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private GameObject Timeline;
     [SerializeField] private Vector2 PlayerPosition;
     
-    public BattleDetectionZone _battleDetectionZone;
+    private BattleDialogue _battleDialogue;
     public DialogueUI DialogueUI => dialogueUI;
     
     private bool _nextDialogue = false;
@@ -26,6 +26,11 @@ public class DialogueActivator : MonoBehaviour
     public bool _nextStage = false;
     public bool _next = false;
     public bool _summonDialogue = false;
+
+    private void Start()
+    {
+        _battleDialogue = GetComponent<BattleDialogue>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -83,9 +88,14 @@ public class DialogueActivator : MonoBehaviour
             _next = true;
         }
         
-        if (_summonDialogue && _battleDetectionZone._battleClear)
+        if (_battleDialogue != null)
         {
-            Player.transform.position = PlayerPosition;
+            if (_battleDialogue._battleClear)
+            {
+                Debug.Log(123); // 실행 안됌
+                Player.transform.position = PlayerPosition;
+                Timeline.SetActive(true);
+            }
         }
     }
 }

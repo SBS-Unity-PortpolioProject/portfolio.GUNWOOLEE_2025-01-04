@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleZoneReset : MonoBehaviour
 { 
-    [SerializeField] private GameObject battleZonePrefab;
-    [SerializeField] private FallRespawn fallRespawn;
-    [SerializeField] private DialogueActivator dialogueActivator;
+    [SerializeField] private GameObject _battleZonePrefab;
+    [SerializeField] private FallRespawn _fallRespawn;
+    [SerializeField] private BattleDialogue _battleDialogue;
     private GameObject currentBattleZone;
 
     private void Start()
@@ -16,7 +14,7 @@ public class BattleZoneReset : MonoBehaviour
 
     private void Update()
     {
-        if (fallRespawn._battleZoneReset)
+        if (_fallRespawn._battleZoneReset)
         {
             ResetBattleZone();
         }
@@ -34,8 +32,12 @@ public class BattleZoneReset : MonoBehaviour
 
     private void SpawnBattleZone()
     {
-        currentBattleZone = Instantiate(battleZonePrefab, battleZonePrefab.transform.position, Quaternion.identity);
-        BattleDetectionZone zone = currentBattleZone.GetComponentInChildren<BattleDetectionZone>();
-        dialogueActivator._battleDetectionZone = zone;
+        currentBattleZone = Instantiate(_battleZonePrefab, _battleZonePrefab.transform.position, Quaternion.identity);
+        
+        if (_battleDialogue != null)
+        {
+            BattleDetectionZone zone = currentBattleZone.GetComponentInChildren<BattleDetectionZone>();
+            _battleDialogue._battleDetectionZone = zone;
+        }
     }
 }
