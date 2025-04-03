@@ -37,7 +37,7 @@ public class BattleZoneReset : MonoBehaviour
         if (_battleDialogue != null)
         {
             BattleDetectionZone zone = currentBattleZone.GetComponentInChildren<BattleDetectionZone>();
-            _battleDialogue._battleDetectionZone = zone;
+            _battleDialogue._battleDetectionZone = zone;    
         }
     }
 }

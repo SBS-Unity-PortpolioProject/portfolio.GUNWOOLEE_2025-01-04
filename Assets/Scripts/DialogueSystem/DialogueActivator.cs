@@ -8,9 +8,8 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private GameObject Player;
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameObject Timeline;
+    [SerializeField] private BattleDialogue _battleDialogue;
     [SerializeField] private Vector2 PlayerPosition;
-    
-    private BattleDialogue _battleDialogue;
     public DialogueUI DialogueUI => dialogueUI;
     
     private bool _nextDialogue = false;
@@ -18,7 +17,8 @@ public class DialogueActivator : MonoBehaviour
     public bool _timeline = false;
     public bool _fadeIn = false;
     public bool _fadeOut = false;
-    public bool _move = false;
+    public bool _firstMove = false;
+    public bool _afterMove = false;
     public bool _other = false;
     public bool _minusMoiving = false;
     public bool _change = false;
@@ -26,11 +26,6 @@ public class DialogueActivator : MonoBehaviour
     public bool _nextStage = false;
     public bool _next = false;
     public bool _summonDialogue = false;
-
-    private void Start()
-    {
-        _battleDialogue = GetComponent<BattleDialogue>();
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -63,7 +58,14 @@ public class DialogueActivator : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (dialogueUI._check && _move)
+        if (dialogueUI.dialogueStarted && _firstMove)
+        {
+            Debug.Log(123);
+            _other = true;
+            Player.transform.position = PlayerPosition;
+        }
+
+        if (dialogueUI._check && _afterMove)
         {
             _other = true;
             Player.transform.position = PlayerPosition;
@@ -92,8 +94,6 @@ public class DialogueActivator : MonoBehaviour
         {
             if (_battleDialogue._battleClear)
             {
-                Debug.Log(123); // 실행 안됌
-                Player.transform.position = PlayerPosition;
                 Timeline.SetActive(true);
             }
         }

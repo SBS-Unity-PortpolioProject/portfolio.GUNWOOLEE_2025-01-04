@@ -10,11 +10,13 @@ public class BattleDialogue : MonoBehaviour
     
     private void Update()
     {
-        if (_battleDetectionZone._battleClear)
+        if (_dialogueActivator != null)
         {
-            _battleClear = true;
-            _dialogueActivator.SetActive(true);
-            // _battleClear = false;
+            if (_battleDetectionZone._battleClear)
+            {
+                _battleClear = true;
+                _dialogueActivator.SetActive(true);
+            }
         }
     }
 }
