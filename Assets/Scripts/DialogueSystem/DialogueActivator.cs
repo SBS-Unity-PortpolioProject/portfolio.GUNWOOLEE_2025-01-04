@@ -57,20 +57,25 @@ public class DialogueActivator : MonoBehaviour
             isInPlayer = false;
             Destroy(gameObject);
         }
-
-        if (dialogueUI.dialogueStarted && _firstMove)
+        
+        if (Player != null)
         {
-            Debug.Log(123);
-            _other = true;
-            Player.transform.position = PlayerPosition;
+            if (dialogueUI._dialogueStarted)
+            {
+                _other = true;
+                Player.transform.position = PlayerPosition;
+            }
         }
-
-        if (dialogueUI._check && _afterMove)
+        
+        if (Player != null)
         {
-            _other = true;
-            Player.transform.position = PlayerPosition;
+            if (dialogueUI._check && _afterMove)
+            {
+                _other = true;
+                Player.transform.position = PlayerPosition;
+            }
         }
-
+        
         if (dialogueUI._check && _fadeIn)
         {
             _other = true;
@@ -92,7 +97,7 @@ public class DialogueActivator : MonoBehaviour
         
         if (_battleDialogue != null)
         {
-            if (_battleDialogue._battleClear)
+            if (dialogueUI._check && _battleDialogue._battleClear)
             {
                 Timeline.SetActive(true);
             }

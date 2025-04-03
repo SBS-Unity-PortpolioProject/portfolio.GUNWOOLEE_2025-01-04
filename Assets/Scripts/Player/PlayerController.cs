@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         
-        if (_dialogueUI.dialogueStarted || _settingScreenUI._isStarted || _cutScene)
+        if (_dialogueUI._dialogueStarted || _settingScreenUI._isStarted || _cutScene)
         {
             _operator = false;
         }

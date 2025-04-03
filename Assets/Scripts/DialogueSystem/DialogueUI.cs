@@ -9,7 +9,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
     [SerializeField] private DialogueActivator _dialogueActivator;
-    public bool dialogueStarted = false;
+    public bool _dialogueStarted = false;
     public bool _check = false;
     
     public bool IsOpen { get; private set; }
@@ -27,8 +27,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueObject dialogueObject)
     {
-        IsOpen = true;
-        dialogueStarted = true;
+        _dialogueStarted = true;
+        StartCoroutine(IsOpening());
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
@@ -106,7 +106,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (_dialogueActivator._change2)
         {
-            dialogueStarted = false;
+            _dialogueStarted = false;
             IsOpen = false;
             playerBar2.SetActive(true);
             dialogueBox.SetActive(false);
@@ -114,11 +114,17 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            dialogueStarted = false;
+            _dialogueStarted = false;
             IsOpen = false;
             playerBar.SetActive(true);
             dialogueBox.SetActive(false);
             textLabel.text = string.Empty;
         }
+    }
+
+    private IEnumerator IsOpening()
+    {
+        yield return new WaitForSeconds(0.1f);
+        IsOpen = true;
     }
 }
