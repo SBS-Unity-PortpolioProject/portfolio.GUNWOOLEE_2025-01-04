@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class DialogueActivator : MonoBehaviour
 {
+    [SerializeField] private GameObject _dialogueActivator;
     [SerializeField] private DialogueObject dialogueObject;
     [SerializeField] private DialogueUI dialogueUI;
     [SerializeField] private GameObject Player;
@@ -46,6 +48,11 @@ public class DialogueActivator : MonoBehaviour
     {
         if (dialogueUI.IsOpen) return;
 
+        if (dialogueUI._check)
+        {
+            _other = true;
+        }
+
         if (dialogueUI._check && Timeline && isInPlayer)
         {
             _timeline = true;
@@ -57,50 +64,57 @@ public class DialogueActivator : MonoBehaviour
             isInPlayer = false;
             Destroy(gameObject);
         }
-        
+
         if (Player != null)
         {
-            if (dialogueUI._dialogueStarted)
+            if (dialogueUI._dialogueStarted && _firstMove)
             {
-                _other = true;
                 Player.transform.position = PlayerPosition;
+                _firstMove = false;
             }
         }
-        
+
         if (Player != null)
         {
             if (dialogueUI._check && _afterMove)
             {
-                _other = true;
                 Player.transform.position = PlayerPosition;
+                _afterMove = false;
             }
         }
-        
+
         if (dialogueUI._check && _fadeIn)
         {
-            _other = true;
+            _fadeIn = false;
         }
         else if (dialogueUI._check && _fadeOut)
         {
-            _other = true;
+            _fadeOut = false;
         }
 
         if (dialogueUI._check && _change)
         {
             _change2 = true;
+            _change = false;
         }
 
         if (dialogueUI._check && _nextStage)
         {
             _next = true;
+            _nextStage = false;
         }
-        
+
         if (_battleDialogue != null)
         {
             if (dialogueUI._check && _battleDialogue._battleClear)
             {
                 Timeline.SetActive(true);
             }
+        }
+
+        if (_other && _dialogueActivator != null)
+        {
+            _dialogueActivator.SetActive(true);
         }
     }
 }

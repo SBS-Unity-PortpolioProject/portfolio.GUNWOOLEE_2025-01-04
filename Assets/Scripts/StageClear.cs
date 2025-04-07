@@ -36,6 +36,6 @@ public class StageClear : MonoBehaviour
             yield return null;
         }
         
-        SceneManager.LoadScene("GameScene2");
+        SceneManager.LoadScene("GameScenes 2");
     }
 }
