@@ -15,6 +15,9 @@ public class ClearSceneUI : MonoBehaviour
 
     IEnumerator FadeIn()
     {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
         Color color = gameOverImage.color;
         color.a = 0;
         gameOverImage.color = color;
@@ -31,6 +34,10 @@ public class ClearSceneUI : MonoBehaviour
 
         color.a = 1;
         gameOverImage.color = color;
-        SceneManager.LoadScene("GameScenes 2");
+        
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 }

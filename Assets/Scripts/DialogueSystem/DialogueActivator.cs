@@ -27,7 +27,6 @@ public class DialogueActivator : MonoBehaviour
     public bool _change2 = false;
     public bool _nextStage = false;
     public bool _next = false;
-    public bool _summonDialogue = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -61,7 +60,6 @@ public class DialogueActivator : MonoBehaviour
 
         if (dialogueUI._check && isInPlayer)
         {
-            isInPlayer = false;
             Destroy(gameObject);
         }
 

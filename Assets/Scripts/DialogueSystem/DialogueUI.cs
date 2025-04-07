@@ -8,7 +8,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
-    [SerializeField] private DialogueActivator _dialogueActivator;
+    [SerializeField] private DialogueActivator[] _dialogueActivatorArray;
+    public DialogueActivator _currentDialogueActivator;
     public bool _dialogueStarted = false;
     public bool _check = false;
     
@@ -16,7 +17,8 @@ public class DialogueUI : MonoBehaviour
     
     private ResponseHandler responseHandler;
     private TypeWriterEffect typeWriterEffect;
-
+    private int _dialogueCounter = 0;
+    
     private void Start()
     {
         typeWriterEffect = GetComponent<TypeWriterEffect>();
@@ -27,6 +29,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueObject dialogueObject)
     {
+        _currentDialogueActivator = _dialogueActivatorArray[_dialogueCounter];
+        
         _dialogueStarted = true;
         StartCoroutine(IsOpening());
         dialogueBox.SetActive(true);
@@ -62,13 +66,14 @@ public class DialogueUI : MonoBehaviour
         else
         {
             _check = true;
+            _dialogueCounter++;
             CloseDialogueBox();
         }
     }
 
     private IEnumerator RunTypeWriterEffect(string dialogue)
     {
-        if (_dialogueActivator._change2)
+        if (_currentDialogueActivator._change2)
         {
             playerBar2.SetActive(false);
 
@@ -104,7 +109,7 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-        if (_dialogueActivator._change2)
+        if (_currentDialogueActivator._change2)
         {
             _dialogueStarted = false;
             IsOpen = false;
