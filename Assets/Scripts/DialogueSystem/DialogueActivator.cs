@@ -46,23 +46,23 @@ public class DialogueActivator : MonoBehaviour
     private void Update()
     {
         if (dialogueUI.IsOpen) return;
-
+        
         if (dialogueUI._check)
         {
             _other = true;
         }
-
+        
         if (dialogueUI._check && Timeline && isInPlayer)
         {
             _timeline = true;
             Timeline.SetActive(true);
         }
-
+        
         if (dialogueUI._check && isInPlayer)
         {
             Destroy(gameObject);
         }
-
+        
         if (Player != null)
         {
             if (dialogueUI._dialogueStarted && _firstMove)
@@ -71,7 +71,7 @@ public class DialogueActivator : MonoBehaviour
                 _firstMove = false;
             }
         }
-
+        
         if (Player != null)
         {
             if (dialogueUI._check && _afterMove)
@@ -80,7 +80,7 @@ public class DialogueActivator : MonoBehaviour
                 _afterMove = false;
             }
         }
-
+        
         if (dialogueUI._check && _fadeIn)
         {
             _fadeIn = false;
@@ -108,11 +108,6 @@ public class DialogueActivator : MonoBehaviour
             {
                 Timeline.SetActive(true);
             }
-        }
-
-        if (_other && _dialogueActivator != null)
-        {
-            _dialogueActivator.SetActive(true);
         }
     }
 }

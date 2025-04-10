@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
-    [SerializeField] private DialogueActivator[] _dialogueActivatorArray;
+    [SerializeField] private List<DialogueActivator> _dialogueActivatorList;
     public DialogueActivator _currentDialogueActivator;
     public bool _dialogueStarted = false;
     public bool _check = false;
@@ -17,7 +18,7 @@ public class DialogueUI : MonoBehaviour
     
     private ResponseHandler responseHandler;
     private TypeWriterEffect typeWriterEffect;
-    private int _dialogueCounter = 0;
+    public int _dialogueCounter = 0;
     
     private void Start()
     {
@@ -29,7 +30,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueObject dialogueObject)
     {
-        _currentDialogueActivator = _dialogueActivatorArray[_dialogueCounter];
+        _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
+        Debug.Log(_currentDialogueActivator.name);
         
         _dialogueStarted = true;
         StartCoroutine(IsOpening());
@@ -66,7 +68,11 @@ public class DialogueUI : MonoBehaviour
         else
         {
             _check = true;
+            StartCoroutine(AddDialogueList());
+            _dialogueActivatorList.Remove(_currentDialogueActivator);
             _dialogueCounter++;
+            _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
+            _currentDialogueActivator.gameObject.SetActive(true);
             CloseDialogueBox();
         }
     }
@@ -131,5 +137,16 @@ public class DialogueUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         IsOpen = true;
+    }
+
+    private IEnumerator AddDialogueList()
+    {
+        if (_dialogueActivatorList != null && _dialogueActivatorList.Count > 0)
+        {
+            _dialogueActivatorList.Remove(_currentDialogueActivator);
+            _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
+            _currentDialogueActivator.gameObject.SetActive(true);
+            yield return null;
+        }
     }
 }
