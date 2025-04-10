@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private GameObject clearScene;
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
@@ -30,8 +31,10 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueObject dialogueObject)
     {
-        _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
-        Debug.Log(_currentDialogueActivator.name);
+        if (_dialogueActivatorList != null && _dialogueActivatorList.Count > 1)
+        {
+            _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
+        }
         
         _dialogueStarted = true;
         StartCoroutine(IsOpening());
@@ -67,12 +70,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            _check = true;
             StartCoroutine(AddDialogueList());
-            _dialogueActivatorList.Remove(_currentDialogueActivator);
-            _dialogueCounter++;
-            _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
-            _currentDialogueActivator.gameObject.SetActive(true);
             CloseDialogueBox();
         }
     }
@@ -115,7 +113,7 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-        if (_currentDialogueActivator._change2)
+        if (playerBar2 != null && _currentDialogueActivator._change2)
         {
             _dialogueStarted = false;
             IsOpen = false;
@@ -141,12 +139,22 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator AddDialogueList()
     {
-        if (_dialogueActivatorList != null && _dialogueActivatorList.Count > 0)
+        if (_dialogueActivatorList != null && _dialogueActivatorList.Count > 1)
         {
             _dialogueActivatorList.Remove(_currentDialogueActivator);
             _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
             _currentDialogueActivator.gameObject.SetActive(true);
-            yield return null;
+            _check = true;
         }
+        else if (_dialogueActivatorList != null && _dialogueActivatorList.Count == 1)
+        {
+            if (clearScene != null)
+            {
+                clearScene.SetActive(true);
+            }
+            _dialogueActivatorList.Remove(_currentDialogueActivator);
+            _check = true;
+        }
+        yield return null;
     }
 }

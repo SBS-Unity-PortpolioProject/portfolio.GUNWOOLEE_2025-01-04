@@ -25,8 +25,6 @@ public class DialogueActivator : MonoBehaviour
     public bool _minusMoiving = false;
     public bool _change = false;
     public bool _change2 = false;
-    public bool _nextStage = false;
-    public bool _next = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -60,7 +58,7 @@ public class DialogueActivator : MonoBehaviour
         
         if (dialogueUI._check && isInPlayer)
         {
-            Destroy(gameObject);
+            StartCoroutine(DestroyDialogue());
         }
         
         if (Player != null)
@@ -96,18 +94,19 @@ public class DialogueActivator : MonoBehaviour
             _change = false;
         }
 
-        if (dialogueUI._check && _nextStage)
-        {
-            _next = true;
-            _nextStage = false;
-        }
-
         if (_battleDialogue != null)
         {
             if (dialogueUI._check && _battleDialogue._battleClear)
             {
                 Timeline.SetActive(true);
             }
+        }
+
+        IEnumerator DestroyDialogue()
+        {
+            yield return new WaitForSeconds(0.5f);
+            dialogueUI._check = false;
+            Destroy(gameObject);
         }
     }
 }

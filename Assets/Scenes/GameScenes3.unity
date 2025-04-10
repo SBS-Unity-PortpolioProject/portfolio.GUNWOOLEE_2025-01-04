@@ -766,7 +766,7 @@ Transform:
   m_GameObject: {fileID: 355040640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 197.25067, y: 7.076968, z: -10}
+  m_LocalPosition: {x: 195.39067, y: 7.076968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -882,7 +882,7 @@ Transform:
   m_GameObject: {fileID: 360781412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 197.62, y: 5.81, z: 0}
+  m_LocalPosition: {x: 195.76, y: 5.81, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1678,7 +1678,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 197.25067, y: 7.076968, z: -10}
+  m_LocalPosition: {x: 195.39067, y: 7.076968, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26360,12 +26360,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBox: {fileID: 856721428}
+  clearScene: {fileID: 0}
   textLabel: {fileID: 1274001320}
   playerBar: {fileID: 598361182}
   playerBar2: {fileID: 0}
-  _dialogueActivator: {fileID: 1945093730}
+  _dialogueActivatorList:
+  - {fileID: 1945093729}
+  _currentDialogueActivator: {fileID: 0}
   _dialogueStarted: 0
   _check: 0
+  _dialogueCounter: 0
 --- !u!114 &735895657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103610,7 +103614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2999160970102388441, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 240.6
+      value: 240.7
       objectReference: {fileID: 0}
     - target: {fileID: 2999160970102388441, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -103674,7 +103678,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2999160970102388441, guid: fe62586477209db40a42ff068272518e, type: 3}
   m_PrefabInstance: {fileID: 1945093727}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1945093730 stripped
+--- !u!114 &1945093729 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
   m_PrefabInstance: {fileID: 1945093727}
