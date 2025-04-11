@@ -17,8 +17,8 @@ public class DialogueActivator : MonoBehaviour
     private bool _nextDialogue = false;
     private bool isInPlayer = false;
     public bool _timeline = false;
-    public bool _fadeIn = false;
-    public bool _fadeOut = false;
+    public bool _fadeIn, FadeIn = false;
+    public bool _fadeOut, FadeOut = false;
     public bool _firstMove = false;
     public bool _afterMove = false;
     public bool _other = false;
@@ -50,6 +50,11 @@ public class DialogueActivator : MonoBehaviour
             _other = true;
         }
         
+        if (dialogueUI._check && !isInPlayer)
+        {
+            dialogueUI._check = false;
+        }
+        
         if (dialogueUI._check && Timeline && isInPlayer)
         {
             _timeline = true;
@@ -66,6 +71,7 @@ public class DialogueActivator : MonoBehaviour
             if (dialogueUI._dialogueStarted && _firstMove)
             {
                 Player.transform.position = PlayerPosition;
+                Player.transform.localScale = new Vector3(3, 3, 1);
                 _firstMove = false;
             }
         }
@@ -75,16 +81,19 @@ public class DialogueActivator : MonoBehaviour
             if (dialogueUI._check && _afterMove)
             {
                 Player.transform.position = PlayerPosition;
+                Player.transform.localScale = new Vector3(3, 3, 1);
                 _afterMove = false;
             }
         }
         
         if (dialogueUI._check && _fadeIn)
         {
+            FadeIn = true;
             _fadeIn = false;
         }
         else if (dialogueUI._check && _fadeOut)
         {
+            FadeOut = true;
             _fadeOut = false;
         }
 
@@ -96,7 +105,7 @@ public class DialogueActivator : MonoBehaviour
 
         if (_battleDialogue != null)
         {
-            if (dialogueUI._check && _battleDialogue._battleClear)
+            if (_battleDialogue._battleClear)
             {
                 Timeline.SetActive(true);
             }
@@ -104,7 +113,7 @@ public class DialogueActivator : MonoBehaviour
 
         IEnumerator DestroyDialogue()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             dialogueUI._check = false;
             Destroy(gameObject);
         }

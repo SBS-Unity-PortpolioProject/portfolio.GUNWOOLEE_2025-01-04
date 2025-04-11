@@ -15,11 +15,11 @@ public class Fade : MonoBehaviour
 
     private void Update()
     {
-        if ((_dialogue._other || _dialoguenext._other) && _dialogue._fadeIn)
+        if (_dialogue.FadeIn)
         {
             StartCoroutine(fadeIn());
         }
-        else if ((_dialogue._other || _dialoguenext._other) && _dialogue._fadeOut)
+        else if (_dialogue.FadeOut)
         {
             StartCoroutine(fadeOut());
         }

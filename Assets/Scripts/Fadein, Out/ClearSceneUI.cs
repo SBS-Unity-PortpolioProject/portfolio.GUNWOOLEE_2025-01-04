@@ -7,7 +7,7 @@ public class ClearSceneUI : MonoBehaviour
 {
     public Image gameOverImage; 
     public float fadeDuration = 1f;
-
+    
     private void OnEnable()
     {
         StartCoroutine(FadeIn());

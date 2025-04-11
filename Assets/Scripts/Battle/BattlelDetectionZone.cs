@@ -39,7 +39,7 @@ public class BattleDetectionZone : MonoBehaviour
 
         if (_playerDirection && _detectionObjects.Count == 1)
         {
-            _battleClear = true; // MainStory4 활성화 시키는 코드 필요.
+            _battleClear = true;
         }
     }
     
