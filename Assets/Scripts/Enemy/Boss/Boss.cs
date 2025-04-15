@@ -122,15 +122,28 @@ public class Boss : MonoBehaviour
         _canAttack = true;
     }
     
-    private void Attacking1() // 기본적인 것 후에 만들기
+    private void Attacking1()
     {
+        int Rocation = Random.Range(0, 2);
+        
+        if (Rocation == 0)
+        {
+            transform.position = new Vector2(0,0);// 오른쪽 끝
+            transform.localScale = new Vector3(-6, 6, 1);            
+        }
+        else if (Rocation == 1)
+        {
+            transform.position = new Vector2(0,0);// 왼쪽 끝
+            transform.localScale = new Vector3(6, 6, 1);
+        }
+        
         bool _routine = false;
         _attack = true;
         StartCoroutine(AttackCool());
         _rb.transform.position = new Vector3(0, 5, 0);
     }
     
-    private void Attacking2() // 기본적인 것 후에 만들기
+    private void Attacking2()
     {
         bool _routine = false;
         _attack2 = true;
@@ -143,6 +156,7 @@ public class Boss : MonoBehaviour
         _moveDirection.y = 0;
         UpdateDirection();
         _rb.velocity = _moveDirection * speed;
+        _isMoving = _rb.velocity != Vector2.zero;
     }
 
     private void UpdateDirection()

@@ -170,11 +170,11 @@ public class Enemy : MonoBehaviour
             nextWaypoint = _wayPoints[waypointIndex];
         } 
     }
-
+    
     private Vector2 GetMoveDirection()
     {
         float distance = Vector2.Distance(nextWaypoint.position, transform.position);
-
+        
         if (distance < wayPointDistance)
         {
             waypointIndex++;
