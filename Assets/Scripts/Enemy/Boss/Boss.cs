@@ -6,8 +6,10 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private PlayerController Player;
+    [SerializeField] private GameObject Wall;
     
     public float speed;
+    public float attackMoveSpeed;
 
     private bool _canAttack = false;
 
@@ -57,6 +59,30 @@ public class Boss : MonoBehaviour
         }
     } 
     
+    private bool _vanish = false;
+
+    public bool Vanish
+    {
+        get { return _vanish;}
+        private set
+        {
+            _vanish = value;
+            _animator.SetTrigger(AnimationStrings.Vanish);
+        }
+    }
+    
+    private bool _appear = false;
+
+    public bool Appear
+    {
+        get { return _appear;}
+        private set
+        {
+            _appear = value;
+            _animator.SetTrigger(AnimationStrings.Appear);
+        }
+    }
+    
     private bool _isAlive = true;
 
     public bool IsAlive
@@ -74,7 +100,9 @@ public class Boss : MonoBehaviour
     private Damageable _damageable;
     private TouchingDirection _touchingDirection;
     private Vector2 _moveDirection = Vector2.zero;
-
+    
+    private bool _attacked = false;
+    
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -92,17 +120,12 @@ public class Boss : MonoBehaviour
         {
             return;
         }
-
-        if (!_isMoving)
-        {
-            return;
-        }
         
         Movement();
         
-        if (_canAttack)
+        if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(0, 2);
+            int _randomAttack = Random.Range(0, 1); // 아직 2번째 완성 안되서 1번째 껏만
             
             if (_randomAttack == 0)
             {
@@ -118,30 +141,98 @@ public class Boss : MonoBehaviour
     private IEnumerator AttackCool()
     {
         float timer = Random.Range(3f, 6f);
-        yield return new WaitForSeconds(timer);
-        _canAttack = true;
+        yield return new WaitForSeconds(timer); 
+        CanAttack = true;
+        _attacked = true;
     }
     
     private void Attacking1()
     {
+        Debug.Log("실행");
+        _attacked = false;
         int Rocation = Random.Range(0, 2);
+        Vector3 originPosition = new Vector3(0, 5, 0);
+        Vector3 RightPosition = new Vector3(8, -1.86f, 0);
+        Vector3 LeftPosition = new Vector3(-12, -1.86f, 0);
+        
+        Wall.SetActive(true);
+        _vanish = true;
         
         if (Rocation == 0)
         {
-            transform.position = new Vector2(0,0);// 오른쪽 끝
-            transform.localScale = new Vector3(-6, 6, 1);            
+            Debug.Log("이동");
+            transform.position = RightPosition;// 오른쪽 끝
+            transform.localScale = new Vector3(-6, 6, 1);
+            Appear = true;
+            Vanish = false;
+            
+            //if (Appear)
+            //{
+            //    Debug.Log("공격 준비");
+            //    Appear = false;
+            //    Vanish = true;
+            //
+            //    while (Mathf.Abs(transform.position.x - RightPosition.x) > 0.01f)
+            //    {
+            //        Debug.Log("공격중");
+            //        _moveDirection = (RightPosition - transform.position).normalized;
+            //        _rb.velocity = _moveDirection * attackMoveSpeed;
+            //        _isMoving = _rb.velocity != Vector2.zero;
+            //    }
+            //
+            //    Attack = false;
+            //    CanAttack = false; 
+            //    Vanish = true;
+            //    Wall.SetActive(false);
+            //
+            //    if (Vanish)
+            //    {
+            //        Debug.Log("사라짐");
+            //        transform.position = originPosition;
+            //        Appear = true;
+            //        Vanish = false;
+            //    }
+            //    Appear = false;
+            //    StartCoroutine(AttackCool());
+            //}
         }
         else if (Rocation == 1)
         {
-            transform.position = new Vector2(0,0);// 왼쪽 끝
+            Debug.Log("이동");
+            transform.position = LeftPosition;// 왼쪽 끝
             transform.localScale = new Vector3(6, 6, 1);
+            Appear = true;
+            Vanish = false;
+            
+            //if (Appear)
+            //{
+            //    Debug.Log("공격 준비");
+            //    Appear = false;
+            //    Attack = true;
+            //    while (Mathf.Abs(transform.position.x - LeftPosition.x) > 0.01f)
+            //    {
+            //        Debug.Log("공격중");
+            //        _moveDirection = (LeftPosition - transform.position).normalized;
+            //        _rb.velocity = _moveDirection * attackMoveSpeed;
+            //        _isMoving = _rb.velocity != Vector2.zero;
+            //    }
+            //    Attack = false;
+            //    CanAttack = false; 
+            //    Vanish = true;
+            //    Wall.SetActive(false);
+            //
+            //    if (Vanish)
+            //    {
+            //        Debug.Log("사라짐");
+            //        transform.position = originPosition;
+            //        Appear = true;
+            //        Vanish = false;
+            //    }
+            //    Appear = false;
+            //    StartCoroutine(AttackCool());
+            //}
         }
-        
-        bool _routine = false;
-        _attack = true;
-        StartCoroutine(AttackCool());
-        _rb.transform.position = new Vector3(0, 5, 0);
-    }
+    }   
     
     private void Attacking2()
     {
@@ -156,7 +247,7 @@ public class Boss : MonoBehaviour
         _moveDirection.y = 0;
         UpdateDirection();
         _rb.velocity = _moveDirection * speed;
-        _isMoving = _rb.velocity != Vector2.zero;
+        IsMoving = _rb.velocity != Vector2.zero;
     }
 
     private void UpdateDirection()
@@ -177,14 +268,6 @@ public class Boss : MonoBehaviour
         }
     }
 }
-
-
-
-
-
-
-
-
 
 
 

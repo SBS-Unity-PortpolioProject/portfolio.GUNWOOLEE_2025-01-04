@@ -17,6 +17,8 @@ public static class AnimationStrings
     public static string HasTargetParameterName = "HasTarget";
     public static string CanAttackParameterName = "CanAttack";
     public static string Attack2ParameterName = "Attack2";
+    public static string VanishParameterName = "Vanish";
+    public static string AppearParameterName = "Appear";
     public static string StopParameterName = "Stop";
     
     public static string OperationParameterName = "Operation";
@@ -36,6 +38,8 @@ public static class AnimationStrings
     public static int HasTarget = Animator.StringToHash(HasTargetParameterName);
     public static int CanAttack = Animator.StringToHash(CanAttackParameterName);
     public static int Attack2 = Animator.StringToHash(Attack2ParameterName);
+    public static int Vanish = Animator.StringToHash(VanishParameterName);
+    public static int Appear = Animator.StringToHash(AppearParameterName);
     public static int Stop = Animator.StringToHash(StopParameterName);
     
     public static int Operation = Animator.StringToHash(OperationParameterName);
