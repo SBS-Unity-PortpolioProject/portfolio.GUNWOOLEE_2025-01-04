@@ -86,7 +86,7 @@ public class Boss : MonoBehaviour
             
             if (_randomAttack == 0)
             {
-                StartCoroutine(Attacking1());   
+                StartCoroutine(Attacking1());
             }
             else
             {
@@ -110,38 +110,40 @@ public class Boss : MonoBehaviour
         _animator.SetTrigger(AnimationStrings.Attack); // Attack 키기
         
         Vector3 originPosition = new Vector3(0, 5, 0);
-        Vector3 RightPosition = new Vector3(8, -1.86f, 0);
-        Vector3 LeftPosition = new Vector3(-12, -1.86f, 0);
+        Vector3 RightPosition = new Vector3(7, -1.86f, 0);
+        Vector3 LeftPosition = new Vector3(-11, -1.86f, 0);
         
-        int Rocation = Random.Range(0, 1); // 테스트용으로 1개만
+        int Rocation = Random.Range(0, 2);
         
         Wall.SetActive(true);
         yield return Vanish();
-    
+        
         if (Rocation == 0)
         {
             transform.position = RightPosition; // 오른쪽 끝
             transform.localScale = new Vector3(-6, 6, 1);
             
-            StartCoroutine(Appear());
+            yield return Appear();
             
             while (Mathf.Abs(transform.position.x - LeftPosition.x) > 0.01f)
             {
-                Debug.Log("공격중");
-                _moveDirection = (RightPosition - transform.position).normalized;
+                _moveDirection = (LeftPosition - transform.position).normalized;
+                _moveDirection.y = 0;
                 _rb.velocity = _moveDirection * attackMoveSpeed;
-                _isMoving = _rb.velocity != Vector2.zero;
+                
+                yield return null;
             }
             
+            CanAttack = false;
             _animator.ResetTrigger(AnimationStrings.Attack); // Attack 끄기
             
-            StartCoroutine(Vanish());
-            
+            yield return Vanish();
+
             Wall.SetActive(false);
-            transform.position = originPosition;
-            Debug.Log("벽 지우기와 처음으로 돌아가기");
             
-            StartCoroutine(Appear());
+            transform.position = originPosition;
+            
+            yield return Appear();
             
             _attacked = false;
             StartCoroutine(AttackCool());
@@ -149,38 +151,34 @@ public class Boss : MonoBehaviour
         }
         else if (Rocation == 1)
         {
-            Debug.Log("이동");
             transform.position = LeftPosition;// 왼쪽 끝
             transform.localScale = new Vector3(6, 6, 1);
-            _animator.SetTrigger(AnimationStrings.Appear);
             
-            //if (Appear)
-            //{
-            //    Debug.Log("공격 준비");
-            //    Appear = false;
-            //    Attack = true;
-            //    while (Mathf.Abs(transform.position.x - LeftPosition.x) > 0.01f)
-            //    {
-            //        Debug.Log("공격중");
-            //        _moveDirection = (LeftPosition - transform.position).normalized;
-            //        _rb.velocity = _moveDirection * attackMoveSpeed;
-            //        _isMoving = _rb.velocity != Vector2.zero;
-            //    }
-            //    Attack = false;
-            //    CanAttack = false; 
-            //    Vanish = true;
-            //    Wall.SetActive(false);
-            //
-            //    if (Vanish)
-            //    {
-            //        Debug.Log("사라짐");
-            //        transform.position = originPosition;
-            //        Appear = true;
-            //        Vanish = false;
-            //    }
-            //    Appear = false;
-            //    StartCoroutine(AttackCool());
-            //}
+            yield return Appear();
+            
+            while (Mathf.Abs(transform.position.x - RightPosition.x) > 0.01f)
+            {
+                _moveDirection = (RightPosition - transform.position).normalized;
+                _moveDirection.y = 0;
+                _rb.velocity = _moveDirection * attackMoveSpeed;
+                
+                yield return null;
+            }
+            
+            CanAttack = false;
+            _animator.ResetTrigger(AnimationStrings.Attack); // Attack 끄기
+            
+            Wall.SetActive(false);
+            
+            yield return Vanish();
+            
+            transform.position = originPosition;
+            
+            yield return Appear();
+            
+            _attacked = false;
+            StartCoroutine(AttackCool());
+            Move = true;
         }
     }   
     
@@ -221,14 +219,14 @@ public class Boss : MonoBehaviour
     private IEnumerator Vanish()
     {
         _animator.SetTrigger(AnimationStrings.Vanish);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         _animator.ResetTrigger(AnimationStrings.Vanish);
     }
 
     private IEnumerator Appear()
     {
         _animator.SetTrigger(AnimationStrings.Appear);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1f);
         _animator.ResetTrigger(AnimationStrings.Appear);
     }
 }
