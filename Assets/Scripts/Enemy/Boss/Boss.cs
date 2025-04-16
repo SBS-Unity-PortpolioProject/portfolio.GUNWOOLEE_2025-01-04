@@ -13,6 +13,7 @@ public class Boss : MonoBehaviour
 
     private bool _canAttack = false;
     private bool _next = false;
+    private bool Move = true;
 
     public bool CanAttack
     {
@@ -21,30 +22,6 @@ public class Boss : MonoBehaviour
         {
             _canAttack = value;
             _animator.SetBool(AnimationStrings.CanAttack, value);
-        }
-    }
-    
-    private bool _attack = false;
-
-    public bool Attack
-    {
-        get { return _attack;}
-        private set
-        {
-            _attack = value;
-            _animator.SetTrigger(AnimationStrings.Attack);
-        }
-    }
-    
-    private bool _attack2 = false;
-
-    public bool Attack2
-    {
-        get { return _attack2; }
-        private set
-        {
-            _attack2 = value;
-            _animator.SetTrigger(AnimationStrings.Attack2);
         }
     }
     
@@ -97,8 +74,11 @@ public class Boss : MonoBehaviour
         {
             return;
         }
-        
-        Movement();
+
+        if (Move)
+        {
+            Movement();    
+        }
         
         if (_canAttack && _attacked)
         {
@@ -106,7 +86,7 @@ public class Boss : MonoBehaviour
             
             if (_randomAttack == 0)
             {
-                Attacking1();
+                StartCoroutine(Attacking1());   
             }
             else
             {
@@ -121,58 +101,51 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(timer); 
         CanAttack = true;
         _attacked = true;
+        Move = false;
     }
     
-    private void Attacking1()
+    private IEnumerator Attacking1()
     {
         _attacked = false;
-        Attack = true;
+        _animator.SetTrigger(AnimationStrings.Attack); // Attack 키기
         
-        int Rocation = Random.Range(0, 1);
         Vector3 originPosition = new Vector3(0, 5, 0);
         Vector3 RightPosition = new Vector3(8, -1.86f, 0);
         Vector3 LeftPosition = new Vector3(-12, -1.86f, 0);
         
-        Wall.SetActive(true);
-        StartCoroutine(WaitVanish());
+        int Rocation = Random.Range(0, 1); // 테스트용으로 1개만
         
-        if (Rocation == 0 && _next)
+        Wall.SetActive(true);
+        yield return Vanish();
+    
+        if (Rocation == 0)
         {
-            Debug.Log("이동");
-            transform.position = RightPosition;// 오른쪽 끝
+            transform.position = RightPosition; // 오른쪽 끝
             transform.localScale = new Vector3(-6, 6, 1);
-            _animator.SetTrigger(AnimationStrings.Appear);
             
-            //if (Appear)
-            //{
-            //    Debug.Log("공격 준비");
-            //    Appear = false;
-            //    StartCoroutine(WaitVanish());
-            //
-            //    while (Mathf.Abs(transform.position.x - RightPosition.x) > 0.01f)
-            //    {
-            //        Debug.Log("공격중");
-            //        _moveDirection = (RightPosition - transform.position).normalized;
-            //        _rb.velocity = _moveDirection * attackMoveSpeed;
-            //        _isMoving = _rb.velocity != Vector2.zero;
-            //    }
-            //
-            //    Attack = false;
-            //    CanAttack = false;
-            //    StartCoroutine(WaitVanish());
-            //    Wall.SetActive(false);
-            //
-            //    if (Vanish)
-            //    {
-            //        Debug.Log("사라짐");
-            //        transform.position = originPosition;
-            //        Appear = true;
-            //        Vanish = false;
-            //    }
-            //    Appear = false;
-            //    StartCoroutine(AttackCool());
-            //}
+            StartCoroutine(Appear());
             
+            while (Mathf.Abs(transform.position.x - LeftPosition.x) > 0.01f)
+            {
+                Debug.Log("공격중");
+                _moveDirection = (RightPosition - transform.position).normalized;
+                _rb.velocity = _moveDirection * attackMoveSpeed;
+                _isMoving = _rb.velocity != Vector2.zero;
+            }
+            
+            _animator.ResetTrigger(AnimationStrings.Attack); // Attack 끄기
+            
+            StartCoroutine(Vanish());
+            
+            Wall.SetActive(false);
+            transform.position = originPosition;
+            Debug.Log("벽 지우기와 처음으로 돌아가기");
+            
+            StartCoroutine(Appear());
+            
+            _attacked = false;
+            StartCoroutine(AttackCool());
+            Move = true;
         }
         else if (Rocation == 1)
         {
@@ -214,7 +187,7 @@ public class Boss : MonoBehaviour
     private void Attacking2()
     {
         bool _routine = false;
-        _attack2 = true;
+        _animator.SetTrigger(AnimationStrings.Attack2);
         StartCoroutine(AttackCool());
         _rb.transform.position = new Vector3(0, 5, 0);
     }
@@ -245,11 +218,18 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitVanish()
+    private IEnumerator Vanish()
     {
         _animator.SetTrigger(AnimationStrings.Vanish);
         yield return new WaitForSeconds(0.2f);
-        _next = true;
+        _animator.ResetTrigger(AnimationStrings.Vanish);
+    }
+
+    private IEnumerator Appear()
+    {
+        _animator.SetTrigger(AnimationStrings.Appear);
+        yield return new WaitForSeconds(0.8f);
+        _animator.ResetTrigger(AnimationStrings.Appear);
     }
 }
 
