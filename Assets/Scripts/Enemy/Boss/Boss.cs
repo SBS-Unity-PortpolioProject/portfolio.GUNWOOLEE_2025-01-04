@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     public float attackMoveSpeed;
 
     private bool _canAttack = false;
+    private bool _next = false;
 
     public bool CanAttack
     {
@@ -56,30 +57,6 @@ public class Boss : MonoBehaviour
         {
             _isMoving = value;
             _animator.SetBool(AnimationStrings.IsMoving, value);
-        }
-    } 
-    
-    private bool _vanish = false;
-
-    public bool Vanish
-    {
-        get { return _vanish;}
-        private set
-        {
-            _vanish = value;
-            _animator.SetTrigger(AnimationStrings.Vanish);
-        }
-    }
-    
-    private bool _appear = false;
-
-    public bool Appear
-    {
-        get { return _appear;}
-        private set
-        {
-            _appear = value;
-            _animator.SetTrigger(AnimationStrings.Appear);
         }
     }
     
@@ -148,29 +125,29 @@ public class Boss : MonoBehaviour
     
     private void Attacking1()
     {
-        Debug.Log("실행");
         _attacked = false;
-        int Rocation = Random.Range(0, 2);
+        Attack = true;
+        
+        int Rocation = Random.Range(0, 1);
         Vector3 originPosition = new Vector3(0, 5, 0);
         Vector3 RightPosition = new Vector3(8, -1.86f, 0);
         Vector3 LeftPosition = new Vector3(-12, -1.86f, 0);
         
         Wall.SetActive(true);
-        _vanish = true;
+        StartCoroutine(WaitVanish());
         
-        if (Rocation == 0)
+        if (Rocation == 0 && _next)
         {
             Debug.Log("이동");
             transform.position = RightPosition;// 오른쪽 끝
             transform.localScale = new Vector3(-6, 6, 1);
-            Appear = true;
-            Vanish = false;
+            _animator.SetTrigger(AnimationStrings.Appear);
             
             //if (Appear)
             //{
             //    Debug.Log("공격 준비");
             //    Appear = false;
-            //    Vanish = true;
+            //    StartCoroutine(WaitVanish());
             //
             //    while (Mathf.Abs(transform.position.x - RightPosition.x) > 0.01f)
             //    {
@@ -181,8 +158,8 @@ public class Boss : MonoBehaviour
             //    }
             //
             //    Attack = false;
-            //    CanAttack = false; 
-            //    Vanish = true;
+            //    CanAttack = false;
+            //    StartCoroutine(WaitVanish());
             //    Wall.SetActive(false);
             //
             //    if (Vanish)
@@ -195,14 +172,14 @@ public class Boss : MonoBehaviour
             //    Appear = false;
             //    StartCoroutine(AttackCool());
             //}
+            
         }
         else if (Rocation == 1)
         {
             Debug.Log("이동");
             transform.position = LeftPosition;// 왼쪽 끝
             transform.localScale = new Vector3(6, 6, 1);
-            Appear = true;
-            Vanish = false;
+            _animator.SetTrigger(AnimationStrings.Appear);
             
             //if (Appear)
             //{
@@ -266,6 +243,13 @@ public class Boss : MonoBehaviour
                 transform.localScale = new Vector3(-1f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
             }
         }
+    }
+
+    private IEnumerator WaitVanish()
+    {
+        _animator.SetTrigger(AnimationStrings.Vanish);
+        yield return new WaitForSeconds(0.2f);
+        _next = true;
     }
 }
 
