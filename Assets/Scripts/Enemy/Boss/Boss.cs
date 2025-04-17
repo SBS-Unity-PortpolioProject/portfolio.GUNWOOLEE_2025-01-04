@@ -101,11 +101,12 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(timer); 
         CanAttack = true;
         _attacked = true;
-        Move = false;
     }
     
     private IEnumerator Attacking1()
     {
+        Move = false;
+        IsMoving = false;
         _attacked = false;
         _animator.SetTrigger(AnimationStrings.Attack); // Attack 키기
         
