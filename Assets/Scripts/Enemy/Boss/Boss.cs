@@ -13,6 +13,7 @@ public class Boss : MonoBehaviour
 
     private bool _canAttack = false;
     private bool _next = false;
+    private bool _positionCheck = false;
     private bool Move = true;
 
     public bool CanAttack
@@ -56,6 +57,8 @@ public class Boss : MonoBehaviour
     private Damageable _damageable;
     private TouchingDirection _touchingDirection;
     private Vector2 _moveDirection = Vector2.zero;
+    Vector3 _playerPosition = Vector3.zero;
+    Vector3 _originPosition = new Vector3(0, 3, 0);
     
     private bool _attacked = false;
     
@@ -82,9 +85,14 @@ public class Boss : MonoBehaviour
             Movement();    
         }
         
+        if (_positionCheck)
+        {
+            _playerPosition = Player.transform.position;
+        }
+        
         if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(1, 2); // 2번째 공격만
+            int _randomAttack = Random.Range(1, 2); //2번째꺼
             
             if (_randomAttack == 0)
             {
@@ -111,10 +119,9 @@ public class Boss : MonoBehaviour
         Move = false;
         IsMoving = false;
         _attacked = false;
-        _animator.SetTrigger(AnimationStrings.Attack); // Attack 키기
+        _animator.SetTrigger(AnimationStrings.Attack);
         _rb.velocity = Vector2.zero;
         
-        Vector3 originPosition = new Vector3(0, 5, 0);
         Vector3 RightPosition = new Vector3(7, -1.86f, 0);
         Vector3 LeftPosition = new Vector3(-11, -1.86f, 0);
         
@@ -125,7 +132,7 @@ public class Boss : MonoBehaviour
         
         if (Rocation == 0)
         {
-            transform.position = RightPosition; // 오른쪽 끝
+            transform.position = RightPosition;
             transform.localScale = new Vector3(-6, 6, 1);
             
             yield return Appear();
@@ -140,13 +147,13 @@ public class Boss : MonoBehaviour
             }
             
             CanAttack = false;
-            _animator.ResetTrigger(AnimationStrings.Attack); // Attack 끄기
+            _animator.ResetTrigger(AnimationStrings.Attack);
             
             yield return Vanish();
 
             Wall.SetActive(false);
             
-            transform.position = originPosition;
+            transform.position = _originPosition;
             
             yield return Appear();
             
@@ -156,7 +163,7 @@ public class Boss : MonoBehaviour
         }
         else if (Rocation == 1)
         {
-            transform.position = LeftPosition;// 왼쪽 끝
+            transform.position = LeftPosition;
             transform.localScale = new Vector3(6, 6, 1);
             
             yield return Appear();
@@ -171,13 +178,13 @@ public class Boss : MonoBehaviour
             }
             
             CanAttack = false;
-            _animator.ResetTrigger(AnimationStrings.Attack); // Attack 끄기
+            _animator.ResetTrigger(AnimationStrings.Attack);
             
             Wall.SetActive(false);
             
             yield return Vanish();
             
-            transform.position = originPosition;
+            transform.position = _originPosition;
             
             yield return Appear();
             
@@ -192,14 +199,20 @@ public class Boss : MonoBehaviour
         Move = false;
         IsMoving = false;
         _attacked = false;
+        _rb.velocity = Vector2.zero;
         _animator.SetTrigger(AnimationStrings.Attack2);
-        Vector3 _originPosition = new Vector3(0, 3, 0);
-        Vector3 _playerPosition = Player.transform.position;
+        
         int _randomRoutine = Random.Range(1, 3);
-
+        Vector3 _movePosition = Vector3.zero;
+        
+        
         yield return Vanish();
-        transform.position = _playerPosition;
+        PositionCheck();
+        _movePosition = _playerPosition;
+        transform.position = _movePosition;
 
+        yield return precautions();
+        
         yield return WaitAttack2();
         
         yield return Vanish();
@@ -212,8 +225,12 @@ public class Boss : MonoBehaviour
             for (int i = 0; i <= _randomRoutine; i++)
             {
                 yield return Vanish();
-                transform.position = _playerPosition;
-
+                PositionCheck();
+                _movePosition = _playerPosition;
+                transform.position = _movePosition;
+                
+                yield return precautions();
+                
                 yield return WaitAttack2();
                 
                 yield return Vanish();
@@ -264,6 +281,13 @@ public class Boss : MonoBehaviour
         }
     }
 
+    private void PositionCheck()
+    {
+        _positionCheck = true;
+        _positionCheck = false;
+        Debug.Log(_playerPosition);
+    }
+    
     private IEnumerator Vanish()
     {
         _animator.SetTrigger(AnimationStrings.Vanish);
@@ -281,6 +305,13 @@ public class Boss : MonoBehaviour
     private IEnumerator WaitAttack2()
     {
         yield return new WaitForSeconds(1.5f);
+        _animator.ResetTrigger(AnimationStrings.Attack2);
+    }
+
+    private IEnumerator precautions()
+    {
+        yield return new WaitForSeconds(1f);
+        _animator.SetTrigger(AnimationStrings.Attack2);
     }
 }
 
