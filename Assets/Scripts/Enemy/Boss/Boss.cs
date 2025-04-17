@@ -37,17 +37,19 @@ public class Boss : MonoBehaviour
         }
     }
     
-    private bool _isAlive = true;
+    private bool _routine = true;
 
-    public bool IsAlive
+    public bool Routine
     {
-        get { return _isAlive; }
+        get { return _routine; }
         private set
         {
-            _isAlive = value;
-            _animator.SetBool(AnimationStrings.IsAlive, value);
+            _routine = value;
+            _animator.SetBool(AnimationStrings.Routine, value);
         }
     }
+    
+    public bool _isAlive => _animator.GetBool(AnimationStrings.IsAlive);
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -82,15 +84,16 @@ public class Boss : MonoBehaviour
         
         if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(0, 1); // 아직 2번째 완성 안되서 1번째 껏만
+            int _randomAttack = Random.Range(1, 2); // 2번째 공격만
             
             if (_randomAttack == 0)
             {
                 StartCoroutine(Attacking1());
             }
-            else
+            else if (_randomAttack == 1)
             {
-                Attacking2();
+                Routine = true;
+                StartCoroutine(Attacking2());
             }
         }
     }
@@ -109,6 +112,7 @@ public class Boss : MonoBehaviour
         IsMoving = false;
         _attacked = false;
         _animator.SetTrigger(AnimationStrings.Attack); // Attack 키기
+        _rb.velocity = Vector2.zero;
         
         Vector3 originPosition = new Vector3(0, 5, 0);
         Vector3 RightPosition = new Vector3(7, -1.86f, 0);
@@ -183,12 +187,47 @@ public class Boss : MonoBehaviour
         }
     }   
     
-    private void Attacking2()
+    private IEnumerator Attacking2()
     {
-        bool _routine = false;
+        Move = false;
+        IsMoving = false;
+        _attacked = false;
         _animator.SetTrigger(AnimationStrings.Attack2);
+        Vector3 _originPosition = new Vector3(0, 3, 0);
+        Vector3 _playerPosition = Player.transform.position;
+        int _randomRoutine = Random.Range(1, 3);
+
+        yield return Vanish();
+        transform.position = _playerPosition;
+
+        yield return WaitAttack2();
+        
+        yield return Vanish();
+        transform.position = _originPosition;
+        
+        yield return Appear();
+
+        if (_randomRoutine != 0 && Routine)
+        {
+            for (int i = 0; i <= _randomRoutine; i++)
+            {
+                yield return Vanish();
+                transform.position = _playerPosition;
+
+                yield return WaitAttack2();
+                
+                yield return Vanish();
+                transform.position = _originPosition;
+                
+                yield return Appear();
+            }
+            CanAttack = false;
+            Routine = false;
+        }
+        _attacked = false;
+        _animator.ResetTrigger(AnimationStrings.Attack2);
         StartCoroutine(AttackCool());
-        _rb.transform.position = new Vector3(0, 5, 0);
+        Move = true;
     }
     private void Movement()
     {
@@ -196,7 +235,15 @@ public class Boss : MonoBehaviour
         _moveDirection.y = 0;
         UpdateDirection();
         _rb.velocity = _moveDirection * speed;
-        IsMoving = _rb.velocity != Vector2.zero;
+
+        if (Mathf.Abs(_moveDirection.x) > 0.05f)
+        {
+            IsMoving = true;
+        }
+        else
+        {
+            IsMoving = false;
+        }
     }
 
     private void UpdateDirection()
@@ -220,15 +267,20 @@ public class Boss : MonoBehaviour
     private IEnumerator Vanish()
     {
         _animator.SetTrigger(AnimationStrings.Vanish);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         _animator.ResetTrigger(AnimationStrings.Vanish);
     }
 
     private IEnumerator Appear()
     {
         _animator.SetTrigger(AnimationStrings.Appear);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.9f);
         _animator.ResetTrigger(AnimationStrings.Appear);
+    }
+
+    private IEnumerator WaitAttack2()
+    {
+        yield return new WaitForSeconds(1.5f);
     }
 }
 

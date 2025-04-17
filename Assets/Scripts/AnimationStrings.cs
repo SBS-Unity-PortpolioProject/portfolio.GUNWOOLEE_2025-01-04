@@ -21,6 +21,7 @@ public static class AnimationStrings
     public static string VanishParameterName = "Vanish";
     public static string AppearParameterName = "Appear";
     public static string StopParameterName = "Stop";
+    public static string RoutineParameterName = "Routine";
     
     public static string OperationParameterName = "Operation";
     
@@ -43,6 +44,7 @@ public static class AnimationStrings
     public static int Vanish = Animator.StringToHash(VanishParameterName);
     public static int Appear = Animator.StringToHash(AppearParameterName);
     public static int Stop = Animator.StringToHash(StopParameterName);
+    public static int Routine = Animator.StringToHash(RoutineParameterName);
     
     public static int Operation = Animator.StringToHash(OperationParameterName);
 }
