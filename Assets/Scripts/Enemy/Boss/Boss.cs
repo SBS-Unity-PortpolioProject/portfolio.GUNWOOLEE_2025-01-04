@@ -211,7 +211,7 @@ public class Boss : MonoBehaviour
         _movePosition = _playerPosition;
         transform.position = _movePosition;
 
-        yield return precautions();
+        yield return Warning();
         
         yield return WaitAttack2();
         
@@ -229,7 +229,7 @@ public class Boss : MonoBehaviour
                 _movePosition = _playerPosition;
                 transform.position = _movePosition;
                 
-                yield return precautions();
+                yield return Warning();
                 
                 yield return WaitAttack2();
                 
@@ -305,13 +305,11 @@ public class Boss : MonoBehaviour
     private IEnumerator WaitAttack2()
     {
         yield return new WaitForSeconds(1.5f);
-        _animator.ResetTrigger(AnimationStrings.Attack2);
     }
 
-    private IEnumerator precautions()
+    private IEnumerator Warning()
     {
         yield return new WaitForSeconds(1f);
-        _animator.SetTrigger(AnimationStrings.Attack2);
     }
 }
 
