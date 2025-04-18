@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
 {
     [SerializeField] private PlayerController Player;
     [SerializeField] private GameObject Wall;
+    [SerializeField] private GameObject _warning;
     
     public float speed;
     public float attackMoveSpeed;
@@ -83,11 +84,6 @@ public class Boss : MonoBehaviour
         if (Move)
         {
             Movement();    
-        }
-        
-        if (_positionCheck)
-        {
-            _playerPosition = Player.transform.position;
         }
         
         if (_canAttack && _attacked)
@@ -205,13 +201,10 @@ public class Boss : MonoBehaviour
         int _randomRoutine = Random.Range(1, 3);
         Vector3 _movePosition = Vector3.zero;
         
-        
         yield return Vanish();
-        PositionCheck();
-        _movePosition = _playerPosition;
-        transform.position = _movePosition;
-
+        
         yield return Warning();
+        transform.position = _playerPosition;
         
         yield return WaitAttack2();
         
@@ -225,17 +218,15 @@ public class Boss : MonoBehaviour
             for (int i = 0; i <= _randomRoutine; i++)
             {
                 yield return Vanish();
-                PositionCheck();
-                _movePosition = _playerPosition;
-                transform.position = _movePosition;
-                
+        
                 yield return Warning();
+                transform.position = _playerPosition;   
                 
                 yield return WaitAttack2();
-                
+        
                 yield return Vanish();
                 transform.position = _originPosition;
-                
+        
                 yield return Appear();
             }
             CanAttack = false;
@@ -281,11 +272,9 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void PositionCheck()
+    private void PlayerPositionCheck()
     {
-        _positionCheck = true;
-        _positionCheck = false;
-        Debug.Log(_playerPosition);
+        _playerPosition = Player.transform.position;
     }
     
     private IEnumerator Vanish()
@@ -304,12 +293,21 @@ public class Boss : MonoBehaviour
 
     private IEnumerator WaitAttack2()
     {
+        Debug.Log(123);
         yield return new WaitForSeconds(1.5f);
+        _animator.ResetTrigger(AnimationStrings.Attack2);
     }
 
     private IEnumerator Warning()
     {
+        PlayerPositionCheck();
+        _warning.transform.position = _playerPosition;
+        _warning.gameObject.SetActive(true);
+        
         yield return new WaitForSeconds(1f);
+        
+        _warning.gameObject.SetActive(false);
+        _animator.SetTrigger(AnimationStrings.Attack2);
     }
 }
 
