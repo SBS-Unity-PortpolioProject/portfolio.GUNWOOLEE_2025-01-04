@@ -88,7 +88,7 @@ public class Boss : MonoBehaviour
         
         if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(1, 2); //2번째꺼
+            int _randomAttack = Random.Range(0, 2);
             
             if (_randomAttack == 0)
             {
@@ -293,7 +293,6 @@ public class Boss : MonoBehaviour
 
     private IEnumerator WaitAttack2()
     {
-        Debug.Log(123);
         yield return new WaitForSeconds(1.5f);
         _animator.ResetTrigger(AnimationStrings.Attack2);
     }
@@ -304,7 +303,7 @@ public class Boss : MonoBehaviour
         _warning.transform.position = _playerPosition;
         _warning.gameObject.SetActive(true);
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
         
         _warning.gameObject.SetActive(false);
         _animator.SetTrigger(AnimationStrings.Attack2);
