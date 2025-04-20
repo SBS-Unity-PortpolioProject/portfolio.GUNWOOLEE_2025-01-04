@@ -2885,6 +2885,7 @@ MonoBehaviour:
   _warning: {fileID: 1568613965}
   speed: 10
   attackMoveSpeed: 15
+  fallSpeed: 30
 --- !u!50 &843473617
 Rigidbody2D:
   serializedVersion: 4

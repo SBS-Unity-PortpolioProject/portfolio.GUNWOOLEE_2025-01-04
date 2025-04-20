@@ -11,11 +11,10 @@ public class Boss : MonoBehaviour
     
     public float speed;
     public float attackMoveSpeed;
-
-    private bool _canAttack = false;
-    private bool _next = false;
-    private bool _positionCheck = false;
+    public float fallSpeed;
     private bool Move = true;
+    
+    private bool _canAttack = false;
 
     public bool CanAttack
     {
@@ -24,6 +23,18 @@ public class Boss : MonoBehaviour
         {
             _canAttack = value;
             _animator.SetBool(AnimationStrings.CanAttack, value);
+        }
+    }
+
+    private bool _stop = false;
+    
+    public bool Stop
+    {
+        get { return _stop; }
+        private set
+        {
+            _stop = value;
+            _animator.SetBool(AnimationStrings.Stop, value);
         }
     }
     
@@ -88,7 +99,7 @@ public class Boss : MonoBehaviour
         
         if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(0, 2);
+            int _randomAttack = Random.Range(2, 3);
             
             if (_randomAttack == 0)
             {
@@ -98,6 +109,10 @@ public class Boss : MonoBehaviour
             {
                 Routine = true;
                 StartCoroutine(Attacking2());
+            }
+            else
+            {
+                StartCoroutine(Attacking3());
             }
         }
     }
@@ -237,6 +252,15 @@ public class Boss : MonoBehaviour
         StartCoroutine(AttackCool());
         Move = true;
     }
+
+    private IEnumerator Attacking3()
+    {
+        yield return Vanish();
+        transform.position = _originPosition;
+
+        Stop = false;
+        
+    }
     private void Movement()
     {
         _moveDirection = (Player.transform.position - transform.position).normalized;
@@ -307,6 +331,24 @@ public class Boss : MonoBehaviour
         
         _warning.gameObject.SetActive(false);
         _animator.SetTrigger(AnimationStrings.Attack2);
+    }
+
+    private IEnumerator Attack3()
+    {
+        _moveDirection = (new Vector3(0, 1.9f, 0) - transform.position).normalized;
+        
+        yield return new WaitForSeconds(0.05f);
+        while (transform.position.y < -1.9f)
+        {
+            _rb.velocity = _moveDirection * fallSpeed;
+            
+            yield return null;
+        }
+    }
+
+    private IEnumerator WaitAttack3()
+    {
+        yield return new WaitForSeconds(1.5f);
     }
 }
 
