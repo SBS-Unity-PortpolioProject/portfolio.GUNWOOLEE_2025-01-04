@@ -11,11 +11,18 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _bossEffect1;
     [SerializeField] private GameObject _bossEffect2;
     [SerializeField] private GameObject _bossEffect3;
+    [SerializeField] private GameObject _swordEffect1;
+    [SerializeField] private GameObject _swordEffect2;
+    [SerializeField] private GameObject _swordEffect3;
+    [SerializeField] private GameObject _swordEffect4;
     
     public float speed;
     public float attackMoveSpeed;
     public float fallSpeed;
+
     private bool Move = true;
+    private int _attackCount = 0;
+    private bool _attacked = false;
     
     private bool _canAttack = false;
 
@@ -75,8 +82,6 @@ public class Boss : MonoBehaviour
     Vector3 _playerPosition = Vector3.zero;
     Vector3 _originPosition = new Vector3(0, 3, 0);
     
-    private bool _attacked = false;
-    
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -102,20 +107,38 @@ public class Boss : MonoBehaviour
         
         if (_canAttack && _attacked)
         {
-            int _randomAttack = Random.Range(2, 3);
-            
-            if (_randomAttack == 0)
-            {
-                StartCoroutine(Attacking1());
-            }
-            else if (_randomAttack == 1)
-            {
-                Routine = true;
-                StartCoroutine(Attacking2());
-            }
-            else if (_randomAttack == 2)
+            int _randomAttack = Random.Range(0, 2);
+            int _rnadomSkill = Random.Range(0, 2);
+
+            if (_randomAttack == 0 && _attackCount < 3)
             {
                 StartCoroutine(Attacking3());
+
+                //StartCoroutine(Attacking1());
+                _attackCount++;
+            }
+            else if (_randomAttack == 1 && _attackCount < 3)
+            {
+                Routine = true;
+                StartCoroutine(Attacking3());
+                //StartCoroutine(Attacking2());
+                _attackCount++;
+            }
+            else if (_rnadomSkill == 0)
+            {
+                if (_attackCount == 3)
+                {
+                    _attackCount = 0;
+                    StartCoroutine(Attacking3());
+                }
+            }
+            else if (_rnadomSkill == 1)
+            {
+                if (_attackCount == 4)
+                {
+                    _attackCount = 0;
+                    StartCoroutine(Attacking3());
+                }
             }
         }
     }
@@ -206,7 +229,7 @@ public class Boss : MonoBehaviour
         }
     }   
     
-    private IEnumerator Attacking2()
+    private IEnumerator Attacking2() // 씨발 여기 문제있음 씨발씨발씨발
     {
         Move = false;
         IsMoving = false;
@@ -278,6 +301,7 @@ public class Boss : MonoBehaviour
         CanAttack = false;
         Stop = false;
         _animator.ResetTrigger(AnimationStrings.Attack3);
+        StartCoroutine(AttackCool());
         Move = true; 
     }
     private void Movement()
@@ -357,15 +381,22 @@ public class Boss : MonoBehaviour
         _moveDirection = (new Vector3(0, 1.9f, 0) - transform.position).normalized;
         _moveDirection.x = 0;
         
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f); // 0.4초
         while (transform.position.y > -1.9f)
         {
             _rb.velocity = _moveDirection * fallSpeed;
             
             yield return null;
         }
+
+        yield return new WaitForSeconds(1f);
+        _swordEffect1.SetActive(true);
+        _swordEffect2.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        _swordEffect3.SetActive(true);
+        _swordEffect4.SetActive(true);
         
-        yield return new WaitForSeconds(1.6f);
+        yield return new WaitForSeconds(0.84f);
         _bossEffect1.SetActive(true);
         _bossEffect2.SetActive(true);
         yield return new WaitForSeconds(0.41f);
@@ -375,8 +406,12 @@ public class Boss : MonoBehaviour
     {
         float count = 0.5f;
         _bossEffect3.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.6f);
         
+        _swordEffect1.SetActive(false);
+        _swordEffect2.SetActive(false);
+        _swordEffect3.SetActive(false);
+        _swordEffect4.SetActive(false);
         _bossEffect1.SetActive(false);
         _bossEffect2.SetActive(false);
         _bossEffect3.SetActive(true);
@@ -386,10 +421,10 @@ public class Boss : MonoBehaviour
             _bossEffect3.transform.localScale = new Vector3(1 + count, 1 + count, 1);
             count++;
             
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.01f);
             yield return null;
         }
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.5f);
         _bossEffect3.SetActive(false);
     }
     
@@ -397,7 +432,7 @@ public class Boss : MonoBehaviour
     {
         yield return new WaitForSeconds(7f); // 원래 7초
         Stop = true; // Vanish로 가기 위한 조건
-        yield return new WaitForSeconds(1.15f);
+        yield return new WaitForSeconds(1.1f);
     }
 }
 
