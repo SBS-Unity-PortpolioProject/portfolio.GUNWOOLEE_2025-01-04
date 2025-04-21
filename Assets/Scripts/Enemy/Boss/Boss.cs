@@ -8,6 +8,9 @@ public class Boss : MonoBehaviour
     [SerializeField] private PlayerController Player;
     [SerializeField] private GameObject Wall;
     [SerializeField] private GameObject _warning;
+    [SerializeField] private GameObject _bossEffect1;
+    [SerializeField] private GameObject _bossEffect2;
+    [SerializeField] private GameObject _bossEffect3;
     
     public float speed;
     public float attackMoveSpeed;
@@ -112,7 +115,6 @@ public class Boss : MonoBehaviour
             }
             else if (_randomAttack == 2)
             {
-                Debug.Log(123);
                 StartCoroutine(Attacking3());
             }
         }
@@ -262,11 +264,16 @@ public class Boss : MonoBehaviour
         yield return Vanish();
         transform.position = _originPosition;
         
-        yield return Attack3();
+        yield return Appear();
         
+        yield return Attack3();
+
+        yield return ChargingAttack();
+
         yield return WaitAttack3();
         
         yield return Vanish();
+        transform.position = _originPosition;
         
         CanAttack = false;
         Stop = false;
@@ -348,21 +355,49 @@ public class Boss : MonoBehaviour
     private IEnumerator Attack3()
     {
         _moveDirection = (new Vector3(0, 1.9f, 0) - transform.position).normalized;
+        _moveDirection.x = 0;
         
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.4f);
         while (transform.position.y > -1.9f)
         {
             _rb.velocity = _moveDirection * fallSpeed;
             
             yield return null;
         }
-        yield return new WaitForSeconds(2.01f);
+        
+        yield return new WaitForSeconds(1.6f);
+        _bossEffect1.SetActive(true);
+        _bossEffect2.SetActive(true);
+        yield return new WaitForSeconds(0.41f);
     }
 
+    private IEnumerator ChargingAttack()
+    {
+        float count = 0.5f;
+        _bossEffect3.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        yield return new WaitForSeconds(3f);
+        
+        _bossEffect1.SetActive(false);
+        _bossEffect2.SetActive(false);
+        _bossEffect3.SetActive(true);
+        
+        while (_bossEffect3.transform.localScale.x < 6)
+        {
+            _bossEffect3.transform.localScale = new Vector3(1 + count, 1 + count, 1);
+            count++;
+            
+            yield return new WaitForSeconds(0.05f);
+            yield return null;
+        }
+        yield return new WaitForSeconds(0.35f);
+        _bossEffect3.SetActive(false);
+    }
+    
     private IEnumerator WaitAttack3()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(7f); // 원래 7초
         Stop = true; // Vanish로 가기 위한 조건
+        yield return new WaitForSeconds(1.15f);
     }
 }
 

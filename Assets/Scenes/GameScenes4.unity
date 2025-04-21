@@ -622,8 +622,8 @@ GameObject:
   - component: {fileID: 260808456}
   - component: {fileID: 260808458}
   - component: {fileID: 260808457}
-  m_Layer: 8
-  m_Name: BossEjectionEffect
+  m_Layer: 0
+  m_Name: BossEjectionEffect3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -638,7 +638,7 @@ Transform:
   m_GameObject: {fileID: 260808455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,11 +703,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1907030209
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4811321, g: 0.12936097, b: 0.1520453, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -728,7 +728,7 @@ GameObject:
   - component: {fileID: 309898569}
   - component: {fileID: 309898571}
   - component: {fileID: 309898570}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BossChargingEfect1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +744,7 @@ Transform:
   m_GameObject: {fileID: 309898568}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -809,15 +809,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1907030209
+  m_SortingLayer: 1
+  m_SortingOrder: -1
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.24705882, g: 0.15294118, b: 0.15294118, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -1239,8 +1239,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -751484163
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 816427264, guid: 63268c3561671a642b966b31650f4521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2639,7 +2639,7 @@ GameObject:
   - component: {fileID: 738103707}
   - component: {fileID: 738103709}
   - component: {fileID: 738103708}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: BossChargingEfect2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2655,7 +2655,7 @@ Transform:
   m_GameObject: {fileID: 738103706}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2720,11 +2720,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1907030209
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6313726, g: 0.28235295, b: 0.28235295, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3135,8 +3135,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1907030209
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1016743878066031791, guid: e176c42fb0562194da44da80535f1bc6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3204,9 +3204,12 @@ MonoBehaviour:
   Player: {fileID: 360781421}
   Wall: {fileID: 2126175489}
   _warning: {fileID: 1568613965}
+  _bossEffect1: {fileID: 309898568}
+  _bossEffect2: {fileID: 738103706}
+  _bossEffect3: {fileID: 260808455}
   speed: 10
   attackMoveSpeed: 15
-  fallSpeed: 30
+  fallSpeed: 50
 --- !u!50 &843473617
 Rigidbody2D:
   serializedVersion: 4
@@ -3222,7 +3225,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3233,7 +3236,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!1 &856721428
 GameObject:
   m_ObjectHideFlags: 0
