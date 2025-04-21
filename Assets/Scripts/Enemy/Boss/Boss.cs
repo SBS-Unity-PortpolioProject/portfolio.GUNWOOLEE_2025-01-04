@@ -110,8 +110,9 @@ public class Boss : MonoBehaviour
                 Routine = true;
                 StartCoroutine(Attacking2());
             }
-            else
+            else if (_randomAttack == 2)
             {
+                Debug.Log(123);
                 StartCoroutine(Attacking3());
             }
         }
@@ -168,7 +169,6 @@ public class Boss : MonoBehaviour
             
             yield return Appear();
             
-            _attacked = false;
             StartCoroutine(AttackCool());
             Move = true;
         }
@@ -199,7 +199,6 @@ public class Boss : MonoBehaviour
             
             yield return Appear();
             
-            _attacked = false;
             StartCoroutine(AttackCool());
             Move = true;
         }
@@ -247,7 +246,6 @@ public class Boss : MonoBehaviour
             CanAttack = false;
             Routine = false;
         }
-        _attacked = false;
         _animator.ResetTrigger(AnimationStrings.Attack2);
         StartCoroutine(AttackCool());
         Move = true;
@@ -255,11 +253,25 @@ public class Boss : MonoBehaviour
 
     private IEnumerator Attacking3()
     {
+        Move = false;
+        IsMoving = false;
+        _attacked = false;
+        Stop = false;
+        _animator.SetTrigger(AnimationStrings.Attack3);
+
         yield return Vanish();
         transform.position = _originPosition;
-
-        Stop = false;
         
+        yield return Attack3();
+        
+        yield return WaitAttack3();
+        
+        yield return Vanish();
+        
+        CanAttack = false;
+        Stop = false;
+        _animator.ResetTrigger(AnimationStrings.Attack3);
+        Move = true; 
     }
     private void Movement()
     {
@@ -304,14 +316,14 @@ public class Boss : MonoBehaviour
     private IEnumerator Vanish()
     {
         _animator.SetTrigger(AnimationStrings.Vanish);
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.5f);
         _animator.ResetTrigger(AnimationStrings.Vanish);
     }
 
     private IEnumerator Appear()
     {
         _animator.SetTrigger(AnimationStrings.Appear);
-        yield return new WaitForSeconds(0.9f);
+        yield return new WaitForSeconds(0.75f);
         _animator.ResetTrigger(AnimationStrings.Appear);
     }
 
@@ -338,17 +350,19 @@ public class Boss : MonoBehaviour
         _moveDirection = (new Vector3(0, 1.9f, 0) - transform.position).normalized;
         
         yield return new WaitForSeconds(0.05f);
-        while (transform.position.y < -1.9f)
+        while (transform.position.y > -1.9f)
         {
             _rb.velocity = _moveDirection * fallSpeed;
             
             yield return null;
         }
+        yield return new WaitForSeconds(2.01f);
     }
 
     private IEnumerator WaitAttack3()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(15f);
+        Stop = true; // Vanish로 가기 위한 조건
     }
 }
 
