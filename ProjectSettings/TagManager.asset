@@ -8,6 +8,7 @@ TagManager:
   - Battle1
   - Battle2
   - Battle3
+  - Boss
   layers:
   - Default
   - TransparentFX
