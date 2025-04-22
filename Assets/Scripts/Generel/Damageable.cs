@@ -15,7 +15,7 @@ public class Damageable : MonoBehaviour
     
     [SerializeField] private int _maxHealth = 100;
     
-    [SerializeField] private bool _isInvincible = false;
+    [SerializeField] public bool _isInvincible = false;
     
     [SerializeField] private float _InvincibilityTime = 0.25f;
     

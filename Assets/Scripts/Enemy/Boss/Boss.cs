@@ -90,6 +90,7 @@ public class Boss : MonoBehaviour
         _touchingDirection = GetComponent<TouchingDirection>();
 
         StartCoroutine(AttackCool());
+        _damageable._isInvincible = true;
     }
 
 
@@ -112,16 +113,13 @@ public class Boss : MonoBehaviour
 
             if (_randomAttack == 0 && _attackCount < 3)
             {
-                StartCoroutine(Attacking3());
-
-                //StartCoroutine(Attacking1());
+                StartCoroutine(Attacking1());
                 _attackCount++;
             }
             else if (_randomAttack == 1 && _attackCount < 3)
             {
                 Routine = true;
-                StartCoroutine(Attacking3());
-                //StartCoroutine(Attacking2());
+                StartCoroutine(Attacking2());
                 _attackCount++;
             }
             else if (_rnadomSkill == 0)
@@ -147,6 +145,7 @@ public class Boss : MonoBehaviour
     {
         float timer = Random.Range(3f, 6f);
         yield return new WaitForSeconds(timer); 
+        _damageable._isInvincible = true;
         CanAttack = true;
         _attacked = true;
     }
@@ -229,7 +228,7 @@ public class Boss : MonoBehaviour
         }
     }   
     
-    private IEnumerator Attacking2() // 씨발 여기 문제있음 씨발씨발씨발
+    private IEnumerator Attacking2()
     {
         Move = false;
         IsMoving = false;
@@ -282,6 +281,8 @@ public class Boss : MonoBehaviour
         IsMoving = false;
         _attacked = false;
         Stop = false;
+        _rb.velocity = Vector2.zero;
+        _damageable._isInvincible = true;
         _animator.SetTrigger(AnimationStrings.Attack3);
 
         yield return Vanish();
@@ -430,9 +431,11 @@ public class Boss : MonoBehaviour
     
     private IEnumerator WaitAttack3()
     {
+        _damageable._isInvincible = false;
         yield return new WaitForSeconds(7f); // 원래 7초
         Stop = true; // Vanish로 가기 위한 조건
         yield return new WaitForSeconds(1.1f);
+        _damageable._isInvincible = true;
     }
 }
 
