@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    [SerializeField] private PlayerController Player;
+    [SerializeField] private PlayerController _playerController;
+    [SerializeField] private GameObject _player;
     [SerializeField] private GameObject Wall;
     [SerializeField] private GameObject _warning;
     [SerializeField] private GameObject _bossEffect1;
@@ -155,8 +156,9 @@ public class Boss : MonoBehaviour
         Move = false;
         IsMoving = false;
         _attacked = false;
-        _animator.SetTrigger(AnimationStrings.Attack);
         _rb.velocity = Vector2.zero;
+        _animator.SetTrigger(AnimationStrings.Attack);
+        _player.transform.position = new Vector3(0, -1.37f, 0);
         
         Vector3 RightPosition = new Vector3(7, -1.86f, 0);
         Vector3 LeftPosition = new Vector3(-11, -1.86f, 0);
@@ -307,7 +309,7 @@ public class Boss : MonoBehaviour
     }
     private void Movement()
     {
-        _moveDirection = (Player.transform.position - transform.position).normalized;
+        _moveDirection = (_playerController.transform.position - transform.position).normalized;
         _moveDirection.y = 0;
         UpdateDirection();
         _rb.velocity = _moveDirection * speed;
@@ -342,7 +344,7 @@ public class Boss : MonoBehaviour
 
     private void PlayerPositionCheck()
     {
-        _playerPosition = Player.transform.position;
+        _playerPosition = _playerController.transform.position;
     }
     
     private IEnumerator Vanish()
