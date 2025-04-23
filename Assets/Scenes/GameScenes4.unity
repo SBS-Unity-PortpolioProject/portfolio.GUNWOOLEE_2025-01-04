@@ -1850,8 +1850,8 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
-  _health: 100
-  _maxHealth: 100
+  _health: 1000
+  _maxHealth: 1000
   _isInvincible: 0
   _InvincibilityTime: 0.5
   _revival: {fileID: 0}
@@ -4033,8 +4033,8 @@ Transform:
   m_GameObject: {fileID: 843473611}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 8, y: 8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1568613967}
@@ -4098,7 +4098,7 @@ MonoBehaviour:
   _swordEffect4: {fileID: 231652398}
   speed: 10
   attackMoveSpeed: 60
-  fallSpeed: 50
+  fallSpeed: -50
 --- !u!50 &843473617
 Rigidbody2D:
   serializedVersion: 4

@@ -81,7 +81,7 @@ public class Boss : MonoBehaviour
     private TouchingDirection _touchingDirection;
     private Vector2 _moveDirection = Vector2.zero;
     Vector3 _playerPosition = Vector3.zero;
-    Vector3 _originPosition = new Vector3(0, 3, 0);
+    Vector3 _originPosition = new Vector3(0, 1.5f, 0);
     
     private void Start()
     {
@@ -171,7 +171,7 @@ public class Boss : MonoBehaviour
         if (Rocation == 0)
         {
             transform.position = RightPosition;
-            transform.localScale = new Vector3(-6, 6, 1);
+            transform.localScale = new Vector3(-8, 8, 1);
             
             yield return Appear();
             
@@ -201,7 +201,7 @@ public class Boss : MonoBehaviour
         else if (Rocation == 1)
         {
             transform.position = LeftPosition;
-            transform.localScale = new Vector3(6, 6, 1);
+            transform.localScale = new Vector3(8, 8, 1);
             
             yield return Appear();
             
@@ -244,7 +244,7 @@ public class Boss : MonoBehaviour
         yield return Vanish();
         
         yield return Warning();
-        transform.position = _playerPosition;
+        transform.position = new Vector3(_playerPosition.x, _playerPosition.y - 0.5f, 0);
         
         yield return WaitAttack2();
         
@@ -260,7 +260,7 @@ public class Boss : MonoBehaviour
                 yield return Vanish();
         
                 yield return Warning();
-                transform.position = _playerPosition;   
+                transform.position = new Vector3(_playerPosition.x, _playerPosition.y - 0.5f, 0);
                 
                 yield return WaitAttack2();
         

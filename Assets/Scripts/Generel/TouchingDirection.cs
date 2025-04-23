@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TouchingDirection : MonoBehaviour
 {
+    [SerializeField] private DialogueUI _dialogueUI;
+    [SerializeField] private PlayerController _player;
+    
     public ContactFilter2D contactFilter;
     public float GroundDistence = 0.05f;
     public float WallDistence = 0.2f;
@@ -41,12 +44,21 @@ public class TouchingDirection : MonoBehaviour
     
     private void Awake()    
     {
+        _player = GetComponent<PlayerController>();
         _Animator = GetComponent<Animator>();
         _TouchingCollider = GetComponent<CapsuleCollider2D>();
     }
     
     void FixedUpdate()
     {
+        if (_dialogueUI.IsOpen)
+        {
+            _player.IsMoving = false;
+            _player.IsRunning = false;
+            _isGround = true;
+            return;
+        }
+        
         _isGround = _TouchingCollider.Cast(Vector2.down, contactFilter, GroundHits, GroundDistence) > 0;
         IsOnWall = _TouchingCollider.Cast(_WallCheckDirection, contactFilter, WallHits, WallDistence) > 0;
     }

@@ -3,6 +3,7 @@ using UnityEngine.Playables;
 
 public class Timeline : MonoBehaviour
 {
+    [SerializeField] private GameObject _clearSceneUI;
     public PlayableDirector director;
     
     void OnTriggerEnter2D(Collider2D other)
@@ -11,5 +12,10 @@ public class Timeline : MonoBehaviour
         {
             director.Play();
         }
+    }
+
+    public void OnNextStage()
+    {
+        _clearSceneUI.SetActive(true);
     }
 }
