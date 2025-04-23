@@ -1813,6 +1813,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0ecb72fae2f6f45b18c87b4311d896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dialogueUI: {fileID: 735895656}
+  _player: {fileID: 360781421}
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -2549,7 +2551,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_Name
-      value: MainStory20
+      value: MainStory19
       objectReference: {fileID: 0}
     - target: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_IsActive
@@ -23144,6 +23146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80bdbae4b00d2e43a172db8b52c9f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clearSceneUI: {fileID: 0}
   director: {fileID: 1706227921}
 --- !u!61 &1706227919
 BoxCollider2D:
@@ -23274,7 +23277,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1706227915}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 94c7b372ed470ae45b9baacf1b747ba4, type: 2}
+  m_PlayableAsset: {fileID: 0}
   m_InitialState: 0
   m_WrapMode: 0
   m_DirectorUpdateMode: 1
