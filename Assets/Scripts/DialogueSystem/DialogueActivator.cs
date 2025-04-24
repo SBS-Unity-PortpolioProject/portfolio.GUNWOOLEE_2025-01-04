@@ -12,6 +12,7 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private GameObject Timeline;
     [SerializeField] private BattleDialogue _battleDialogue;
     [SerializeField] private Vector2 PlayerPosition;
+    [SerializeField] private Boss _boss;
     public DialogueUI DialogueUI => dialogueUI;
     
     private bool _nextDialogue = false;
@@ -111,11 +112,16 @@ public class DialogueActivator : MonoBehaviour
             }
         }
 
-        IEnumerator DestroyDialogue()
+        if (_boss != null && _boss._isAlive)
         {
-            yield return new WaitForSeconds(0.25f);
-            dialogueUI._check = false;
-            Destroy(gameObject);
+            DialogueUI.ShowDialogue(dialogueObject);
         }
+    }
+    
+    IEnumerator DestroyDialogue()
+    {
+        yield return new WaitForSeconds(0.25f);
+        dialogueUI._check = false;
+        Destroy(gameObject);
     }
 }

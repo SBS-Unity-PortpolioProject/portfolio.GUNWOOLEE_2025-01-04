@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FallRespawn : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class FallRespawn : MonoBehaviour
     private CapsuleCollider2D _TouchingCollider;
     
     public bool _battleZoneReset = false; 
-        
+    
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -45,9 +46,15 @@ public class FallRespawn : MonoBehaviour
 
     public void OnSpawn()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+
         if (_isBattle1)
         {
             _player.transform.position = new Vector2(24.63f, 2.6f);
+        }
+        else if (currentScene.name == "GameScenes4")
+        {
+            SceneManager.LoadScene("GameScenes4");
         }
         else
         {
@@ -59,6 +66,5 @@ public class FallRespawn : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.25f);
         _battleZoneReset = false;
-        Debug.Log("Resetting battle zone");
     }
 }

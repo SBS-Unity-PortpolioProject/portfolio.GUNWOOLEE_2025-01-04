@@ -81,7 +81,7 @@ public class Boss : MonoBehaviour
     private TouchingDirection _touchingDirection;
     private Vector2 _moveDirection = Vector2.zero;
     Vector3 _playerPosition = Vector3.zero;
-    Vector3 _originPosition = new Vector3(0, 1.5f, 0);
+    Vector3 _originPosition = new Vector3(0, 1, 0);
     
     private void Start()
     {
@@ -99,7 +99,7 @@ public class Boss : MonoBehaviour
     {
         if (!_isAlive)
         {
-            return;
+            StartCoroutine(Death());
         }
 
         if (Move)
@@ -438,6 +438,12 @@ public class Boss : MonoBehaviour
         Stop = true; // Vanish로 가기 위한 조건
         yield return new WaitForSeconds(1.1f);
         _damageable._isInvincible = true;
+    }
+
+    private IEnumerator Death()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }
 
