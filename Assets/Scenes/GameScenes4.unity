@@ -2555,7 +2555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2786273333589817950, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_Enabled
@@ -2617,6 +2617,10 @@ PrefabInstance:
       propertyPath: _firstMove
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 735895656}
     - target: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: dialogueObject
       value: 
@@ -3236,6 +3240,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &644306360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
+  m_PrefabInstance: {fileID: 439838929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &689717938
 GameObject:
   m_ObjectHideFlags: 0
@@ -4065,6 +4074,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
+      propertyPath: dialogueUI
+      value: 
+      objectReference: {fileID: 735895656}
+    - target: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: dialogueObject
       value: 
       objectReference: {fileID: 11400000, guid: 83870e76b36393249a4e038e5ad0afc5, type: 2}
@@ -4299,6 +4312,7 @@ MonoBehaviour:
   _swordEffect2: {fileID: 449634596}
   _swordEffect3: {fileID: 1360484434}
   _swordEffect4: {fileID: 231652398}
+  _dialogueActivator: {fileID: 644306360}
   speed: 10
   attackMoveSpeed: 60
   fallSpeed: -50
@@ -28008,7 +28022,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3948143650866330181, guid: fe62586477209db40a42ff068272518e, type: 3}
   m_PrefabInstance: {fileID: 439838929}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 644306360}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e360ab7321631624782506f7b7d4bd82, type: 3}

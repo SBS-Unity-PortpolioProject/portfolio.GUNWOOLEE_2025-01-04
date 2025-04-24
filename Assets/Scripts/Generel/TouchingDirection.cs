@@ -51,14 +51,17 @@ public class TouchingDirection : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (_dialogueUI.IsOpen)
+        if (_dialogueUI != null)
         {
-            _player.IsMoving = false;
-            _player.IsRunning = false;
-            _isGround = true;
-            return;
+            if (_dialogueUI.IsOpen)
+            {
+                _player.IsMoving = false;
+                _player.IsRunning = false;
+                _isGround = true;
+                return;
+            }
         }
-        
+
         _isGround = _TouchingCollider.Cast(Vector2.down, contactFilter, GroundHits, GroundDistence) > 0;
         IsOnWall = _TouchingCollider.Cast(_WallCheckDirection, contactFilter, WallHits, WallDistence) > 0;
     }

@@ -8,6 +8,12 @@ public class StartButton : MonoBehaviour
 {
     public void Open()
     {
-        SceneManager.LoadScene("GameScenes");
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
     }
 }

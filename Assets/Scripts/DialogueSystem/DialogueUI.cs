@@ -113,13 +113,16 @@ public class DialogueUI : MonoBehaviour
 
     public void CloseDialogueBox()
     {
-        if (playerBar2 != null && _currentDialogueActivator._change2)
+        if (playerBar2 != null && _currentDialogueActivator != null)
         {
-            _dialogueStarted = false;
-            IsOpen = false;
-            playerBar2.SetActive(true);
-            dialogueBox.SetActive(false);
-            textLabel.text = string.Empty;
+            if (_currentDialogueActivator._change2)
+            {
+                _dialogueStarted = false;
+                IsOpen = false;
+                playerBar2.SetActive(true);
+                dialogueBox.SetActive(false);
+                textLabel.text = string.Empty;
+            }
         }
         else
         {
@@ -154,6 +157,10 @@ public class DialogueUI : MonoBehaviour
             }
             _dialogueActivatorList.Remove(_currentDialogueActivator);
             _currentDialogueActivator.gameObject.SetActive(true);
+            _check = true;
+        }
+        else
+        {
             _check = true;
         }
         yield return null;

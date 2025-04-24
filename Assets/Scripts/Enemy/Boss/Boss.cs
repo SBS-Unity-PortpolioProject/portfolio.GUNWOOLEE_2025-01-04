@@ -16,6 +16,7 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _swordEffect2;
     [SerializeField] private GameObject _swordEffect3;
     [SerializeField] private GameObject _swordEffect4;
+    [SerializeField] private GameObject _dialogueActivator;
     
     public float speed;
     public float attackMoveSpeed;
@@ -443,6 +444,7 @@ public class Boss : MonoBehaviour
     private IEnumerator Death()
     {
         yield return new WaitForSeconds(3f);
+        _dialogueActivator.SetActive(true);
         Destroy(gameObject);
     }
 }

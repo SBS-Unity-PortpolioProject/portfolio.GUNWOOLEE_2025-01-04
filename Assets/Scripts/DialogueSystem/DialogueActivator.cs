@@ -103,19 +103,6 @@ public class DialogueActivator : MonoBehaviour
             _change2 = true;
             _change = false;
         }
-
-        if (_battleDialogue != null)
-        {
-            if (_battleDialogue._battleClear)
-            {
-                Timeline.SetActive(true);
-            }
-        }
-
-        if (_boss != null && _boss._isAlive)
-        {
-            DialogueUI.ShowDialogue(dialogueObject);
-        }
     }
     
     IEnumerator DestroyDialogue()
