@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private DetectionZone _playerDetectionZone;
     [SerializeField] private DetectionZone _attackDetectionZone;
-    [SerializeField] private GameObject _deathParticles;
+    [SerializeField] private GameObject _my;
     [SerializeField] private float wayPointDistance = 0.1f;
     
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
     {
         if (!IsAlive)
         {
-            StartCoroutine(Death());
+            Destroy(_my);
             return;
         }
         
@@ -243,13 +243,5 @@ public class Enemy : MonoBehaviour
 
         if (Knockback.x > 0 && transform.localScale.x > 0) FlipDirection();
         else if (Knockback.x < 0 && transform.localScale.x < 0) FlipDirection();
-    }
-
-    private IEnumerator Death()
-    {
-        gameObject.SetActive(false);
-        _deathParticles.SetActive(true);
-        yield return new WaitForSeconds(0.75f);
-        Destroy(gameObject);
     }
 }

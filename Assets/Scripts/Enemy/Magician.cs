@@ -6,7 +6,6 @@ public class Magician : MonoBehaviour
         [SerializeField] private float _speed = 10f;
         [SerializeField] private DetectionZone _playerDetectionZone;
         [SerializeField] private DetectionZone _attackDetectionZone;
-        [SerializeField] private GameObject _deathParticles;
         [SerializeField] private GameObject _target;
         [SerializeField] private float detectionCooldown = 5f;
         private bool AttackCool = true;
@@ -52,7 +51,7 @@ public class Magician : MonoBehaviour
         { 
              if (!IsAlive)
              {
-                  StartCoroutine(Death());
+                  Destroy(gameObject);
                   return;
              }
         
@@ -92,13 +91,5 @@ public class Magician : MonoBehaviour
         {
              yield return new WaitForSeconds(detectionCooldown);
              canDetect = true;
-        }
-
-        private IEnumerator Death()
-        {
-             gameObject.SetActive(false);
-             _deathParticles.SetActive(true);
-             yield return new WaitForSeconds(0.75f);
-             Destroy(gameObject);
         }
 }

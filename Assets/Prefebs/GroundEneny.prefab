@@ -255,7 +255,7 @@ MonoBehaviour:
   _speed: 2
   _playerDetectionZone: {fileID: 4539208956048808505}
   _attackDetectionZone: {fileID: 8371696839610816403}
-  _deathParticles: {fileID: 6445257612875583545}
+  _my: {fileID: 6123038351007246188}
   wayPointDistance: 0.5
   _wayPoints:
   - {fileID: 8667768103929251056}
