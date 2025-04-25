@@ -123,6 +123,14 @@ public class DialogueUI : MonoBehaviour
                 dialogueBox.SetActive(false);
                 textLabel.text = string.Empty;
             }
+            else
+            {
+                _dialogueStarted = false;
+                IsOpen = false;
+                playerBar.SetActive(true);
+                dialogueBox.SetActive(false);
+                textLabel.text = string.Empty;
+            }
         }
         else
         {

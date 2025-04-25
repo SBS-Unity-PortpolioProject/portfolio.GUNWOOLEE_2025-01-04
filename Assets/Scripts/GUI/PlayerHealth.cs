@@ -16,10 +16,7 @@ public class PlayerHealth : MonoBehaviour
         
         _playerDamageable = player.GetComponent<Damageable>();
         
-       if (_bossDamageable)
-       {
-           _bossDamageable = Boss.GetComponent<Damageable>();
-       }
+        _bossDamageable = Boss.GetComponent<Damageable>();
         
         if (_playerHealthSlider != null)
         {
