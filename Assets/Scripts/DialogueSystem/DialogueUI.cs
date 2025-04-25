@@ -164,7 +164,6 @@ public class DialogueUI : MonoBehaviour
                 clearScene.SetActive(true);
             }
             _dialogueActivatorList.Remove(_currentDialogueActivator);
-            _currentDialogueActivator.gameObject.SetActive(true);
             _check = true;
         }
         else

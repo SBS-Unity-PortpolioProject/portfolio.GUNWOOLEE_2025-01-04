@@ -12,6 +12,7 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] private GameObject Timeline;
     [SerializeField] private BattleDialogue _battleDialogue;
     [SerializeField] private GameObject _destroyObject;
+    [SerializeField] private GameObject _spawnObject;
     [SerializeField] private Vector2 PlayerPosition;
     [SerializeField] private Boss _boss;
     public DialogueUI DialogueUI => dialogueUI;
@@ -108,6 +109,11 @@ public class DialogueActivator : MonoBehaviour
         if (dialogueUI._check && _destroyObject != null)
         {
             Destroy(_destroyObject);
+        }
+
+        if (dialogueUI._dialogueStarted && _spawnObject != null)
+        {
+            _spawnObject.SetActive(true);
         }
     }
     

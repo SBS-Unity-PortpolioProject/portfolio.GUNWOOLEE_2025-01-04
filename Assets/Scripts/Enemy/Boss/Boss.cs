@@ -92,7 +92,8 @@ public class Boss : MonoBehaviour
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
         _touchingDirection = GetComponent<TouchingDirection>();
-    
+
+        StartCoroutine(AttackCool());
         _damageable._isInvincible = true;
     }
 
