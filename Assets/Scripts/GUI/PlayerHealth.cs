@@ -10,25 +10,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        
-        GameObject Boss = GameObject.FindGameObjectWithTag("Boss");
-        
-        _playerDamageable = player.GetComponent<Damageable>();
-        
-        _bossDamageable = Boss.GetComponent<Damageable>();
-        
         if (_playerHealthSlider != null)
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            _playerDamageable = player.GetComponent<Damageable>();
+                
             _playerDamageable._onHealthChanged.AddListener(OnHealthChanged);
-            
             OnHealthChanged(_playerDamageable.Health, _playerDamageable.MaxHealth);
         }
-        else if (_bossHealthSlider != null)
+        
+        if (_bossHealthSlider != null)
         {
+            GameObject Boss = GameObject.FindGameObjectWithTag("Boss");
+            _bossDamageable = Boss.GetComponent<Damageable>();
+            
             _bossDamageable._onHealthChanged.AddListener(OnHealthChanged);
             OnHealthChanged(_bossDamageable.Health, _bossDamageable.MaxHealth);
-
         }
     }
 
@@ -40,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else if (_bossHealthSlider != null)
         {
-            _bossDamageable._onHealthChanged.RemoveListener(OnHealthChanged);
+                _bossDamageable._onHealthChanged.RemoveListener(OnHealthChanged);
         }
     }
 

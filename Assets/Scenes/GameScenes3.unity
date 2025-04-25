@@ -872,7 +872,7 @@ Transform:
   m_GameObject: {fileID: 355040640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 195.39067, y: 6.906968, z: -10}
+  m_LocalPosition: {x: 248.28067, y: 3.8539972, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1875,7 +1875,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 195.39067, y: 6.906968, z: -10}
+  m_LocalPosition: {x: 248.28067, y: 3.8539972, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6660,6 +6660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHealthSlider: {fileID: 1914895184}
+  _bossHealthSlider: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -28455,6 +28456,8 @@ PlayableDirector:
     value: {fileID: 360781412}
   - key: {fileID: -3236532982991320823, guid: 94c7b372ed470ae45b9baacf1b747ba4, type: 2}
     value: {fileID: 360781413}
+  - key: {fileID: -2693971395051703200, guid: 94c7b372ed470ae45b9baacf1b747ba4, type: 2}
+    value: {fileID: 1369556679}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1612724193
@@ -104149,6 +104152,10 @@ PrefabInstance:
     - target: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_Name
       value: MainStroy17
+      objectReference: {fileID: 0}
+    - target: {fileID: 456259510240294249, guid: fe62586477209db40a42ff068272518e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2786273333589817950, guid: fe62586477209db40a42ff068272518e, type: 3}
       propertyPath: m_Color.a

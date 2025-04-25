@@ -6,6 +6,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     [SerializeField] private PlayerController _playerController;
+    [SerializeField] private DialogueUI _dialogueUI;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject Wall;
     [SerializeField] private GameObject _warning;
@@ -21,6 +22,7 @@ public class Boss : MonoBehaviour
     public float speed;
     public float attackMoveSpeed;
     public float fallSpeed;
+    public bool _start = false;
 
     private bool Move = true;
     private int _attackCount = 0;
@@ -90,8 +92,7 @@ public class Boss : MonoBehaviour
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
         _touchingDirection = GetComponent<TouchingDirection>();
-
-        StartCoroutine(AttackCool());
+    
         _damageable._isInvincible = true;
     }
 

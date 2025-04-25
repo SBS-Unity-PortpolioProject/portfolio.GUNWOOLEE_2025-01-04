@@ -15,13 +15,16 @@ public class Fade : MonoBehaviour
 
     private void Update()
     {
-        if (_dialogue.FadeIn)
+        if (_dialogue!= null)
         {
-            StartCoroutine(fadeIn());
-        }
-        else if (_dialogue.FadeOut)
-        {
-            StartCoroutine(fadeOut());
+            if (_dialogue.FadeIn)
+            {
+                StartCoroutine(fadeIn());
+            }
+            else if (_dialogue.FadeOut)
+            {
+                StartCoroutine(fadeOut());
+            }
         }
     }
 
