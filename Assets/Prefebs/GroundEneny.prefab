@@ -261,7 +261,6 @@ MonoBehaviour:
   - {fileID: 8667768103929251056}
   - {fileID: 8808503388272431386}
   - {fileID: 8000733583845443956}
-  _isCliff: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -276,7 +275,9 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  waypointIndex: 0
   CliffDistence: 1.5
+  _cliffdirection: {x: 1, y: -1}
 --- !u!114 &1526356698312086896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +455,7 @@ Transform:
   m_GameObject: {fileID: 3310887256463681886}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.047, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -503,7 +504,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.6}
+  m_Size: {x: 1, y: 0.6}
   m_EdgeRadius: 0
 --- !u!114 &8371696839610816403
 MonoBehaviour:

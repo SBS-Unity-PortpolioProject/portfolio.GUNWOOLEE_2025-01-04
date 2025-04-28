@@ -94,7 +94,8 @@ public class Enemy : MonoBehaviour
     
     public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
     
-    private bool _wallCheck = false; 
+    private bool _wallCheck = false;
+    private bool _attackCheck = false;
     
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -132,26 +133,42 @@ public class Enemy : MonoBehaviour
             return;
         }
         
+        if (_attackCheck)
+        {
+            _rb.velocity = Vector2.zero;
+            return;
+        }
+        
         IsMoving = true;
         HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
-        CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
+        
+        if (_attackDetectionZone.DetectionColliders.Count > 0 && !_attackCheck)
+        {
+            _attackCheck = true;
+            StartCoroutine(Attack());
+        }
+        else
+        {
+            CanAttack = false;
+        }
+        
         Move();
         
         Debug.DrawRay(_TouchingCollider.bounds.center, _cliffdirection.normalized * CliffDistence, Color.red);
         _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence);
         IsOnCliff = _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence) < 1f;
-
+        
         if (IsOnCliff)
-        { 
+        {
             HasTarget = false;
             FlipDirection();
             waypointIndex++;
-
+            
             if (waypointIndex >= _wayPoints.Count)
             {
                 waypointIndex = 0;
             }
-
+            
             nextWaypoint = _wayPoints[waypointIndex];
         }
     }
@@ -255,5 +272,12 @@ public class Enemy : MonoBehaviour
         _wallCheck = true;
         yield return new WaitForSeconds(0.1f);
         _wallCheck = false;
+    }
+
+    private IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        CanAttack = true;
+        _attackCheck = false;
     }
 }

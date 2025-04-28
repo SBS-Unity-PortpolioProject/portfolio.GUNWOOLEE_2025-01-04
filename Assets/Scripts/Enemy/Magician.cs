@@ -7,11 +7,11 @@ public class Magician : MonoBehaviour
         [SerializeField] private DetectionZone _playerDetectionZone;
         [SerializeField] private DetectionZone _attackDetectionZone;
         [SerializeField] private GameObject _target;
-        [SerializeField] private float detectionCooldown = 5f;
         private bool AttackCool = true;
         private float _attackCoolDown = 1f;
         private Transform player;
         private bool canDetect = true;
+        private bool _attackCheck = false;
 
 
         public bool _hasTarget = false;
@@ -35,7 +35,7 @@ public class Magician : MonoBehaviour
         }
         
         public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
-
+        
         private Rigidbody2D _rb;
         private Animator _animator;
         private Damageable _damageable;
@@ -56,40 +56,44 @@ public class Magician : MonoBehaviour
              }
         
              HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
-             CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
-        }
-        void OnTriggerStay2D(Collider2D other)
-        {
-             if (canDetect && other.CompareTag("Player"))
-             {
-                  player = other.transform;
              
-                  if (player.position.x < transform.position.x)
-                  {
-                       transform.localScale = new Vector3(-5, 5, 1);
-                       canDetect = false;
-                       StartCoroutine(EnableDetectionAfterDelay());
-                  }
-                  else
-                  {
-                       transform.localScale = new Vector3(5, 5, 1);
-                       canDetect = false;
-                       StartCoroutine(EnableDetectionAfterDelay());
-                  }
-             }
-        }
-
-        void OnTriggerExit2D(Collider2D other)
-        {
-             if (other.CompareTag("Player"))
+             if (_attackDetectionZone.DetectionColliders.Count > 0 && !_attackCheck)
              {
-                 player = null;
+                  _attackCheck = true;
+                  StartCoroutine(Attack());
+             }
+             else
+             {
+                  CanAttack = false;
              }
         }
         
-        private IEnumerator EnableDetectionAfterDelay()
+        private IEnumerator Attack()
         {
-             yield return new WaitForSeconds(detectionCooldown);
-             canDetect = true;
+             yield return new WaitForSeconds(1f);
+             CanAttack = true;
+             yield return new WaitForSeconds(1f);
+
+             if (_rb.transform.localScale.x > 0)
+             {
+                  transform.localScale = new Vector3(-5f, 5, 0);
+             }
+             else if (_rb.transform.localScale.x < 0)
+             {
+                  transform.localScale = new Vector3(5f, 5, 0);
+             }
+             _attackCheck = false;
         }
 }
+
+
+
+
+
+
+
+
+
+
+
+
