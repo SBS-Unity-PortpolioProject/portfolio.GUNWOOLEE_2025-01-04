@@ -94,6 +94,8 @@ public class Enemy : MonoBehaviour
     
     public bool IsAlive => _animator.GetBool(AnimationStrings.IsAlive);
     
+    private bool _wallCheck = false; 
+    
     private Rigidbody2D _rb;
     private Animator _animator;
     private Damageable _damageable;
@@ -102,10 +104,10 @@ public class Enemy : MonoBehaviour
     
     public ContactFilter2D contactFilter;
     Transform nextWaypoint;
-    private int waypointIndex = 0;
+    [SerializeField] private int waypointIndex = 0;
     CapsuleCollider2D _TouchingCollider;
     public float CliffDistence = 1f;
-    private Vector2 _cliffdirection = new Vector2(1f,-1f);
+    public Vector2 _cliffdirection = new Vector2(1f,-1f);
     RaycastHit2D[] _isCliffDetection = new RaycastHit2D[5];
     
     private void Awake()
@@ -135,10 +137,12 @@ public class Enemy : MonoBehaviour
         CanAttack = _attackDetectionZone.DetectionColliders.Count > 0;
         Move();
         
-        IsOnCliff = _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence) < 1;
+        Debug.DrawRay(_TouchingCollider.bounds.center, _cliffdirection.normalized * CliffDistence, Color.red);
+        _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence);
+        IsOnCliff = _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence) < 1f;
 
         if (IsOnCliff)
-        {
+        { 
             HasTarget = false;
             FlipDirection();
             waypointIndex++;
@@ -164,12 +168,15 @@ public class Enemy : MonoBehaviour
         
         UpdateDirection();
                     
-        if (_touchingDirection.IsOnWall)
+        if (_touchingDirection.IsOnWall && !_wallCheck)
         {
-            FlipDirection();
-            waypointIndex++;
-            if(waypointIndex >= _wayPoints.Count) waypointIndex = 0;
-            nextWaypoint = _wayPoints[waypointIndex];
+            {
+                StartCoroutine(WallCheck());
+                FlipDirection();
+                waypointIndex++;
+                if (waypointIndex >= _wayPoints.Count) waypointIndex = 0;
+                nextWaypoint = _wayPoints[waypointIndex];
+            }
         } 
     }
     
@@ -182,10 +189,8 @@ public class Enemy : MonoBehaviour
             waypointIndex++;
             
             if(waypointIndex >= _wayPoints.Count) waypointIndex = 0;
-            
             nextWaypoint = _wayPoints[waypointIndex];
         }
-        
         
         if (HasTarget)
         {
@@ -243,5 +248,12 @@ public class Enemy : MonoBehaviour
 
         if (Knockback.x > 0 && transform.localScale.x > 0) FlipDirection();
         else if (Knockback.x < 0 && transform.localScale.x < 0) FlipDirection();
+    }
+
+    private IEnumerator WallCheck()
+    {
+        _wallCheck = true;
+        yield return new WaitForSeconds(0.1f);
+        _wallCheck = false;
     }
 }

@@ -261,6 +261,7 @@ MonoBehaviour:
   - {fileID: 8667768103929251056}
   - {fileID: 8808503388272431386}
   - {fileID: 8000733583845443956}
+  _isCliff: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -275,7 +276,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  CliffDistence: 1
+  CliffDistence: 1.5
 --- !u!114 &1526356698312086896
 MonoBehaviour:
   m_ObjectHideFlags: 0
