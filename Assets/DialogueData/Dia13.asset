@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dia13
   m_EditorClassIdentifier: 
   dialogue:
-  - "\uC8FC\uC778\uACF5: \uAD1C\uCC2E\uC544, \uAD1C\uCC2E\uC744\uAC70\uC57C..."
+  - "\uC8FC\uC778\uACF5: (\uAD1C\uCC2E\uC544... \uAD1C\uCC2E\uC544...)"
   - "\uC8FC\uC778\uACF5: \uD558\uD558\uD558..."
   - "\uC8FC\uC778\uACF5: ........."
   responses: []
