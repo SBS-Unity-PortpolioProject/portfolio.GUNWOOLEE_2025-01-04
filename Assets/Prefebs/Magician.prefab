@@ -244,8 +244,8 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
-  _health: 35
-  _maxHealth: 35
+  _health: 75
+  _maxHealth: 75
   _isInvincible: 0
   _InvincibilityTime: 0.25
   _revival: {fileID: 0}

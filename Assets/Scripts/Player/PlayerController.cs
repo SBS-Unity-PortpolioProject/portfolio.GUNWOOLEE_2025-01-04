@@ -24,10 +24,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool _operator = true;
     
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
-
+    
     public GameObject gmaeOverUI;
+
+    public AudioSource _audioSource;
     
     private bool _cutScene = false;
+
+    private bool _runLimit = false;
+    private bool _jumpLimit = false;
+    private bool _dashLimit = false;
+    private bool _attackLimit = false;
     
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
@@ -114,7 +121,11 @@ public class PlayerController : MonoBehaviour
         
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
 
-        if(!_IsMoving) return;
+        if(!_IsMoving)
+        {
+            _audioSource.Stop();
+            return;
+        }
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }
     
@@ -122,11 +133,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!_IsAlive || !_operator) return;
         
-         _moveInput = context.ReadValue<Vector2>();
-         
-         IsMoving = (_moveInput != Vector2.zero);
-         
-         OnFacingDirection(_moveInput);
+        _moveInput = context.ReadValue<Vector2>();
+        _audioSource.Play();
+        
+        IsMoving = (_moveInput != Vector2.zero);
+        
+        OnFacingDirection(_moveInput);
     }
 
     public void OnFacingDirection(Vector2 Input)

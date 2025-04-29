@@ -69,6 +69,7 @@ public class Enemy : MonoBehaviour
         get
         {
             if(HasTarget) return 4f;
+ 
             if (!IsMoving) return 0;
             return _speed;
         }
@@ -139,8 +140,19 @@ public class Enemy : MonoBehaviour
             return;
         }
         
-        IsMoving = true;
         HasTarget = _playerDetectionZone.DetectionColliders.Count > 0;
+        IsMoving = true;
+        
+        if (IsOnCliff && HasTarget)
+        {
+            _rb.velocity = Vector2.zero;
+            return;
+        }
+        
+        if (IsOnCliff && !_touchingDirection._isGround)
+        {
+            return;
+        }
         
         if (_attackDetectionZone.DetectionColliders.Count > 0 && !_attackCheck)
         {
@@ -156,11 +168,12 @@ public class Enemy : MonoBehaviour
         
         Debug.DrawRay(_TouchingCollider.bounds.center, _cliffdirection.normalized * CliffDistence, Color.red);
         _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence);
-        IsOnCliff = _TouchingCollider.Cast(_cliffdirection, contactFilter, _isCliffDetection, CliffDistence) < 1f;
+
+        IsOnCliff = !Physics2D.Raycast(_TouchingCollider.bounds.center,
+            _cliffdirection.normalized * CliffDistence, CliffDistence, LayerMask.GetMask("Ground"));
         
         if (IsOnCliff)
         {
-            HasTarget = false;
             FlipDirection();
             waypointIndex++;
             

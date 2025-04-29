@@ -276,7 +276,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   waypointIndex: 0
-  CliffDistence: 1.5
+  CliffDistence: 1
   _cliffdirection: {x: 1, y: -1}
 --- !u!114 &1526356698312086896
 MonoBehaviour:
@@ -299,8 +299,8 @@ MonoBehaviour:
   _onDeath:
     m_PersistentCalls:
       m_Calls: []
-  _health: 50
-  _maxHealth: 50
+  _health: 100
+  _maxHealth: 100
   _isInvincible: 0
   _InvincibilityTime: 0.25
   _revival: {fileID: 0}
