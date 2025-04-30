@@ -7,6 +7,7 @@ public class Magician : MonoBehaviour
         [SerializeField] private DetectionZone _playerDetectionZone;
         [SerializeField] private DetectionZone _attackDetectionZone;
         [SerializeField] private GameObject _target;
+        // public AudioClip[] _magicianSound;
         private bool AttackCool = true;
         private float _attackCoolDown = 1f;
         private Transform player;
@@ -30,6 +31,7 @@ public class Magician : MonoBehaviour
              private set
              {
                   _canAttack = value;
+                  //_magicianSound.PlayOneShot(); 공격 소리
                   _animator.SetBool(AnimationStrings.CanAttack, value);
              }
         }
@@ -76,10 +78,12 @@ public class Magician : MonoBehaviour
 
              if (_rb.transform.localScale.x > 0)
              {
+                  // _magicianSound.PlayOneShot(); 순간이동 하는 소리
                   transform.localScale = new Vector3(-5f, 5, 0);
              }
              else if (_rb.transform.localScale.x < 0)
              {
+                  // _magicianSound.PlayOneShot(); 순간이동 하는 소리
                   transform.localScale = new Vector3(5f, 5, 0);
              }
              _attackCheck = false;

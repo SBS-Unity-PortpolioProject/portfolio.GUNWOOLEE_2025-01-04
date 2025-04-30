@@ -19,6 +19,8 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _swordEffect4;
     [SerializeField] private GameObject _dialogueActivator;
     
+    // public AudioClip[] _audioClips;
+    // public AudioSource _audioSource;
     public float speed;
     public float attackMoveSpeed;
     public float fallSpeed;

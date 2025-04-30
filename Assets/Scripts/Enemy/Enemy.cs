@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float wayPointDistance = 0.1f;
     
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
+    
+    // public AudioClip[] _audioClips;
+    // public AudioSource _audioSource;
+    
     private bool _hasTarget = false;
     
     public bool HasTarget
@@ -38,6 +42,7 @@ public class Enemy : MonoBehaviour
         private set
         {
             _canAttack = value;
+            // _audioClips.PlatOneShot(); 공격하는 소리
             _animator.SetBool(AnimationStrings.CanAttack, value);
         }
     }
@@ -191,6 +196,8 @@ public class Enemy : MonoBehaviour
         if (!IsAlive) return;
         
         if(IsMoving == false) return;
+        
+        // _audioSource.Play(); 발소리
         
         Vector2 direction = GetMoveDirection();
         direction.y = 0;

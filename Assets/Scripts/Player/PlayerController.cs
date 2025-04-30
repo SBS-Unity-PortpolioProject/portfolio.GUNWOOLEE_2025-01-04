@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using sceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,15 +27,12 @@ public class PlayerController : MonoBehaviour
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
     
     public GameObject gmaeOverUI;
-
+    
     public AudioSource _audioSource;
     
+    public AudioClip[] _AudioClips;
+    
     private bool _cutScene = false;
-
-    private bool _runLimit = false;
-    private bool _jumpLimit = false;
-    private bool _dashLimit = false;
-    private bool _attackLimit = false;
     
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
@@ -109,7 +107,7 @@ public class PlayerController : MonoBehaviour
             GameOver();
             return;
         }
-        
+ 
         if (_dialogueUI._dialogueStarted || _settingScreenUI._isStarted || _cutScene)
         {
             _operator = false;
@@ -156,6 +154,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.started)
         {
+            //_audioSource.Play(); 달리기 소리
             IsRunning = true;
         }
 
@@ -171,6 +170,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.started && _touchingDirection._isGround)
         { 
+            //_audioClips.PlayOneShot(); 점프 소리
             _rb.velocity = new Vector2(_rb.velocity.x, _JumpImpulse);
             _animator.SetTrigger(AnimationStrings.IsJump);
         }
@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.started && _touchingDirection._isGround)
         {
+            //_audioClips.PlayOneShot(); 공격 소리
             _animator.SetTrigger(AnimationStrings.Attack);
         }
     }
@@ -224,6 +225,8 @@ public class PlayerController : MonoBehaviour
         
         if (context.started && _touchingDirection._isGround)
         {
+            //_audioClips.PlayOneShot(); 슈퍼점프 소리
+
             _DashEffect.SetActive(true);
             
             Vector3 mouseScreenPos = Input.mousePosition;

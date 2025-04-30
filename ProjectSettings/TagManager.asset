@@ -9,6 +9,10 @@ TagManager:
   - Battle2
   - Battle3
   - Boss
+  - RunTutorial
+  - JumpTutorial
+  - SuperJumpTutorial
+  - AttackTutorial
   layers:
   - Default
   - TransparentFX

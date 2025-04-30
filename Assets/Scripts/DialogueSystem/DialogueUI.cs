@@ -10,7 +10,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject playerBar;
     [SerializeField] private GameObject playerBar2;
-    [SerializeField] private List<DialogueActivator> _dialogueActivatorList;
+    [SerializeField] public List<DialogueActivator> _dialogueActivatorList;
     public DialogueActivator _currentDialogueActivator;
     public bool _dialogueStarted = false;
     public bool _check = false;
