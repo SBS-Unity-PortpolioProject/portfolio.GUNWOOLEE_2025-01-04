@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using sceneManager = UnityEngine.SceneManagement.SceneManager;
@@ -24,13 +25,13 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] bool _operator = true;
     
+    public AudioSource _audioSource;
+
+    [SerializeField] AudioClip[] _AudioClips;
+    
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
     
     public GameObject gmaeOverUI;
-    
-    public AudioSource _audioSource;
-    
-    public AudioClip[] _AudioClips;
     
     private bool _cutScene = false;
     
@@ -118,12 +119,25 @@ public class PlayerController : MonoBehaviour
         }
         
         _rb.velocity = new Vector2(_moveInput.x * CurrentMoveSpeed, _rb.velocity.y);
-
+        
         if(!_IsMoving)
         {
-            _audioSource.Stop();
             return;
         }
+
+        if (_IsMoving && !IsRunning)
+        {
+            _audioSource.PlayOneShot(_AudioClips[0]);
+        }
+        else if (_IsMoving && IsRunning)
+        {
+            _audioSource.PlayOneShot(_AudioClips[1]);
+        }
+        else if (!_IsMoving || (!_IsMoving && !IsRunning))
+        {
+            _audioSource.PlayOneShot(null);
+        }
+        
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }
     
