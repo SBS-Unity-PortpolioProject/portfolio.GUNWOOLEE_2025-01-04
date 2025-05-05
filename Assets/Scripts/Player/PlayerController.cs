@@ -25,15 +25,22 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] bool _operator = true;
     
+    [SerializeField] public AudioClip[] _audioClips;
+    
     public AudioSource _audioSource;
-
-    [SerializeField] AudioClip[] _AudioClips;
+    
+    public AudioSource _walkAudioSource;
+    
+    public AudioSource _runAudioSource;
     
     public Vector2 _DashImpulse = new Vector2(5f, 10f);
     
     public GameObject gmaeOverUI;
     
     private bool _cutScene = false;
+    
+    private float _attackCooldown = 0.5f;
+    private float _lastAttackTime = -Mathf.Infinity;
     
     private Rigidbody2D _rb;
     private Vector2 _moveInput = Vector2.zero;
@@ -99,6 +106,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _touchingDirection = GetComponent<TouchingDirection>();
+        _audioSource = GetComponent<AudioSource>();
     }
     
     private void Update()
@@ -122,22 +130,25 @@ public class PlayerController : MonoBehaviour
         
         if(!_IsMoving)
         {
+            _walkAudioSource.Stop();
+            _runAudioSource.Stop();
             return;
         }
-
-        if (_IsMoving && !IsRunning)
-        {
-            _audioSource.PlayOneShot(_AudioClips[0]);
-        }
-        else if (_IsMoving && IsRunning)
-        {
-            _audioSource.PlayOneShot(_AudioClips[1]);
-        }
-        else if (!_IsMoving || (!_IsMoving && !IsRunning))
-        {
-            _audioSource.PlayOneShot(null);
-        }
         
+        if (IsRunning && _touchingDirection._isGround)
+        {
+            if (!_runAudioSource.isPlaying)
+                _runAudioSource.Play();
+            
+            _walkAudioSource.Stop();
+        }
+        else if (!IsRunning && _touchingDirection._isGround)
+        {
+            if (!_walkAudioSource.isPlaying)
+                _walkAudioSource.Play();
+            
+            _runAudioSource.Stop();
+        }
         _animator.SetFloat(AnimationStrings.YVelocity, _rb.velocity.y);
     }
     
@@ -146,7 +157,6 @@ public class PlayerController : MonoBehaviour
         if (!_IsAlive || !_operator) return;
         
         _moveInput = context.ReadValue<Vector2>();
-        _audioSource.Play();
         
         IsMoving = (_moveInput != Vector2.zero);
         
@@ -168,10 +178,9 @@ public class PlayerController : MonoBehaviour
         
         if (context.started)
         {
-            //_audioSource.Play(); 달리기 소리
             IsRunning = true;
         }
-
+		
         if (context.canceled)
         {
             IsRunning = false;
@@ -184,7 +193,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.started && _touchingDirection._isGround)
         { 
-            //_audioClips.PlayOneShot(); 점프 소리
+            _audioSource.PlayOneShot(_audioClips[0]);
             _rb.velocity = new Vector2(_rb.velocity.x, _JumpImpulse);
             _animator.SetTrigger(AnimationStrings.IsJump);
         }
@@ -193,11 +202,15 @@ public class PlayerController : MonoBehaviour
     public void OnAttackInputAction(InputAction.CallbackContext context)
     {
         if (!_IsAlive || !_operator) return;
-        
+
         if (context.started && _touchingDirection._isGround)
         {
-            //_audioClips.PlayOneShot(); 공격 소리
-            _animator.SetTrigger(AnimationStrings.Attack);
+            if (Time.time - _lastAttackTime >= _attackCooldown)
+            {
+                _audioSource.PlayOneShot(_audioClips[2]);
+                _animator.SetTrigger(AnimationStrings.Attack);
+                _lastAttackTime = Time.time;
+            }
         }
     }
 
@@ -222,7 +235,7 @@ public class PlayerController : MonoBehaviour
                 yield return null;
             }
         }
-        
+        Debug.Log(1);
         _rb.velocity = new Vector2(0, _rb.velocity.y);
     }
     
@@ -239,7 +252,7 @@ public class PlayerController : MonoBehaviour
         
         if (context.started && _touchingDirection._isGround)
         {
-            //_audioClips.PlayOneShot(); 슈퍼점프 소리
+            _audioSource.PlayOneShot(_audioClips[1]);
 
             _DashEffect.SetActive(true);
             

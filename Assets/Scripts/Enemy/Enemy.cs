@@ -20,8 +20,10 @@ public class Enemy : MonoBehaviour
     
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
     
-    // public AudioClip[] _audioClips;
-    // public AudioSource _audioSource;
+    [SerializeField] private AudioSource _walkAudioSource;
+    [SerializeField] private AudioSource _runAudioSource;
+    [SerializeField] private AudioClip[] _audioClips;
+    public AudioSource _audioSource;
     
     private bool _hasTarget = false;
     
@@ -124,6 +126,7 @@ public class Enemy : MonoBehaviour
         _damageable = GetComponent<Damageable>();
         _touchingDirection = GetComponent<TouchingDirection>();
         _TouchingCollider = GetComponent<CapsuleCollider2D>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -197,7 +200,7 @@ public class Enemy : MonoBehaviour
         
         if(IsMoving == false) return;
         
-        // _audioSource.Play(); 발소리
+        _walkAudioSource.Play();
         
         Vector2 direction = GetMoveDirection();
         direction.y = 0;
@@ -236,6 +239,8 @@ public class Enemy : MonoBehaviour
                 PlayerController player = target.GetComponent<PlayerController>();
                 if (player != null)
                 {
+                    _walkAudioSource.Stop();
+                    _runAudioSource.Play();
                     return (player.transform.position - transform.position).normalized;
                 }
             }
@@ -297,6 +302,7 @@ public class Enemy : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.5f);
+        _audioSource.PlayOneShot(_audioClips[0]);
         CanAttack = true;
         _attackCheck = false;
     }

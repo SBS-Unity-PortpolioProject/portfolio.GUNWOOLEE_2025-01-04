@@ -18,9 +18,10 @@ public class Boss : MonoBehaviour
     [SerializeField] private GameObject _swordEffect3;
     [SerializeField] private GameObject _swordEffect4;
     [SerializeField] private GameObject _dialogueActivator;
+    [SerializeField] private AudioSource _walkSound;
+    [SerializeField] AudioClip[] _audioClips;
+    public AudioSource _audioSource;
     
-    // public AudioClip[] _audioClips;
-    // public AudioSource _audioSource;
     public float speed;
     public float attackMoveSpeed;
     public float fallSpeed;
@@ -94,7 +95,8 @@ public class Boss : MonoBehaviour
         _animator = GetComponent<Animator>();
         _damageable = GetComponent<Damageable>();
         _touchingDirection = GetComponent<TouchingDirection>();
-
+        _audioSource = GetComponent<AudioSource>();
+        
         StartCoroutine(AttackCool());
         _damageable._isInvincible = true;
     }
@@ -150,7 +152,7 @@ public class Boss : MonoBehaviour
     private IEnumerator AttackCool()
     {
         float timer = Random.Range(3f, 6f);
-        yield return new WaitForSeconds(timer); 
+        yield return new WaitForSeconds(timer);
         _damageable._isInvincible = true;
         CanAttack = true;
         _attacked = true;
@@ -249,7 +251,6 @@ public class Boss : MonoBehaviour
         yield return Vanish();
         
         yield return Warning();
-        transform.position = new Vector3(_playerPosition.x, _playerPosition.y - 0.5f, 0);
         
         yield return WaitAttack2();
         
@@ -265,7 +266,6 @@ public class Boss : MonoBehaviour
                 yield return Vanish();
         
                 yield return Warning();
-                transform.position = new Vector3(_playerPosition.x, _playerPosition.y - 0.5f, 0);
                 
                 yield return WaitAttack2();
         
@@ -351,6 +351,21 @@ public class Boss : MonoBehaviour
     {
         _playerPosition = _playerController.transform.position;
     }
+
+    public void VanishSound()
+    { 
+        _audioSource.PlayOneShot(_audioClips[0]);
+    }
+
+    public void AppearSound()
+    {
+        _audioSource.PlayOneShot(_audioClips[1]);
+    }
+
+    public void MoveAttackSound()
+    {
+        _audioSource.PlayOneShot(_audioClips[2]);
+    }
     
     private IEnumerator Vanish()
     {
@@ -375,6 +390,7 @@ public class Boss : MonoBehaviour
     private IEnumerator Warning()
     {
         PlayerPositionCheck();
+        transform.position = new Vector3(_playerPosition.x, _playerPosition.y - 0.5f, 0);
         _warning.transform.position = _playerPosition;
         _warning.gameObject.SetActive(true);
         
@@ -382,6 +398,9 @@ public class Boss : MonoBehaviour
         
         _warning.gameObject.SetActive(false);
         _animator.SetTrigger(AnimationStrings.Attack2);
+        _audioSource.PlayOneShot(_audioClips[3]);
+        yield return new WaitForSeconds(0.2f);
+        _audioSource.PlayOneShot(_audioClips[3]);
     }
 
     private IEnumerator Attack3()
@@ -396,11 +415,14 @@ public class Boss : MonoBehaviour
             
             yield return null;
         }
-
+        _audioSource.PlayOneShot(_audioClips[4]);
+        
         yield return new WaitForSeconds(1f);
+        _audioSource.PlayOneShot(_audioClips[5]);
         _swordEffect1.SetActive(true);
         _swordEffect2.SetActive(true);
         yield return new WaitForSeconds(0.3f);
+        _audioSource.PlayOneShot(_audioClips[5]);
         _swordEffect3.SetActive(true);
         _swordEffect4.SetActive(true);
         

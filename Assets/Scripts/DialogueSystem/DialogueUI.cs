@@ -12,6 +12,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject playerBar2;
     [SerializeField] public List<DialogueActivator> _dialogueActivatorList;
     public DialogueActivator _currentDialogueActivator;
+    public AudioSource _audioSource;
     public bool _dialogueStarted = false;
     public bool _check = false;
     
@@ -23,6 +24,7 @@ public class DialogueUI : MonoBehaviour
     
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         typeWriterEffect = GetComponent<TypeWriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
         
@@ -31,6 +33,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueObject dialogueObject)
     {
+        _audioSource.Play();
+
         if (_dialogueActivatorList != null && _dialogueActivatorList.Count > 1)
         {
             _currentDialogueActivator = _dialogueActivatorList[_dialogueCounter];
@@ -99,15 +103,22 @@ public class DialogueUI : MonoBehaviour
 
             typeWriterEffect.Run(dialogue, textLabel);
 
+            if (typeWriterEffect.IsRunning)
+            {
+                _audioSource.Play();
+            }
+            
             while (typeWriterEffect.IsRunning)
             {
                 yield return null;
-
+                
                 if (Input.GetMouseButtonDown(0))
                 {
+                    _audioSource.Stop();
                     typeWriterEffect.Stop();
                 }
             }
+            _audioSource.Stop();
         }
     }
 

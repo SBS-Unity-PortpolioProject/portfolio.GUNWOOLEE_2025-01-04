@@ -7,7 +7,9 @@ public class Magician : MonoBehaviour
         [SerializeField] private DetectionZone _playerDetectionZone;
         [SerializeField] private DetectionZone _attackDetectionZone;
         [SerializeField] private GameObject _target;
-        // public AudioClip[] _magicianSound;
+        [SerializeField] private AudioClip[] _magicianSound;
+        public AudioSource _AudioSource;
+        
         private bool AttackCool = true;
         private float _attackCoolDown = 1f;
         private Transform player;
@@ -47,6 +49,7 @@ public class Magician : MonoBehaviour
              _rb = GetComponent<Rigidbody2D>();
              _animator = GetComponent<Animator>(); 
              _damageable = GetComponent<Damageable>();
+             _AudioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
@@ -73,17 +76,18 @@ public class Magician : MonoBehaviour
         private IEnumerator Attack()
         {
              yield return new WaitForSeconds(1f);
+             _AudioSource.PlayOneShot(_magicianSound[0]);
              CanAttack = true;
              yield return new WaitForSeconds(1f);
 
              if (_rb.transform.localScale.x > 0)
              {
-                  // _magicianSound.PlayOneShot(); 순간이동 하는 소리
+                  _AudioSource.PlayOneShot(_magicianSound[1]);
                   transform.localScale = new Vector3(-5f, 5, 0);
              }
              else if (_rb.transform.localScale.x < 0)
              {
-                  // _magicianSound.PlayOneShot(); 순간이동 하는 소리
+                  _AudioSource.PlayOneShot(_magicianSound[1]);
                   transform.localScale = new Vector3(5f, 5, 0);
              }
              _attackCheck = false;
