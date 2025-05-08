@@ -302,8 +302,12 @@ public class Enemy : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(0.5f);
-        _audioSource.PlayOneShot(_audioClips[0]);
         CanAttack = true;
         _attackCheck = false;
+    }
+
+    public void AttackSound()
+    {
+        _audioSource.PlayOneShot(_audioClips[0]);
     }
 }
